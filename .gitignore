@@ -1,3 +1,4 @@
 base/__pycache__/urls.cpython-310.pyc
 base/__pycache__/urls.cpython-310.pyc
 base/__pycache__/views.cpython-310.pyc
+*.pyc

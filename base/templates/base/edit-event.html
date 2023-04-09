@@ -1,0 +1,681 @@
+{% extends 'main.html' %}
+{% block content%}
+{% load static %}
+
+{% static '' as baseUrl %}
+{{about_events.media}}
+    <!-- wrapper  -->	
+            <div id="wrapper">
+                <!-- dashbard-menu-wrap -->
+                <div class="dashbard-menu-overlay"></div>
+                <div class="dashbard-menu-wrap">
+                    <div class="dashbard-menu-close"><i class="fal fa-times"></i></div>
+                    <div class="dashbard-menu-container">
+                        <!-- user-profile-menu-->
+                        <div class="user-profile-menu">
+                            <h3>Main</h3>
+                            <ul class="no-list-style">
+                                <li><a href="{% url 'list' %}"><i class="fal fa-chart-line"  style="color: #3270FC;"></i>Dashboard</a></li>
+                        <li><a href="{% url 'add_department' %}"><i class="fal fa-plus" style="color: #3270FC;"></i>Add Department</a></li>
+                                <li><a href="#"><i class="fal fa-plus" style="color: #3270FC;"></i>Add Tags</a></li>
+                              
+                            </ul>
+                        </div>
+                        <!-- user-profile-menu end-->
+                        <!-- user-profile-menu-->
+                        <div class="user-profile-menu">
+                            <h3>Event Listings</h3>
+                            <ul  class="no-list-style">
+                                <li><a href="dashboard-listing-table.html"><i class="fal fa-th-list" style="color: #3270FC;"></i> My listigs  </a></li>
+                               
+                            </ul>
+                        </div>
+                        <!-- user-profile-menu end--> 
+                    </div>
+                    <div class="dashbard-menu-footer">© PES University | Powered by <a href="https://nith.ooo" target="_blank">NiTH</a></div>
+                </div>
+                <!-- dashbard-menu-wrap end  -->		
+                <!-- content -->	
+                <div class="dashboard-content">
+                    <div class="dashboard-menu-btn color-bg"><span><i class="fas fa-bars"></i></span>Dasboard Menu</div>
+                    <div class="container dasboard-container">
+                        <!-- dashboard-title -->	
+                        <div class="dashboard-title fl-wrap">
+                            <div class="dashboard-title-item"><span>Event Listing</span></div>
+                            <div class="dashbard-menu-header">
+                                <div class="dashbard-menu-avatar fl-wrap">
+                                    <img src="{% static 'images/admin.jpg.png' %}" alt="">
+                                    <h4>Welcome, <span>{{ request.user }}</span></h4>
+                                </div>
+                                <a href="{% url 'logout' %}" class="log-out-btn   tolt" data-microtip-position="bottom"  data-tooltip="Log Out"><i class="far fa-power-off"></i></a>
+                            </div>
+                            <!--Tariff Plan menu-->
+                           
+                            <!--Tariff Plan menu end-->						
+                        </div>
+                        <!-- dashboard-title end -->		
+                        <div class="dasboard-wrapper fl-wrap ">
+                            <div class="dasboard-scrollnav-wrap scroll-to-fixed-fixed scroll-init2 fl-wrap">
+                                <ul>
+                                    <li><a href="#sec1" class="act-scrlink">Event Info</a></li>
+                                    <li><a href="#sec2">Location</a></li>
+                                    <li><a href="#sec3">Upload Images</a></li>
+                                    <li><a href="#sec4">Listing Details</a></li>
+                                    <li><a href="#sec5">Add Speaker</a></li>
+                                    
+                                </ul>
+                                <div class="progress-indicator">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="-1 -1 34 34">
+                                        <circle cx="16" cy="16" r="15.9155"
+                                            class="progress-bar__background" />
+                                        <circle cx="16" cy="16" r="15.9155"
+                                            class="progress-bar__progress 
+                                            js-progress-bar" />
+                                    </svg>
+                                </div>
+                            </div>
+                    <form  method="POST" action="" enctype="multipart/form-data" >
+                                {%csrf_token %}
+                                
+                            <!-- dasboard-widget-title -->
+                            <div class="dasboard-widget-title fl-wrap" id="sec1">
+                                <h5><i class="fas fa-info"></i>Basic Information</h5>
+                            </div>
+                            <!-- dasboard-widget-title end -->
+                            <!-- dasboard-widget-box  -->
+                            <div class="dasboard-widget-box   fl-wrap">
+                                <div class="custom-form">
+                                   
+                                    <div class="row">
+                                        <div class="col-sm-6">		 
+                                            <label>Event Title  <span class="dec-icon"><i class="far fa-briefcase"></i></span></label>
+                                            <input type="text" name="title" value="{{form.title}}"/>
+                                        </div>
+                                        <div class="col-sm-6">		 
+                                            <label>Event Price  <span class="dec-icon"><i class="far fa-money-bill-wave"></i></span></label>
+                                            <input type="text"  name="event_price" value="{{form.event_price}}">
+                                        </div>
+                                       
+                                        <div class="col-sm-6">
+                                            <label>Sub Title <span class="dec-icon"><i class="fal fa-layer-plus"></i></span></label>
+                                            <input type="text" name="description"  value="{{form.description}}"/>				
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Custom Tag  <span class="dec-icon"><i class="far fa-tag" multiple></i></span>  </label>
+                                            <input type="text" name="tag[]" value="{{form.tags}}"/>				
+                                        </div>
+                                    </div> 
+                                    <div class="row" style="margin-top: 20px;">
+                                        <div class="col-sm-9">
+                                            <label>Event Details</label>
+                                            <div class="listsearch-input-item">
+                                                		 
+                                                   
+                                                    {{ about_events.about }}
+                                              
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- {% for image in pictures %}
+                    <a href="{% url 'deletepic' image.id %}"><i class="fa fa-trash" style="color:rgb(241, 88, 17)"></i></a><img src="{{ image.event_images.url }}" width="90" height="90" />
+                    {% endfor %} -->
+                                        <div class="col-sm-3">
+                                            <label>Featured Image</label>
+                                            <div class="listsearch-input-item fl-wrap">
+                                                <div class="fuzone">
+                                                    <div class="fu-text">
+                                                        <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                                                        <div class="photoUpload-files fl-wrap"></div>
+                                                    </div>
+                                                    <input type="file" class="upload" name="featured_img" value="{{form.featured_img}}">
+                                                    {% if form.featured_img %}
+                                                    <img src="{{ form.featured_img.url }}" width="90" height="90" />
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                               
+                                    <label style="margin-top: 20px;">Start/End </label>
+                                    <div class="card p-3 mb-4">
+                                      
+                                        <div class="row">
+                                            
+
+                                                     <label class="col-md-2 text-left col-form-label"></label> 
+                                                    <div class="col-md-10">
+                                                        <input type="date" class="form-control date-time-field mr-1" value="{{form.event_start_date|date:'Y-m-d' }}" placeholder="dd-mm-yy" name="start_date" >
+                                                        <input type="time" class="form-control date-time-field mr-1" value="{{ form.event_start_time }}" name="start_time">
+                                                        <input type="date" class="form-control date-time-field mr-1" value="{{form.event_end_date|date:'Y-m-d' }}" placeholder="dd-mm-yy" name="end_date" >
+                                                        <input type="time" class="form-control date-time-field mr-1" value="{{ form.event_end_time }}" id="end_time" name="end_time" >
+
+                                                    </div>
+                                        </div>
+                                    </div>
+                                   
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <!-- dasboard-widget-title -->
+                            <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec4">
+                                <h5><i class="fas fa-list"></i>Listing Details</h5>
+                            </div>
+                            <!-- dasboard-widget-title end -->
+                            <!-- dasboard-widget-box  -->
+                            <div class="dasboard-widget-box   fl-wrap">
+                                <div class="custom-form">
+                                    <div class="row">
+                                        <div class="clearfix"></div>
+
+                                    <label>Campus </label>
+                                    <div class=" add-list-tags fl-wrap">
+                                        <!-- Checkboxes -->
+                                        <ul class="fl-wrap filter-tags no-list-style ds-tg">
+                                            <li>
+                                                <input id="check-2aaa5" type="checkbox" value="RR Campus" name="campus[]" {% if 'RR Campus' in form.campus %} checked{% endif %}>
+                                                <label for="check-2aaa5">RR Campus</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-2bb5" type="checkbox" name="campus[]" value="EC Campus" {% if 'EC Campus' in form.campus %} checked{% endif %}>
+                                                <label for="check-2bb5">EC Campus</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-2dd5" type="checkbox" value="HN Campus" name="campus[]" {% if 'HN Campus' in form.campus %} checked{% endif %}>
+                                                <label for="check-2dd5">HN Campus</label>
+                                            </li>
+                                            
+                                        </ul>
+                                        <!-- Checkboxes end -->												
+                                    </div>
+                                        <div class="clearfix">
+                                            
+
+                                    </div>
+                                    <label>Department </label>
+                                    <div class=" add-list-tags fl-wrap">
+                                        <!-- Checkboxes -->
+                                        <ul class="fl-wrap filter-tags no-list-style ds-tg">
+                                            <li>
+                                                <input id="check-aaa5" type="checkbox" name="department[]" value="Science &amp; Humanities" {% if 'Science & Humanities' in form.department %} checked{% endif %}>
+                                                <label for="check-aaa5"> Science &amp; Humanities</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-bb5" type="checkbox" name="department[]" value="Computer Science" {% if 'Computer Science' in form.department %} checked{% endif %}>
+                                                <label for="check-bb5">Computer Science</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-dd5" type="checkbox" name="department[]" value="Electronics &amp; Communications" {% if 'Electronics & Communications' in form.department %} checked{% endif %}>
+                                                <label for="check-dd5"> Electronics &amp; Communications</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-cc5" type="checkbox" name="department[]" value="Electrical &amp; Electronics" {% if 'Electrical & Electronics' in form.department %} checked{% endif %}>
+                                                <label for="check-cc5"> Electrical &amp; Electronics</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-ff5" type="checkbox" name="department[]"  value="Mechanical" {% if 'Mechanical' in form.department %} checked{% endif %}>
+                                                <label for="check-ff5">Mechanical</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c4" type="checkbox" name="department[]" value="Biotechnology" {% if 'Biotechnology' in form.department %} checked{% endif %}>
+                                                <label for="check-c4">Biotechnology</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="department[]" value="Civil" {% if 'Civil' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Civil</label>
+                                            </li>
+                                          
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="department[]" value="Management Studies" {% if 'Management Studies' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Management Studies</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="department[]" value="Architecture" {% if 'Architecture' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Architecture</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="department[]"  value="Design" {% if 'Design' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Design</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="department[]" value="Law" {% if 'Law' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Law</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="department[]" value="Computer Applications" {% if 'Computer Applications' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Computer Applications</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="department[]" value="Pharmacy" {% if 'Pharmacy' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Pharmacy</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="department[]"  value="Commerce" {% if 'Commerce' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Commerce</label>
+                                            </li>
+                                        </ul>
+                                        <!-- Checkboxes end -->												
+                                    </div>
+                                    <label>Tag </label>
+                                    <div class=" add-list-tags fl-wrap">
+                                        <!-- Checkboxes -->
+                                        <ul class="fl-wrap filter-tags no-list-style ds-tg">
+                                            <li>
+                                                <input id="check-aaa5" type="checkbox" name="tag[]" value="Alumni" {% if 'Alumni' in form.tags %} checked{% endif %}>
+                                                <label for="check-aaa5">Alumni</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-bb5" type="checkbox" name="tag[]" value="Clubs &amp; Activities" {% if 'Clubs & Activities' in form.department %} checked{% endif %}>
+                                                <label for="check-bb5">Clubs &amp; Activities</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-dd5" type="checkbox" name="tag[]"  value="Music" {% if 'Music' in form.department %} checked{% endif %}>
+                                                <label for="check-dd5"> Music</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-cc5" type="checkbox" name="tag[]" value="Sports" {% if 'Sports' in form.department %} checked{% endif %}>
+                                                <label for="check-cc5">Sports</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-ff5" type="checkbox" name="tag[]" value="Research" {% if 'Research' in form.department %} checked{% endif %}>
+                                                <label for="check-ff5">Research</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c4" type="checkbox" name="tag[]" value="Workshop" {% if 'Workshop' in form.department %} checked{% endif %}>
+                                                <label for="check-c4">Workshop</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Dance" {% if 'Dance' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Dance</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Cultural" {% if 'Cultural' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Cultural</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Technical" {% if 'Technical' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Technical</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Conference" {% if 'Conference' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Conference</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Art" {% if 'Art' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Art</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Management" {% if 'Management' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Management</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Innovation" {% if 'Innovation' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Innovation</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Academics" {% if 'Academics' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Academics</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="SocialActivities" {% if 'SocialActivities' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">SocialActivities</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="InfoSession" {% if 'InfoSession' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">InfoSession</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Admissions" {% if 'Admissions' in form.department %} checked{% endif %}> 
+                                                <label for="check-c18">Admissions</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Media" {% if 'Media' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Media</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Webinar" {% if 'Webinar' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Webinar</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]" value="Debate" {% if 'Debate' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Debate</label>
+                                            </li>
+                                            <li>
+                                                <input id="check-c18" type="checkbox" name="tag[]"  value="Photography" {% if 'Photography' in form.department %} checked{% endif %}>
+                                                <label for="check-c18">Photography</label>
+                                            </li>
+                                        </ul>
+                                       
+                                       											
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                           
+                            <!-- da
+                            {% comment %}  {% endcomment %}
+                            <!- dasboard-widget-box  end-->
+                            <!-- dasboard-widget-title -->
+                            <div class="dasboard-widget-title dwb-mar fl-wrap margin-top: auto !important;" id="sec2">
+                                <h5><i class="fas fa-street-view"></i>Location / Contacts</h5>
+                                
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch5">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- dasboard-widget-title end -->
+                            <!-- dasboard-widget-box  -->
+                            <div class="dasboard-widget-box   fl-wrap">
+                                <div class="custom-form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                            
+                                            <label>Address <span class="dec-icon"><i class="far fa-map-marker"></i></span></label>
+                                            <input type="text" name="venue_name" value="{{ form.venue_name }}"/>
+                                           
+                                        </div>
+                                       
+                                        <div class="col-sm-6">
+                                            <label>Default Campus</label>
+                                            <div class="listsearch-input-item">
+                                                <select data-placeholder="All Types" class="chosen-select no-search-select" name="default_venue"  style="display: none;">
+                                                    <option {% if form.addr_num == -1 %}selected{% endif %} value> -- select an option -- </option>
+                                                    <option {% if form.addr_num == 0 %}selected{% endif %}>PES University, Ring Road Campus, Bangalore 560 085.</option>
+                                                    <option {% if form.addr_num == 1 %}selected{% endif %} >PES University, Electronic City Campus, Bangalore</option>
+                                                    <option {% if form.addr_num == 2 %}selected{% endif %}>PES HN Campus,Hanumanthanagar, Bangalore <br>560050.</option>
+                                                </select>
+                                              
+                                            </div>
+                                           
+                                        </div>
+                                        
+                                       
+                                       
+                                    </div>
+                                    {% comment %} <div class="clearfix"></div>
+                                    <div class="map-container">
+                                        <div id="singleMap" class="drag-map" data-latitude="40.7427837" data-longitude="-73.11445617675781"></div>
+                                    </div> {% endcomment %}
+                                    <div class="clearfix"></div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>External Link</label>
+                                            <input type="text" name="external_link" value="{{form.external_link}}"/>
+                                            <div class=" add-list-tags fl-wrap">
+                                                <label>Choose a Button</label>
+                                                <ul class="fl-wrap filter-tags no-list-style ds-tg">
+                                                    <li>
+                                                        <input id="radio-aaa5" type="radio" name="button_name[]" value="Register" {% if 'Register' in form.button_name %} checked{% endif %}>
+                                                        <label for="radio-aaa5"> Register</label>
+                                                    </li>
+                                                    <li>
+                                                        <input id="radio-bb5" type="radio" name="button_name[]" value="Confirm Attendance" {% if 'Confirm Attendance' in form.button_name %} checked{% endif %}>
+                                                        <label for="radio-bb5">Confirm Attendance</label>
+                                                    </li>
+                                                    <li>
+                                                        <input id="radio-dd5" type="radio" name="button_name[]" value="Custom Text" {% if 'Custom Text' in form.button_name %} checked{% endif %}>
+                                                        <label for="radio-dd5"> Custom Text</label>
+                                                    </li>
+                                                  
+                                                </ul>
+                                              
+                                               
+                                            </div>
+                                            <div class="col-sm-12" >
+                                                <label>Link Text<span class="dec-icon" id="check-dd5"><i class="far fa-edit" multiple></i></span>  </label>
+                                                <input type="text" name="custom_text" value=""/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-sm-6">
+                                            
+                                            <label>Email <span class="dec-icon"><i class="far fa-envelope" multiple></i></span>  </label>
+                                            <input type="text" name="email" value="{{form.email}}"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Phone <span class="dec-icon"><i class="far fa-phone"></i></span>  </label>
+                                            <input type="text" name="contact" value="{{form.contact}}"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>FaceBook<span class="dec-icon"><i class="fab fa-facebook-f"></i></span>  </label>
+                                            <input type="text" name="facebook" value="{{form.facebook}}"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>You Tube<span class="dec-icon"><i class="fab fa-youtube"></i></span>  </label>
+                                            <input type="text" name="youtube" value="{{form.youtube}}"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Instagram<span class="dec-icon"><i class="fab fa-instagram"></i></span>  </label>
+                                            <input type="text"  name="instagram" value="{{form.instagram}}"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Twitter<span class="dec-icon"><i class="fab fa-twitter"></i></span>  </label>
+                                            <input type="text" name="twitter" value="{{form.twitter}}"/>
+                                        </div>
+                                       
+                                        <div class="col-sm-6">
+                                            <label> Website <span class="dec-icon"><i class="far fa-globe"></i> </span> </label>
+                                            <input type="text" name="website" value="{{form.website}}"/>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                         
+                            <!-- dasboard-widget-box  end-->	
+                            <!--  Speaker-->    
+                            {% if speaker %}
+                            <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec5">
+                                <h5><i class="fas fa-list"></i>Speaker Details</h5>
+                            </div>
+                            
+                            <div class="dasboard-widget-box fl-wrap">
+                                <div class="custom-form">
+                                    <div class="row">
+                                       
+                                        <div class="col-sm-6">		 
+                                            <label>Speaker name  <span class="dec-icon"><i class="far fa-briefcase"></i></span></label>
+                                            <input type="text" name="spkr_name" value="{{speaker.name}}"/>
+                                        </div>
+                                       
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <label>About</label>
+                                            <div class="listsearch-input-item">
+                                                <input cols="40" rows="3" style="height: 200px;margin-bottom: 10px"  spellcheck="true" name="spkr_about" value="{{speaker.about}}" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Speaker Image</label>
+                                            <div class="listsearch-input-item fl-wrap">
+                                                <div class="fuzone">
+                                                    <div class="fu-text">
+                                                        <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                                                        <div class="photoUpload-files fl-wrap"></div>
+                                                    </div>
+                                                    <input type="file" class="upload" name="spkr_profile_pic" value="{{speaker.profile_pic}}" multiple>
+                                                    <img src="{% static 'images/' %}{{speaker.profile_pic}}" width="90" height="90" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                               
+                                    
+                                    </div>
+                                </div>
+                                {% endif %}
+                            <!-- sdfgh -->
+                            
+
+                            <!-- speaker -->
+                            <!-- dasboard-widget-title -------------------------------------------------------------------------------------->
+                            <!-- <div class="dasboard-widget-box   fl-wrap" style="padding-bottom: 40px;">
+                                <div class="custom-form">
+                                    <div class="row"> -->
+                                        <!-- content-widget-switcher -->	
+                                        <!-- <div class="col-md-6">
+                                    <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec3">
+                                        <h5><i class="fas fa-image"></i>Upload Images</h5>
+                                    </div>
+                           
+                            <div class="dasboard-widget-box   fl-wrap">
+                                <div class="custom-form">
+                                    
+                                    <div class="clearfix"></div>
+                                    <div class="listsearch-input-item fl-wrap">
+                                        <div class="fuzone">
+                                            <div class="fu-text">
+                                                <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                                                <div class="photoUpload-files fl-wrap"></div>
+                                            </div>
+                                            <input type="file" class="upload" name="event_images" multiple="multiple" value="{{pictures.event_images}}" >
+                                           
+                                        </div>
+                                        {% for image in pictures %}
+                                        <a href="{% url 'deletepic' image.id %}"><i class="fa fa-trash" style="color:rgb(37, 37, 204)"></i></a><img src="{{ image.event_images.url }}" width="90" height="90" />
+                                        {% endfor %}
+                            <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec3">
+
+                                <h5><i class="fas fa-image"></i>Upload PDF</h5>
+                            </div>
+
+                                        <div class="fuzone">
+                                            <div class="fu-text">
+                                                <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                                                <div class="photoUpload-files fl-wrap"></div>
+                                            </div>
+                                            <input type="file" class="upload" name="event_broucher" value="{{brocher.document}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -------------------------------------------------->
+
+
+
+<div class="dasboard-widget-box  dwb-mar fl-wrap" style="padding-bottom: 40px;">
+    <div class="custom-form">
+        <div class="row">
+            <!-- content-widget-switcher -->	
+            <div class="col-md-6">
+                <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec3">
+                    <h5><i class="fas fa-image"></i>Upload Images</h5>
+                </div>
+                <div class="content-widget-switcher fl-wrap">
+                    
+                  
+                    <div class="fuzone">
+                        <div class="fu-text">
+                            <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                            <div class="photoUpload-files fl-wrap"></div>
+                        </div>
+                        <input type="file" class="upload" name="event_images" multiple="multiple" value="{{pictures.event_images}}" >
+
+                        
+                    </div>
+                    {% for image in pictures %}
+                    <a href="{% url 'deletepic' image.id %}"><i class="fa fa-trash" style="color:rgb(241, 88, 17)"></i></a><img src="{{ image.event_images.url }}" width="90" height="90" />
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- content-widget-switcher end-->									  
+            <!-- content-widget-switcher -->	
+            <div class="col-md-6">
+                <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec3">
+
+                    <h5><i class="fas fa-image"></i>Upload PDF</h5>
+                </div>
+                {% comment %} <div class="content-widget-switcher fl-wrap">
+                    <div class="fuzone">
+                        <div class="fu-text">
+                            {% for broucher in brouchers  %}
+                            {% if broucher.document %}
+                            <span><i class="fas fa-file-pdf"></i> {{ broucher.document.name }} <a href="{{ broucher.document.url }}" target="_blank"><i class="fas fa-download"></i></a></span>
+                            {% else %}
+                            <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                            {% endif %}
+                            {% endfor %}
+                            <div class="photoUpload-files fl-wrap"></div>
+                        </div>
+                        
+                        <input type="file" class="upload" name="event_broucher"  value="{{ broucher.document.name }}" multiple>
+                       
+                    </div>
+                    {% for broucher in brouchers %}
+                        {% if broucher %}
+                            <div class="delete-file-icon">
+                                <a href="{% url 'delete_brochure' pk=broucher.id %}" onclick="return confirm('Are you sure you want to delete this brochure?')"><i class="fa fa-trash"></i> Delete</a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                </div> {% endcomment %}
+                <div class="content-widget-switcher fl-wrap">
+                    <div class="fuzone">
+                        <div class="fu-text">
+                            {% for broucher in brouchers %}
+                                {% if broucher.document %}
+                                    <span><i class="fas fa-file-pdf"></i> {{ broucher.document.name }} <a href="{{ broucher.document.url }}?v={{ broucher.updated_at|date:'YmdHis' }}" target="_blank"><i class="fas fa-download"></i></a></span>
+                                {% else %}
+                                    <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="photoUpload-files fl-wrap"></div>
+                        </div>
+                
+                        <input type="file" class="upload" name="event_broucher"  value="{{ broucher.document.name }}" multiple>
+                
+                    </div>
+                    {% for broucher in brouchers %}
+                        {% if broucher %}
+                            <div class="delete-file-icon">
+                                <a href="{% url 'delete_brochure' pk=broucher.id %}" onclick="return confirm('Are you sure you want to delete this brochure?')"><i class="fa fa-trash"></i> Delete</a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                
+                
+            </div>
+            <div class="col-md-12" >
+                <div class="add-list_wrap" >
+                    <a href="{% url 'createSpeaker' form.id %}" class="add-list color-bg"><i class="fal fa-plus"></i> <span>Add Speaker</span></a>
+                </div>
+               
+             
+            </div>
+            <!-- content-widget-switcher end-->
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+                           
+                            <input class="btn  color-bg float-btn" type="submit" value="Submit">
+                            
+                        </div>
+                    </div>
+                </form>
+                    <div class="limit-box fl-wrap"></div>
+                    				
+                </div>
+                <!-- content end -->	
+                <div class="dashbard-bg gray-bg"></div>
+            </div>
+            <!-- wrapper end -->
+        </div>
+{% endblock content%}     
+  

@@ -1,0 +1,119 @@
+
+<!DOCTYPE HTML>
+{% load static %}
+<html lang="en">
+    <head>
+        <!--=============== basic  ===============-->
+        <meta charset="UTF-8">
+        <title>EVENTS | PES University</title>
+        <meta name="robots" content="index, follow"/>
+        <meta name="keywords" content=""/>
+        <meta name="description" content=""/>
+        <!--=============== css  ===============-->	
+        <link type="text/css" rel="stylesheet" href="{% static 'css/plugins.css' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/dashboard-style.css' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/color.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link type="text/css" rel="stylesheet" href="{% static 'css/_notes/custom.css' %}">
+        
+        <!--=============== favicons ===============-->
+        <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-UFwFJDOgSU7MSiIMaFnDNPtNbe856Q1tpZCy7C2M2mZV7wCwO+hGzBCKR0NxIy1b" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-BlUO7v/s5BxyEkJGKUKy1O2ttmNXEy8ksmMdL+E9X2NS2QxMxLnFJfAePynoq55+qNlEbDd36lB9L9XrFk/2hA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-d3qoDE0eTtjK9XhLClpjTJ+AiMx2gkJfZGfrRWaLa0osvNxr7QW8SM9+V7oHlZaz+tVnfnWJdf4ld+7Ur4KwLg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+        <!-- <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-Xzz6aFudIY4+i4Trc1i2QGbbJHXTHFbjlSv9Cn89dBYNk05G5w5Y5pHyZf3tIV1d3q+z26QmI+v9yR09qwLkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+        
+
+
+        
+        <script>
+            const registerButton = document.getElementById('radio-aaa5');
+            const confirmAttendanceButton = document.getElementById('radio-bb5');
+            const customButton = document.getElementById('radio-dd5');
+            const customButtonText = document.getElementById('custom-button-text');
+            const externalLinkInput = document.getElementsByName('external_link')[0];
+            
+            // Add event listener to radio button group
+            const radioButtons = [registerButton, confirmAttendanceButton, customButton];
+            radioButtons.forEach((radioButton) => {
+              radioButton.addEventListener('change', () => {
+                if (customButton.checked) {
+                  customButtonText.value = externalLinkInput.value;
+                } else {
+                  customButtonText.value = radioButton.value;
+                }
+              });
+            });
+          </script>
+          <script>
+          $(document).ready(function() {
+            $('#myonoffswitch5').change(function() {
+                var isChecked = $(this).prop('checked');
+                if (isChecked) {
+                    $('#location-status').text('Online');
+                } else {
+                    $('#location-status').text('Offline');
+                }
+            });
+        });
+        $(document).ready(function() {
+                          $('.card-verified').on('click', function(event) {
+                            event.preventDefault();
+                            var eventId = $(this).data('event-id');
+                            var url = '/like-event/' + eventId + '/';
+                            $.ajax({
+                              url: url,
+                              success: function(data) {
+                                if (data.success) {
+                                  var numLikes = data.num_likes;
+                                  $('.bookmark-counter').html('<i class="fas fa-heart" style="color:red;"></i> Liked - ' + numLikes);
+                                  $('.card-verified i').removeClass('far').addClass('fas').addClass('liked');
+                                }
+                              }
+                            });
+                          });
+                        });
+                        
+        </script>
+        
+    </head>
+    <body>
+       <!--loader-->
+       <div class="loader-wrap">
+        <div class="loader-inner">
+            <svg>
+                <defs>
+                    <filter id="goo">
+                        <fegaussianblur in="SourceGraphic" stdDeviation="2" result="blur" />
+                        <fecolormatrix in="blur"   values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 5 -2" result="gooey" />
+                        <fecomposite in="SourceGraphic" in2="gooey" operator="atop"/>
+                    </filter>
+                </defs>
+            </svg>
+        </div>
+    </div>
+    <!--loader end-->
+    <!-- main -->
+    <div id="main"> 
+        
+    {% include 'navbar.html' %}
+    
+     {% block content %}
+
+     {% endblock content %}
+    </div>
+    
+     <!--=============== scripts  ===============-->
+     <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOU_API_KEY_HERE&libraries=places"></script>
+    <script src="{% static 'js/map-add.js' %}"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+
+
+   
+    </body>
+</html>

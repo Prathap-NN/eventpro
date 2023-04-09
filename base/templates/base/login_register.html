@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+{% load static %}
+
+<html lang="en">
+    <head>
+        <!--=============== basic  ===============-->
+        <meta charset="UTF-8">
+        <title>Login Form</title>
+        <meta name="robots" content="index, follow"/>
+        <meta name="keywords" content=""/>
+        <meta name="description" content=""/>
+        <!--=============== css  ===============-->	
+        <link type="text/css" rel="stylesheet" href="{% static 'css/plugins.css' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/dashboard-style.css' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/color.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!--=============== favicons ===============-->
+        <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+    </head>
+    <body>
+
+  <!--loader-->
+  <div class="loader-wrap">
+    <div class="loader-inner">
+        <svg>
+            <defs>
+                <filter id="goo">
+                    <fegaussianblur in="SourceGraphic" stdDeviation="2" result="blur" />
+                    <fecolormatrix in="blur"  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 5 -2" result="gooey" />
+                    <fecomposite in="SourceGraphic" in2="gooey" operator="atop"/>
+                </filter>
+            </defs>
+        </svg>
+    </div>
+</div>
+
+
+<!--loader end-->
+<!-- main -->
+<div id="main">
+    <!-- header -->
+    <header class="main-header">
+        <!--  logo  -->
+        <div class="logo-holder"><a href="index.html"><img src="{% static 'images/pes_logo.png' %}" alt=""></a></div>
+        <!-- logo end  -->
+        <!-- nav-button-wrap--> 
+        <div class="nav-button-wrap color-bg nvminit">
+            <div class="nav-button">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <!-- nav-button-wrap end-->	
+        
+        <!--  login btn -->
+        <div class="show-reg-form modal-open"><i class="fas fa-user"></i><span>Sign In</span></div>
+        <!--  login btn  end -->
+                            
+        
+    </header>
+    <!-- header end  -->	
+    
+    <!--register form -->
+    <div class="main-register-wrap modal">
+        <div class="reg-overlay"></div>
+        <div class="main-register-holder tabs-act">
+            <div class="main-register-wrapper modal_main fl-wrap">
+                <div class="main-register-header color-bg">
+                    <div class="main-register-logo fl-wrap">
+                        <img src="{% static 'images/pes_logo.png' %}" alt="">
+                    </div>
+                    <div class="main-register-bg">
+                        <div class="mrb_pin"></div>
+                        <div class="mrb_pin mrb_pin2"></div>
+                    </div>
+                    <div class="mrb_dec"></div>
+                    <div class="mrb_dec mrb_dec2"></div>
+                </div>
+                <div class="main-register">
+                    <div class="close-reg"><i class="fal fa-times"></i></div>
+                    <ul class="tabs-menu fl-wrap no-list-style">
+                        <li class="current"><a href="#"><i class="fal fa-sign-in-alt"></i> Login</a></li>
+                        
+                    </ul>
+                    <!--tabs -->                       
+                    <div class="tabs-container">
+                       
+                            <!--tab -->
+                            
+                                <div class="custom-form">
+                                    <form method="post"  action="">
+                                        {% csrf_token %}
+                                        <label>Username or gmail Address  * <span class="dec-icon"><i class="fal fa-user"></i></span></label>
+                                        <input name="username" type="text"    onClick="" value="">
+                                        <div class="pass-input-wrap fl-wrap">
+                                            <label >Password  * <span class="dec-icon"><i class="fal fa-key"></i></span></label>
+                                            <input name="password" type="password"  autocomplete="off" onClick="" value="" >
+                                            <span class="eye"><i class="fal fa-eye"></i> </span>
+                                        </div>
+                                        <div class="lost_password">
+                                            <a href="#">Lost Your Password?</a>
+                                        </div>
+                                        <div class="filter-tags">
+                                            <input id="check-a3" type="checkbox" name="check">
+                                            <label for="check-a3">Remember me</label>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <button type="submit"  class="log_btn color-bg"> LogIn </button>
+                                    </form>
+                                </div>
+                            
+                            <!--tab end -->
+                            
+                       
+                        <!--tabs end -->
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--register form end -->
+   
+    <!--secondary-nav end -->			
+    <a class="to-top color-bg"><i class="fas fa-caret-up"></i></a>  
+    
+</div>
+
+<!-- Main end -->
+
+  <!--=============== scripts  ===============-->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/plugins.js' %}"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOU_API_KEY_HERE&libraries=places"></script>
+  <script src="{% static 'js/map-add.js' %}"></script>
+  <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>
+
+
+       

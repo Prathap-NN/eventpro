@@ -1,0 +1,150 @@
+{% load static %}
+<!--loader-->
+        <div class="loader-wrap">
+            <div class="loader-inner">
+                <svg>
+                    <defs>
+                        <filter id="goo">
+                            <fegaussianblur in="SourceGraphic" stdDeviation="2" result="blur" />
+                            <fecolormatrix in="blur"   values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 5 -2" result="gooey" />
+                            <fecomposite in="SourceGraphic" in2="gooey" operator="atop"/>
+                        </filter>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+        
+       <div id="main1">
+        <!-- header -->
+        <header class="main-header">
+       
+        <!--  logo  -->
+        <div class="logo-holder"><a href="{% url 'home' %}"><img src="{% static 'images/PESU-new-logo.png' %}" alt="" style="height: 40px;"></a></div>
+        <!-- logo end  -->
+        <!-- nav-button-wrap--> 
+        <div class="nav-button-wrap color-bg nvminit">
+            <div class="nav-button">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <!-- nav-button-wrap end-->	
+        <!-- header-search button  -->
+        <div class="header-search-button">
+          
+            <i class="fal fa-search"></i>
+            <span>Search...</span>
+        </div>
+        <!-- header-search button end  -->
+        <!--  add new  btn -->
+        {% if request.user.is_authenticated %}
+        <div class="add-list_wrap">
+            <a href="{% url 'create-event' %}" class="add-list color-bg"  style="margin-left: 35px !important;"><i class="fal fa-plus"></i> <span>Add Event</span></a>
+        </div>
+        {% endif %}
+        <!--  add new  btn end -->
+        
+        <!--  cart-btn   -->
+      
+        <!--  cart-btn end -->
+        <!--  login btn -->
+        {% if request.user.is_authenticated %}
+        <div class="show-reg-form dasbdord-submenu-open"><img src="{% static 'images/admin.jpg.png' %}" alt=""></div>
+        <div class="dashboard-submenu">
+            <div class="dashboard-submenu-title fl-wrap">Welcome, <span>{{ request.user }}</span></div>
+            <ul>
+                <li><a href="{% url 'create-event' %}"><i class="fal fa-chart-line"></i>Dashboard</a></li>
+                
+                <li><a href="{% url 'change_password' %}"><i class="fal fa-user-edit"></i>Change Password</a></li>
+                <li><a href="/list/"><i class="fal fa-list-alt"></i>Event Listings</a></li>
+            </ul>
+            <a href="{% url 'logout' %}" class="color-bg db_log-out"><i class="far fa-power-off"></i> Log Out</a>
+        </div>
+        {% endif %}
+        <!--  login btn  end -->
+        <!--  navigation --> 
+        <div class="nav-holder main-menu">
+            <nav>
+                <ul class="no-list-style">
+                    <li>
+                        <a href="{% url 'home' %}" class="act-link"> HOME </a>
+                        <!--second level -->   
+                     
+                        <!--second level end-->
+                    </li>
+                    <li>
+                        <a href="#">BROWSE BY TAGS<i class="fa fa-caret-down"></i></a>
+                        <!--second level -->
+                        <ul>
+                            <li><a href="{% url 'browse_tags' key='Alumni' %}">Alumni</a></li>
+                            <li><a href="{% url 'browse_tags' key='Clubs & Activities' %}"> Clubs & Activities</a></li>
+                            <li><a href="{% url 'browse_tags' key='Music' %}">Music</a></li>
+                            <li><a href="{% url 'browse_tags' key='Research' %}">Research</a></li>
+                            <li><a href="{% url 'browse_tags' key='Sports' %}">Sports</a></li>
+                            <li><a href="{% url 'browse_tags' key='Workshop' %}"> Workshop</a></li>
+                           
+                        </ul>
+                        <!--second level end--> 
+                    </li>
+                    <li>
+                        <a href="#">BROWSE BY CAMPUS<i class="fa fa-caret-down"></i></a>
+                        <!--second level -->   
+                        <ul>
+                            <li><a href="{% url 'browse_campus' key='PES University RR Campus' %}">PESU RR Campus</a></li>
+                            <li><a href="{% url 'browse_campus' key='PES University EC Campus' %}">PESU EC Campus</a></li>
+                            <li><a href="{% url 'browse_campus' key='PES University HN Campus' %}">PESU HN Campus</a></li>
+                        </ul>
+                        <!--second level end-->
+                    </li>
+                 
+                    <li>
+                        <a href="#">BROWSE BY DEPARTMENT<i class="fa fa-caret-down"></i></a>
+                        <!--second level -->   
+                        <ul>
+                            <li><a href="{% url 'browse_department' key='Science & Humanities' %}">Science & Humanities</a></li>
+                            <li><a href="{% url 'browse_department' key='Computer Science' %}">Computer Science</a></li>
+                            <li><a href="{% url 'browse_department' key='Biotechnology' %}">Biotechnology</a></li>
+                            <li><a href="{% url 'browse_department' key='Mechanical' %}">Mechanical</a></li>
+                            <li><a href="{% url 'browse_department' key='Civil' %}">Civil</a></li>
+                            <li><a href="{% url 'browse_department' key='Electronics & Communication' %}">Electronics & Communication</a></li>
+                            <li><a href="{% url 'browse_department' key='Computer Applications' %}">Computer Applications</a></li>
+                            <li><a href="{% url 'browse_department' key='Management Studies' %}">Management Studies</a></li>
+                            <li><a href="{% url 'browse_department' key='Architecture' %}">Architecture</a></li>
+                            <li><a href="{% url 'browse_department' key='Design' %}">Design</a></li>
+                            <li><a href="{% url 'browse_department' key='Law' %}">Law</a></li>
+                            <li><a href="{% url 'browse_department' key='Commerce' %}">Commerce</a></li>
+                            <li><a href="{% url 'browse_department' key='Pharmacy' %}">Pharmacy</a></li>
+                        </ul>
+                        <!--second level end-->                                
+                    </li>
+                   
+                </ul>
+            </nav>
+        </div>
+        <!-- navigation  end -->
+        <!-- header-search-wrapper -->
+        <div class="header-search-wrapper novis_search">
+
+       
+
+            <div class="custom-form">
+    
+                <form method="get" name="registerform" action="{% url 'home' %}">
+    
+                    <!-- <label>Keywords </label> -->
+                    <label>Search Events </label>
+                    <input type="text" placeholder="Search.." value="" name="q" class="search" />
+    
+                    <button type="submit" class="btn float-btn color-bg"><i
+    
+                            class="fal fa-search"></i> Search</button>
+    
+                </form>
+    
+            </div>
+    
+        </div>
+        </div>
+        <!-- header-search-wrapper end  -->				
+        <!-- wishlist-wrap--> 
+       
+    </header>

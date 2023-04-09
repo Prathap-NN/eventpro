@@ -1,0 +1,99 @@
+{% load static %}
+
+
+<!-- footer -->	
+<footer class="main-footer fl-wrap">
+    <div class="footer-inner fl-wrap">
+        <div class="container">
+            <div class="row">
+                <!-- footer widget-->
+                <div class="col-md-3">
+                    <div class="footer-widget fl-wrap">
+                        <div class="footer-widget-logo fl-wrap">
+                            <img src="{% static 'images/PESU-new-logo.png' %}" alt="">
+                        </div>
+                        <div class="footer-widget-title fl-wrap">
+                            <h4>PES University</h4>
+                        </div>
+                      
+                        <div class="fw_hours fl-wrap">
+                            
+                            
+                            <p>Outer Ring Rd, Banashankari 3rd Stage, Banashankari, Bengaluru, Karnataka 560085</p>
+                        </div>
+                    </div>
+                </div>
+             
+                <!-- footer widget end-->
+                <!-- footer widget-->
+                <div class="col-md-3">
+                    <div class="footer-widget fl-wrap">
+                        <div class="footer-widget-title fl-wrap">
+                            <h4>Browse by Campus</h4>
+                        </div>
+                        <ul class="footer-list fl-wrap">
+                            <li><a href="{% url 'browse_campus' key='PES University RR Campus' %}">PESU RR Campus</a></li>
+                            <li><a href="{% url 'browse_campus' key='PES University EC Campus' %}">PESU EC Campus</a></li>
+                            <li><a href="{% url 'browse_campus' key='PES University HN Campus' %}">PESU HN Campus</a></li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <!-- footer widget end--> 
+                <!-- footer widget-->
+                <div class="col-md-3">
+                    <div class="footer-widget fl-wrap">
+                        <div class="footer-widget-title fl-wrap">
+                            <h4>Contact</h4>
+                        </div>
+                        <ul  class="footer-contacts fl-wrap">
+                            <li> <span><i class="fal fa-envelope"></i><strong> admissions@pes.edu</strong></span></li>
+                            <li><span><i class="fal fa-phone"></i><strong> 080 - 26729994</strong></span></li>
+                        </ul>
+                        <div class="footer-social fl-wrap">
+                            <ul>
+                                <li><a href="https://www.facebook.com/pesuniversity" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="https://twitter.com/pesuniversity" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/pesuniversity/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="https://www.linkedin.com/school/pesuniversity/" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                                <li><a href="https://www.youtube.com/pesuniversity" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- footer widget end-->   
+                <!-- footer widget-->
+                <div class="col-md-3">
+                    <div class="footer-widget fl-wrap">
+                        <div class="footer-widget-title fl-wrap">
+                            <h4>Filter by Ribbons</h4>
+                        </div>
+                        <div class="api-links fl-wrap">
+                            
+                           
+                            <a href="{% url 'ribbon' key='Upcoming' %}" class="api-btn color-bg"><i class="fas fa-arrow-up"></i>UPCOMING</a>
+                            
+                            <a href="{% url 'ribbon' key='Ongoing' %}" class="api-btn color-bg"><i class="fas fa-sync-alt"></i> ONGOING</a>  
+                           
+                            <a href="{% url 'ribbon' key='Previous' %}" class="api-btn color-bg"><i class="fas fa-arrow-left"></i>PREVIOUS</a>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- footer widget end-->                                     
+            </div>
+        </div>
+    </div>
+    <!--sub-footer-->
+    <div class="sub-footer gray-bg fl-wrap">
+        <div class="container">
+            <div class="copyright"> © PES University | Powered by <a href="https://nith.ooo" target="_blank">NiTH</a></div>
+           
+        </div>
+    </div>
+    <!--sub-footer end -->                     
+</footer>
+
+
+
+

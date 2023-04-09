@@ -1,0 +1,47 @@
+/* CSS for date and time fields */
+.form-control {
+  display: inline-block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #95a7c0;
+  background-color: #f5f7fb;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.date-time-field {
+  width: calc(20% - 0.5rem);
+}
+
+/* CSS for datepicker */
+.input-group-text {
+  position: relative;
+}
+
+.input-group-text:before {
+  content: "\f073";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: red !important; /* change the color here */
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+}
+
+/* CSS for "to" label */
+span.mr-1 {
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+.col-sm-6 .chosen-container-single .chosen-single:focus {
+  background-color: #a61e1e;
+}

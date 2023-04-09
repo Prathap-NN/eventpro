@@ -1,0 +1,103 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+<div id="wrapper">
+    <!-- content -->	
+    <div class="content">
+        
+        
+        <div class="gray-bg small-padding fl-wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <!--  listing-single content -->
+                    <div class="col-md-10">
+                        {% if messages %}
+                        {% for message in messages %}
+                        
+                        <h1 class="login-message-list" style="box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.5); color: #3270fc; padding-bottom: 20px; font-weight: 600; font-size: 17px; text-align: center; ">{{ message }}</h1>
+
+
+                         
+                        {% endfor %}
+                        {% endif %}
+                        <div class="list-single-main-wrapper fl-wrap">
+                            
+                            <div class="list-single-main-container fl-wrap" id="sec3">
+                                <!-- list-single-main-item -->
+                                <div class="list-single-main-item list-single-main-item-custom fl-wrap" style="padding: 0px !important;">
+                                    <div class="main-register-header color-bg">
+                                        <div class="main-register-logo fl-wrap">
+                                            <img src="/static/images/pesuniversity-dark.png" alt="">
+                                        </div>
+                                        <div class="main-register-bg">
+                                            <div class="mrb_pin"></div>
+                                            <div class="mrb_pin mrb_pin2"></div>
+                                        </div>
+                                        <div class="mrb_dec"></div>
+                                        <div class="mrb_dec mrb_dec2"></div>
+                                    </div>
+                                    <div class="main-register">
+                                       
+                                        <div class="about-title" style="text-align: center;">
+                                            <h2 class="login-header" style="
+                                            text-align: left !important;
+                                        ">Log in</h2>
+                                        </div>
+                                        <!-- <ul class="tabs-menu fl-wrap no-list-style">
+                                            <h1><li class="current"><a href="#tab-1"><i class="fal fa-sign-in-alt"></i> Login</a></li></h1>
+                                        </ul> -->
+                                        <!--tabs -->
+                                        <div class="login-tabs-container" style="float: left;width: 100%;margin-top: 10px;padding: 0 50px 20px;">
+                                            <div class="tab">
+                                                <!--tab -->
+                                                <div id="tab-1" class="tab-content first-tab">
+                                                    <div class="custom-form">
+                                                        <form method="post"  action="">
+                                                            {% csrf_token %}
+                                                            <label>Email Address  * <span class="dec-icon"><i class="fal fa-user"></i></span></label>
+                                                            <input name="username" type="text"    onClick="" value="">
+                                                            <div class="pass-input-wrap fl-wrap">
+                                                                <label >Password  * <span class="dec-icon"><i class="fal fa-key"></i></span></label>
+                                                                <input name="password" type="password"  autocomplete="off" onClick="" value="" >
+                                                                <span class="eye"><i class="fal fa-eye"></i> </span>
+                                                            </div>
+                                                           
+                                                            <div class="filter-tags">
+                                                                <input id="check-a3" type="checkbox" name="check">
+                                                                <label for="check-a3">Remember me</label>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                            <button type="submit"  class="log_btn color-bg"> LogIn </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!--tab end -->
+                                            </div>
+                                         
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- list-single-main-item end -->                                          
+                                                                  
+                                                                        
+                            </div>
+                        </div>
+                    </div>
+                    <!-- listing-single content end-->
+                                               
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- content end -->	
+    <!-- footer -->	
+    {% include 'base/footer.html' %}
+    <!-- footer end -->
+    
+</div>
+
+{% endblock content %}

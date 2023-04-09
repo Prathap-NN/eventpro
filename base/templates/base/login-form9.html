@@ -1,0 +1,105 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% block title %}Log in - PES University{% endblock title %}
+{% block content %}
+<div id="wrapper">
+    <!-- content -->	
+    <div class="content">
+        
+        
+        <div class="gray-bg small-padding fl-wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <!--  listing-single content -->
+                    <div class="col-md-10">
+                        {% if messages %}
+                        {% for message in messages %}
+                        
+                            <h4 class="login-message-list">{{ message }}</h4>
+                         
+                        {% endfor %}
+                        {% endif %}
+                        <div class="list-single-main-wrapper fl-wrap">
+                            
+                            <div class="list-single-main-container fl-wrap" id="sec3">
+                                <!-- list-single-main-item -->
+                                <div class="list-single-main-item list-single-main-item-custom fl-wrap">
+                                    <div class="main-register-header color-bg">
+                                        <div class="main-register-logo fl-wrap">
+                                            <img src="{% static 'images/pesuniversity-dark.png' %}" alt="">
+                                        </div>
+                                        <div class="main-register-bg">
+                                            <div class="mrb_pin"></div>
+                                            <div class="mrb_pin mrb_pin2"></div>
+                                        </div>
+                                        <div class="mrb_dec"></div>
+                                        <div class="mrb_dec mrb_dec2"></div>
+                                    </div>
+                                    <div class="main-register">
+                                        
+                                        <!-- <ul class="tabs-menu fl-wrap no-list-style">
+                                            <h1><li class="current"><a href="#tab-1"><i class="fal fa-sign-in-alt"></i> Login</a></li></h1>
+                                        </ul> -->
+                                        <!--tabs -->
+                                        <div class="login-tabs-container"  style="float: left;width: 100%;margin-top: 10px;padding: 0 50px;"></div>
+                                            <div class="tab">
+                                                <!--tab -->
+                                                <div id="tab-1" class="tab-content first-tab">
+                                                    <div class="custom-form">
+                                                        <div class="login-header color-blue">
+                                                            <h5>Log in </h5>
+                                                            </div>
+                                                        <form method="post" action="{% url 'login' %}">
+                                                            {% csrf_token %}
+                                                            <label>Email Address * <span class="dec-icon"><i
+                                                                        class="fal fa-user"></i></span></label>
+                                                            <input name="username" type="text" required>
+                                                            <div class="pass-input-wrap fl-wrap">
+                                                                <label>Password * <span class="dec-icon"><i
+                                                                            class="fal fa-key"></i></span></label>
+                                                                <input name="password" type="password" required>
+                                                                <span class="eye"><i class="fal fa-eye"></i> </span>
+                                                                <!-- <span class="eye"><i class="fal fa-eye"></i> </span> -->
+                                                            </div>
+                                                            
+                                                            <!-- <div class="filter-tags">
+                                                            </div>
+                                                            <div class="clearfix"></div> -->
+                                                            <button type="submit" class="log_btn color-bg"> Log in </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!--tab end -->
+                                            </div>
+                                            <!--tabs end -->
+                                            <div class="log-separator fl-wrap"><span>Help</span></div>
+                                            <div class=" fl-wrap" >
+                                                <p style="margin-bottom: 12px;
+                                                font-size: 12px !important;
+                                                color: #7d93b2;">If you have any trouble updating your Profile, please contact <a href="mailto:media@pes.edu" class="color-blue"> media@pes.edu</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- list-single-main-item end -->                                          
+                                                                  
+                                                                        
+                            </div>
+                        </div>
+                    </div>
+                    <!-- listing-single content end-->
+                                               
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- content end -->	
+    {% include 'base/footer.html' %}
+    <!-- footer end -->
+    
+</div>
+
+{% endblock content %}

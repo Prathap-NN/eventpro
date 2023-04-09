@@ -75,7 +75,16 @@
                             });
                           });
                         });
-                        
+        
+                      function edit_department(number) {
+                        console.log("number is ",number)
+                        var ip=document.getElementById("department_text_"+number)
+                        console.log("ip is ",ip)
+                        ip.removeAttribute("readonly")
+                        var save_button = document.getElementById("department_save_"+number)
+                        save_button.removeAttribute("hidden")
+                        $("#department_save_"+number).toggle()
+                      }
         </script>
         
     </head>

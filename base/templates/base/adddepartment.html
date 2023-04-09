@@ -54,8 +54,7 @@
                         </div>
                        
                         <!-- dashboard-title end -->	
-                    <form  method="POST" action="{% url 'add_department' %}" enctype="multipart/form-data" >
-                            {%csrf_token %}	
+                  
                         <div class="dasboard-wrapper fl-wrap no-pag">
                            
                              <!-- dasboard-widget-box  end-->						
@@ -67,6 +66,8 @@
                            
                             <!-- dasboard-widget-title end -->													
                             <!-- dasboard-widget-box  -->
+                            <form  method="POST" action="{% url 'add_department' %}" enctype="multipart/form-data" >
+                                {%csrf_token %}	
                             <div class="dasboard-widget-box   fl-wrap">
                                 <div class="custom-form add_room-item-wrap">
                                     <div class="add_room-container fl-wrap">
@@ -76,7 +77,7 @@
                                             <div class="row">
                                                 <div class="col-sm-8">
                                                     <label>Name: <span class="dec-icon"><i class="fal fa-layer-group"></i></span></label>
-                                                    <input type="text" placeholder="Add Department here" value="" name="department-input" id="department-input"/>
+                                                    <input type="text" placeholder="Add Department here" value="" name="department-input" id="department-input" required/>
                                                     <input class="btn color-bg float-btn" type="submit" value="Submit">
                                                 </div>
                                                 
@@ -85,6 +86,8 @@
                                         
                                 </div>
                             </div>
+                        </form>
+
                             <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec4">
                                 <h5><i class="fas fa-list"></i>All Departments</h5>
                             </div>
@@ -96,13 +99,20 @@
                                         <div class="col-sm-8">
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                   
                                                     {% for department in departments  %}
+                                                    <form  method="POST" action="{% url 'edit_department' pk=department.id %}" enctype="multipart/form-data" >
+                                                        {%csrf_token %}	
+                                                    <div style=" display: inline-block;">
                                                     <div class="pass-input-wrap fl-wrap">
-                                                        <label><span class="dec-icon"><i class="fal fa-edit"></i></span></label>
-                                                        <input type="text" class="pass-input" placeholder="" value=" {{ department.name }} " readonly>
-                                                        <span class="eye"><i class="fal fa-trash-alt"></i>                                                        </span>
+                                                        <label><span class="dec-icon"><i class="fal fa-edit" onclick="edit_department({{forloop.counter}})"></i></span></label>
+                                                        <input id="department_text_{{forloop.counter}}" type="text" name="department_input"  class="pass-input" placeholder="" value=" {{ department.name }} " readonly required/>
+                                                        <input id="department_id" value="{{department.id}}" hidden>
+                                                        <span class="eye"> <a href="{% url 'delete_department' pk=department.id %}"><i class="fal fa-trash-alt"></i></a>
+                                                    </span>
                                                     </div>
+                                                        <span><input id="department_save_{{forloop.counter}}" class="btn  color-bg float-btn" type="submit" value="Save Changes" style="display:none" ></span>
+                                                    </div>
+                                                </form>
                                                     {% endfor %}
 
                                                     
@@ -122,7 +132,6 @@
                             </div>
                           
                            
-                            <a href="#" class="btn  color-bg float-btn">Save Changes </a>
                         </div>
                     </div>
                     </form>

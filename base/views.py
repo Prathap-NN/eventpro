@@ -443,9 +443,19 @@ def add_department(request):
         departments = Department.objects.all()
         return render(request, 'base/adddepartment.html', {'departments': departments})
 
-         
+def edit_department(request,pk):
+    if request.method == 'POST':
+        department = Department.objects.get(id=pk)
+        print("-------------- department object is",department.name)
+        dname = request.POST.get('department_input')
+        print("-------------- department name is",dname)
+        department.name =dname
+        department.save()
+        return redirect('add_department')
 
-
+def delete_department(request,pk):
+    Department.objects.get(id=pk).delete()
+    return redirect('add_department')
 #singleevent
 def singlEvent(request,pk):
     

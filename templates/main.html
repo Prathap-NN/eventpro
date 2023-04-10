@@ -85,7 +85,15 @@
                         save_button.removeAttribute("hidden")
                         $("#department_save_"+number).toggle()
                       }
-        </script>
+
+                      $(document).ready(function () {
+                          $(".box-item img").on("click", function () {
+                            var link = $(this).siblings("a");
+                            link.addClass("popup-image");
+                            link[0].click();
+                          });
+                        });
+                        </script>
         
     </head>
     <body>

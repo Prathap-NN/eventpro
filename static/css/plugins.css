@@ -63,12 +63,12 @@ td {
     outline: 0;
     font-weight: inherit;
     font-style: inherit;
-    font-size: 100%;
+    font-size: 99%;
     font-family: 'Noto Sans', sans-serif;
     vertical-align: baseline;
     text-decoration: none;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
 table {

@@ -45,3 +45,8 @@ span.mr-1 {
 .col-sm-6 .chosen-container-single .chosen-single:focus {
   background-color: #a61e1e;
 }
+.departmentof {
+  margin-right: 0px !important;
+  padding-right: 6px !important;
+  color: #7d93b2 !important;
+}

@@ -14,7 +14,7 @@
     background: linear-gradient(to right, #3C6AFD, #57C7FA);
 }
 .green-color , .verified-badge  , .header-opt-modal-list li a:before    , .card-verified , .pricing-content li:before , .dashboard-stats-count span strong  {
-    color:#40B69E;
+    color:#fdfdfd;
 }
 .green-bg   , .review-notifer , .new-bookmark{
      background:#40B69E;

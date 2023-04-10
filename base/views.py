@@ -372,6 +372,8 @@ def createEvent(request):
             form.event_start_time=None
         if not form.event_end_time:
             form.event_end_time=None
+        print("startime",form.event_start_time)
+        print("endtime",form.event_end_time)
         form.contact = request.POST.get('contact')
         form.description = request.POST.get('description')
         venue_name= request.POST.get('venue_name')
@@ -456,6 +458,7 @@ def edit_department(request,pk):
 def delete_department(request,pk):
     Department.objects.get(id=pk).delete()
     return redirect('add_department')
+
 #singleevent
 def singlEvent(request,pk):
     
@@ -467,21 +470,25 @@ def singlEvent(request,pk):
     recent_events = Events.objects.all().order_by('-created_at')[:6]
 
     event= eventsview(event)
-   
+    print("this event time1",event.event_end_time)
+    print("this start time1",event.event_start_time)
     try:
         start_time=event.event_start_time
         if "." in start_time:
             start_time=start_time[:-2]
         event.event_start_time = datetime.strptime(start_time, '%H:%M:%S').time()
-        
+
+
         end_time=event.event_end_time
+        
         if "." in end_time:
             end_time=end_time[:-2]
         event.event_end_time = datetime.strptime(end_time, '%H:%M:%S').time()
-
+        print("this event time2",event.event_end_time)
+        
     except:
         print("could not convert the date")
-    print("broucher is",brouchures)
+    
     context={'event':event,'speaker':speaker,'pictures':pictures,'brouchers':brouchures,'recent_events':recent_events,'imagecount':imagecount}
     return render(request, 'base/singlevent.html',context)  
 

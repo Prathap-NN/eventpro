@@ -38,7 +38,7 @@
         <!--  add new  btn -->
         {% if request.user.is_authenticated %}
         <div class="add-list_wrap">
-            <a href="{% url 'create-event' %}" class="add-list color-bg"  style="margin-left: 35px !important;"><i class="fal fa-plus"></i> <span>Add Event</span></a>
+            <a href="{% url 'dashboard' %}" class="add-list color-bg"  style="margin-left: 35px !important;"><i class="fal fa-plus"></i> <span>Dashboard</span></a>
         </div>
         {% endif %}
         <!--  add new  btn end -->
@@ -50,7 +50,7 @@
         {% if request.user.is_authenticated %}
         <div class="show-reg-form dasbdord-submenu-open"><img src="{% static 'images/admin.png' %}" alt=""></div>
         <div class="dashboard-submenu">
-            <div class="dashboard-submenu-title fl-wrap">Welcome, <span>{{ request.user }}</span></div>
+            <div class="dashboard-submenu-title fl-wrap">Welcome, <span>{{ request.user | title }}</span></div>
             <ul>
                 <li><a href="{% url 'create-event' %}"><i class="fal fa-chart-line"></i>Dashboard</a></li>
                 
@@ -75,13 +75,12 @@
                         <a href="#">BROWSE BY TAGS<i class="fa fa-caret-down"></i></a>
                         <!--second level -->
                         <ul>
-                            <li><a href="{% url 'browse_tags' key='Alumni' %}">Alumni</a></li>
-                            <li><a href="{% url 'browse_tags' key='Clubs & Activities' %}"> Clubs & Activities</a></li>
-                            <li><a href="{% url 'browse_tags' key='Music' %}">Music</a></li>
-                            <li><a href="{% url 'browse_tags' key='Research' %}">Research</a></li>
-                            <li><a href="{% url 'browse_tags' key='Sports' %}">Sports</a></li>
-                            <li><a href="{% url 'browse_tags' key='Workshop' %}"> Workshop</a></li>
-                           
+                            <li><a href="{% url 'browse_tags' 'alumni' %}">Alumni</a></li>
+                            <li><a href="{% url 'browse_tags' 'clubs & activities' %}">Clubs & Activities</a></li>
+                            <li><a href="{% url 'browse_tags' 'music' %}">Music</a></li>
+                            <li><a href="{% url 'browse_tags' 'research' %}">Research</a></li>
+                            <li><a href="{% url 'browse_tags' 'sports' %}">Sports</a></li>
+                            <li><a href="{% url 'browse_tags' 'workshop' %}">Workshop</a></li>
                         </ul>
                         <!--second level end--> 
                     </li>
@@ -89,9 +88,11 @@
                         <a href="#">BROWSE BY CAMPUS<i class="fa fa-caret-down"></i></a>
                         <!--second level -->   
                         <ul>
-                            <li><a href="{% url 'browse_campus' key='PES University RR Campus' %}">PESU RR Campus</a></li>
-                            <li><a href="{% url 'browse_campus' key='PES University EC Campus' %}">PESU EC Campus</a></li>
-                            <li><a href="{% url 'browse_campus' key='PES University HN Campus' %}">PESU HN Campus</a></li>
+                            
+                            <li><a href="{% url 'browse_campus' 'PES University RR Campus,RR Campus' %}">PESU RR Campus</a></li>                          
+                            
+                            <li><a href="{% url 'browse_campus' 'PES University EC Campus,EC Campus' %}">PESU EC Campus</a></li>
+                            <li><a href="{% url 'browse_campus' 'PES University HN Campus,HN Campus' %}">PESU HN Campus</a></li>
                         </ul>
                         <!--second level end-->
                     </li>
@@ -100,19 +101,19 @@
                         <a href="#">BROWSE BY DEPARTMENT<i class="fa fa-caret-down"></i></a>
                         <!--second level -->   
                         <ul>
-                            <li><a href="{% url 'browse_department' key='Science & Humanities' %}">Science & Humanities</a></li>
-                            <li><a href="{% url 'browse_department' key='Computer Science' %}">Computer Science</a></li>
-                            <li><a href="{% url 'browse_department' key='Biotechnology' %}">Biotechnology</a></li>
-                            <li><a href="{% url 'browse_department' key='Mechanical' %}">Mechanical</a></li>
-                            <li><a href="{% url 'browse_department' key='Civil' %}">Civil</a></li>
-                            <li><a href="{% url 'browse_department' key='Electronics & Communication' %}">Electronics & Communication</a></li>
-                            <li><a href="{% url 'browse_department' key='Computer Applications' %}">Computer Applications</a></li>
-                            <li><a href="{% url 'browse_department' key='Management Studies' %}">Management Studies</a></li>
-                            <li><a href="{% url 'browse_department' key='Architecture' %}">Architecture</a></li>
-                            <li><a href="{% url 'browse_department' key='Design' %}">Design</a></li>
-                            <li><a href="{% url 'browse_department' key='Law' %}">Law</a></li>
-                            <li><a href="{% url 'browse_department' key='Commerce' %}">Commerce</a></li>
-                            <li><a href="{% url 'browse_department' key='Pharmacy' %}">Pharmacy</a></li>
+                            <li><a href="{% url 'browse_department' 'Science & Humanities' %}">Science & Humanities</a></li>
+                            <li><a href="{% url 'browse_department' 'Computer Science' %}">Computer Science</a></li>
+                            <li><a href="{% url 'browse_department' 'Biotechnology' %}">Biotechnology</a></li>
+                            <li><a href="{% url 'browse_department' 'Mechanical' %}">Mechanical</a></li>
+                            <li><a href="{% url 'browse_department' 'Civil' %}">Civil</a></li>
+                            <li><a href="{% url 'browse_department' 'Electronics & Communication' %}">Electronics & Communication</a></li>
+                            <li><a href="{% url 'browse_department' 'Computer Applications' %}">Computer Applications</a></li>
+                            <li><a href="{% url 'browse_department' 'Management Studies' %}">Management Studies</a></li>
+                            <li><a href="{% url 'browse_department' 'Architecture' %}">Architecture</a></li>
+                            <li><a href="{% url 'browse_department' 'Design' %}">Design</a></li>
+                            <li><a href="{% url 'browse_department' 'Law' %}">Law</a></li>
+                            <li><a href="{% url 'browse_department' 'Commerce' %}">Commerce</a></li>
+                            <li><a href="{% url 'browse_department' 'Pharmacy' %}">Pharmacy</a></li>
                         </ul>
                         <!--second level end-->                                
                     </li>

@@ -1,435 +1,383 @@
 {% extends 'main.html' %}
 {% load static %}
-{% static '' as baseUrl %}
+
+{% block title %}Events - PES University{% endblock title %}
+{% load filter_tags %}
+{% comment %} {% load my_template_library %} {% endcomment %}
 {% block content %}
 
-    
-        
-            
-        <div id="wrapper">
-                <!-- content -->	
-                <div class="content">
-                    <!--  section  -->
-                    <section class="hero-section hero-section_dec" data-scrollax-parent="true">
-                        <div class="bg-wrap">
-                            <div class="bg par-elem "  data-bg="{% static 'images/slider.jpg' %}" data-scrollax="properties: { translateY: '100%' }"></div>
-                        </div>
-                        <div class="overlay"></div>
-                        <div class="container">
-                            <div class="hero-title hero-title_small">
-                                <h4>Events happening across the campus</h4>
-                                <h2>See what's going on at PES University <br>
-                                    <!-- Using Our Platform -->
-                                </h2>
-                            </div>
-                          
-                        </div>
-                    </section>
-                    <!--  section  end-->
-                    <!-- breadcrumbs-->
-                    <div class="breadcrumbs fw-breadcrumbs sp-brd fl-wrap">
-                        <div class="container">
-                             <div class="breadcrumbs-list">
-                                <a href="#">Home</a>  <span>Home Image</span>
-                            </div> 
-                           
-                        </div>
-                    </div>
-                    <!-- breadcrumbs end -->
-                    <!-- section -->
-                    <section class="gray-bg small-padding">
-                        <div class="container">
-                            
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="section-title fl-wrap">
-                                        <h4>Browse Events</h4>
-                                        
-                                                                      
-                                        {% if ongoing  %}
-                                       
-                                        <h2>ONGOING EVENTS</h2>
-                                      
-                                        {% endif %}
-                                    </div>
-                                    
-                                    
-                                </div>
-                            </div>
-                            
-                            <div class="clearfix"></div>
-                            <!-- grid-item-holder-->
-                          
-                            <div class="grid-item-holder gallery-items gisp fl-wrap">
-                                <!-- gallery-item-->
-                                {% for event in events.object_list %}
-                                        {% now "Y-m-d" as todays_date %}
-                                        {% if  todays_date >= event.event_start_date|date:"Y-m-d" and todays_date <= event.event_end_date|date:"Y-m-d" %}
-                                <div class="gallery-item for_sale">
-                                    <!-- listing-item -->
-                                    <div class="listing-item">
-                                        <article class="geodir-category-listing fl-wrap">
-                                            <div class="geodir-category-img fl-wrap">
-                                                <a href="{% url 'single-event' event.id %}" class="geodir-category-img_item">
-                                                    {% if event.featured_img %}
-                                                    <img src="{{event.featured_img.url}}" alt="">
-                                                    {% else %}
-                                                    <img src="{% static 'images/defaultimage/default.jpg' %}"  style="max-width:100%;max-height:100%;"/>
-                                                    <div style="position: absolute;top: 40%;
-                                                    left: 50%;transform: translate(-50%, -50%);font-size:200% ;max-width:100%;max-height:100%;color: #144273;"><h1>{{event.title}}</h1></div>
-
-                                                    {% endif %}
-                                                
-                                                    <div class="overlay"></div>
-                                                </a>
-                                                        <ul class="list-single-opt_header_cat">
-                                                        {% now "Y-m-d" as todays_date %}
-                                                        
-                                                        <div >
-                                                            {% if todays_date < event.event_start_date|date:"Y-m-d" %}
-                                                            <li><a href="#" class="cat-opt " style="background-color: rgb(173, 35, 35);" >Upcoming</a></li>
-                                                           {% elif  todays_date == event.event_start_date|date:"Y-m-d" or todays_date <= event.event_end_date|date:"Y-m-d" %}
-                                                           <li><a href="#" class="cat-opt " style="background-color: #33c1b7;">ONGOING</a></li>
-                                                           {% else %}
-                                                           <li><a href="#" style="background-color: rgb(244, 127, 21) !important;" class="cat-opt " >Previous</a></li>
-                                                           {% endif %}
-                                                        
-                                                       
-                                                    </ul>
-                                                    <a href="#" class="geodir_save-btn tolt" data-microtip-position="left" data-tooltip="{{event.num_likes}}"><span><i class="fal fa-heart"></i></span></a>
-                                                    <a href="#" class="compare-btn tolt" data-microtip-position="left" data-tooltip="{{event.view_count}}"><span><i class="fal fa-eye"></i></span></a>
-                                             
-                                            </div>
-                                            
-                                            <div class="geodir-category-content fl-wrap">
-                                                <h3 class="title-sin_item"><a href="listing-single.html">{{event.title | truncatewords:5 }}</a></h3>
-                                                <!-- <div class="geodir-category-content_price"> {{event.event_start_date}}</div> -->
-                                                <h6 style="font-size: 13px; line-height: 22px; padding-bottom: 10px; font-weight: 400; color: #878C9F; text-align: left;">{{ event.about |truncatewords:13 | safe}}</h6>
-                                                {% if event.event_start_date != "None" %}
-                                                <div class="geodir-category-content-details">
-                                                    <ul>
-                                                        <li><i class="far fa-calendar-alt fa-thin" style="color:#bdbdbd;"></i><span>{{event.event_start_date}}</span></li>
-                                                       
-                                                    </ul>
-                                                </div>
-                                                {% endif %}
-                                                
-                                                {% if event.address and event.address.strip %}
-                                                <div class="geodir-category-footer fl-wrap" style="padding: 0px 10px 10px 10px;">
-                                                  <a href="#" class="gcf-company">
-                                                    <span>
-                                                      <i class="fas fa-map-marker-alt" style="color: rgb(239, 127, 26);" > </i> 
-                                                      {{event.address | truncatewords:5 }}
-                                                    </span>
-                                                  </a>
-                                                </div>
-                                              {% endif %}
-                                              
-                                                
-                                                
-                                              
-                                        </article>
-                                    </div>
-                                   
-                                    <!-- listing-item end-->															
-                                </div>
-                                
-                                {% endif %}
-                                {% endfor %}
-                     																	
-                                </div>
-
-                                
-                                <div class="row">
-                                <div class="col-md-4">
-                                    <div class="section-title fl-wrap">
-                                    {% if upcoming %}
-                                    
-                                    <h2>UPCOMING EVENTS</h2>
-                                       
-                                    {% endif %}
-                                    </div>
-                                </div>
-                                </div>
-                                
-                                <div class="clearfix"></div>
-                                <!-- grid-item-holder-->
-                              
-                                <div class="grid-item-holder gallery-items gisp fl-wrap">
-                                    <!-- gallery-item-->
-                                    {% for event in events.object_list %}
-                                    {% now "Y-m-d" as todays_date %}
-                                    {% if todays_date < event.event_start_date|date:"Y-m-d" %}
-                                    <div class="gallery-item for_sale">
-                                        <!-- listing-item -->
-                                        <div class="listing-item">
-                                            <article class="geodir-category-listing fl-wrap">
-                                                <div class="geodir-category-img fl-wrap">
-                                                    <a href="{% url 'single-event' event.id %}" class="geodir-category-img_item">
-                                                        {% if event.featured_img %}
-                                                        <img src="{{event.featured_img.url}}" alt="">
-                                                        {% else %}
-                                                       
-                                                        <img src="{% static 'images/defaultimage/default.jpg' %}"  style="max-width:100%;max-height:100%;"/>
-                                                        <div style="position: absolute;top: 40%;
-                                                        left: 50%;transform: translate(-50%, -50%);font-size:200% ;max-width:100%;max-height:100%;color: #144273;"><h1>{{event.title}}</h1></div>
-    
-                                                        {% endif %}
-                                                    
-                                                        <div class="overlay"></div>
-                                                    </a>
-                                                            <ul class="list-single-opt_header_cat">
-                                                            {% now "Y-m-d" as todays_date %}
-                                                            
-                                                            <div >
-                                                                {% if todays_date < event.event_start_date|date:"Y-m-d" %}
-                                                                <li><a href="#" class="cat-opt " style="background-color: red;" >UPCOMING</a></li>
-                                                               {% elif  todays_date == event.event_start_date|date:"Y-m-d" or todays_date <= event.event_end_date|date:"Y-m-d" %}
-                                                               <li><a href="#" class="cat-opt " style="background-color: #33c1b7;">ONGOING</a></li>
-                                                               {% else %}
-                                                               <li><a href="#" class="cat-opt color-bg" >PREVIOUS</a></li>
-                                                               {% endif %}
-                                                            
-                                                           
-                                                        </ul>
-                                                        <a href="#" class="geodir_save-btn tolt" data-microtip-position="left" data-tooltip="{{event.num_likes}}"><span><i class="fal fa-heart"></i></span></a>
-                                                        <a href="#" class="compare-btn tolt" data-microtip-position="left" data-tooltip="{{event.view_count}}"><span><i class="fal fa-eye"></i></span></a>
-                                                 
-                                                </div>
-                                                
-                                                <div class="geodir-category-content fl-wrap">
-                                                    <h3 class="title-sin_item"><a href="listing-single.html">{{event.title | truncatewords:5 }}</a></h3>
-                                                    <!-- <div class="geodir-category-content_price"> {{event.event_start_date}}</div> -->
-                                                    <h6 style="font-size: 13px; line-height: 22px; padding-bottom: 10px; font-weight: 400; color: #878C9F; text-align: left;">{{ event.about |truncatewords:13 | safe}}</h6>
-                                                    <div class="geodir-category-content-details">
-                                                        <ul>
-                                                           
-                                                            <li><i class="far fa-calendar-alt fa-thin" style="color:#bdbdbd;"></i><span>{{event.event_start_date}}</span></li>
-                                                           
-                                                        </ul>
-                                                    </div>
-                                                 
-                                                    {% if event.address and event.address.strip %}
-                                                    <div class="geodir-category-footer fl-wrap" style="padding: 0px 10px 10px 10px;">
-    
-                                                        <a href="#" class="gcf-company"><span><i class="fas fa-map-marker-alt" style="color: rgb(239, 127, 26)" > </i> {{event.address | truncatewords:5 }}</span></a>
-        
-                                                    </div>
-                                                   
-                                                    {% endif %}
-                                                   
-                                               
-                                            </article>
-                                        </div>
-                                       
-                                        <!-- listing-item end-->															
-                                    </div>
-                                    {% endif %}
-                                    {% endfor %}
-                                                                                             
-                                    </div>		
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="section-title fl-wrap">
-                                            
-                                        {% if previous %}
-                                        <h2>PREVIOUS EVENTS</h2>
-                                    {% endif %}
-                                        
-                                            </div>
-                                        </div>
-                                        </div>
-                                        
-                                    
-                                    
-                                    
-                                    <div class="clearfix"></div>
-                                    <!-- grid-item-holder-->
-                                  
-                                    <div class="grid-item-holder gallery-items gisp fl-wrap">
-                                        <!-- gallery-item-->
-                                        {% for event in events.object_list %}
-                                        {% now "Y-m-d" as todays_date %}
-                                      
-                                        {% if  todays_date > event.event_start_date|date:"Y-m-d" and todays_date > event.event_end_date|date:"Y-m-d" %}
-                                        <div class="gallery-item for_sale">
-                                            <!-- listing-item -->
-                                            <div class="listing-item">
-                                                <article class="geodir-category-listing fl-wrap">
-                                                    <div class="geodir-category-img fl-wrap">
-                                                        <a href="{% url 'single-event' event.id %}" class="geodir-category-img_item">
-                                                            {% if event.featured_img %}
-                                                            <img src="{{event.featured_img.url}}" alt="">
-                                                            {% else %}
-                                                           
-                                                            <img src="{% static 'images/defaultimage/default.jpg' %}"  style="max-width:100%;max-height:100%;"/>
-                                                    <div style="position: absolute;top: 40%;
-                                                    left: 50%;transform: translate(-50%, -50%);font-size:200% ;max-width:100%;max-height:100%;color: #144273;"><h1>{{event.title}}</h1></div>
-        
-                                                            {% endif %}
-                                                        
-                                                            <div class="overlay"></div>
-                                                        </a>
-                                                                <ul class="list-single-opt_header_cat">
-                                                                {% now "Y-m-d" as todays_date %}
-                                                                
-                                                                <div >
-                                                                    {% if todays_date < event.event_start_date|date:"Y-m-d" %}
-                                                                    <li><a href="#" class="cat-opt " style="background-color: rgb(173, 35, 35);" >UPCOMING</a></li>
-                                                                   {% elif  todays_date == event.event_start_date|date:"Y-m-d" or todays_date <= event.event_end_date|date:"Y-m-d" %}
-                                                                   <li><a href="#" class="cat-opt " style="background-color: #33c1b7;">ONGOING</a></li>
-                                                                   {% else %}
-                                                                   <li><a href="#" class="cat-opt color-bg" style="background-color: rgb(244, 127, 21) !important;" >PREVIOUS</a></li>
-                                                                   {% endif %}
-                                                                
-                                                               
-                                                            </ul>
-                                                            <a href="#" class="geodir_save-btn tolt" data-microtip-position="left" data-tooltip="{{event.num_likes}}"><span><i class="fal fa-heart"></i></span></a>
-                                                            <a href="#" class="compare-btn tolt" data-microtip-position="left" data-tooltip="{{event.view_count}}"><span><i class="fal fa-eye"></i></span></a>
-                                                     
-                                                    </div>
-                                                    
-                                                    <div class="geodir-category-content fl-wrap">
-                                                        <h3 class="title-sin_item"><a href="listing-single.html">{{event.title | truncatewords:5 }}</a></h3>
-                                                        <!-- <div class="geodir-category-content_price"> {{event.event_start_date}}</div> -->
-                                                        <h6 style="font-size: 13px; line-height: 22px; padding-bottom: 10px; font-weight: 600; color: #878C9F; text-align: left;">{{ event.about |truncatewords:13 | safe}}</h6>
-                                                        {% if event.event_start_date %}
-                                                        <div class="geodir-category-content-details">
-                                                            <ul>
-                                                                <li><i class="far fa-calendar-alt fa-thin" style="color:#bdbdbd;"></i><span>{{event.event_start_date}}</span></li>
-                                                               
-                                                            </ul>
-                                                        </div>
-                                                        {% endif %}
-                                                        
-                                                        {% if event.address and event.address.strip %}
-                                                        <div class="geodir-category-footer fl-wrap" style="padding: 0px 10px 10px 10px;">
-        
-                                                            <a href="#" class="gcf-company"><span><i class="fas fa-map-marker-alt" style="color: rgb(239, 127, 26);" > </i> {{event.address | truncatewords:5 }}</span></a>
-            
-                                                        </div>
-                                                        {% endif %}
-                                                       
-                                                        
-                                                    <!-- </a> -->
-                                                    <!-- </div> -->
-                                                </article>
-                                            </div>
-                                           
-                                            <!-- listing-item end-->															
-                                        </div>
-                                        {% endif %}
-                                        {% endfor %}
-                                                                                                 
-                                        </div>												
-                            </div>
-                            
-                           
-                        </div>
-                     </section>
-                         
-                  
-                         <center>
-                            <style type="text/css">
-                                .paginator-li {
-                                    list-style: none;
-                                    display: inline;
-                                    margin-top: 20px;
-                                }
-                            </style>
-                            <div class="pagination " style="margin-top: 1%; margin-bottom: 0%; ">
-                        
-                                {%if events.has_previous %} <a href="?page={{events.previous_page_number}}" class="prevposts-link"><i
-                                        class="fa fa-caret-left"></i></a>
-                                {% endif %} {% if events.has_previous %}
-                                
-                                {% endif %} {% for n in events.paginator.page_range %} {% if events.number == n %} <li class="paginator-li ">
-                                    <span class="page-numbers "><a class="current-page">{{ n }}</a></span></li> 
-                                    {% elif n > events.number|add:'-3' and n < events.number|add:'3' %} <li class="paginator-li"><a class="paginator-li"
-                                        href="?page={{ n }}">{{ n }}</a></li>
-                                    {% endif %} 
-                                    {% endfor %}
-                                     {% if events.has_next %}                ....                <li class="paginator-li">     
-                                                     <a class="paginator-li" href="?page={{ events.paginator.num_pages }}" aria-label="Next">      
-                                                                    <span aria-hidden="true">{{ events.paginator.num_pages }}</span>     
-                                                                                 <span class="sr-only">end</span>                  </a>                </li>                {% endif %} 
-                                    {%if events.has_next %} <a href="?page={{events.next_page_number}}" class="nextposts-link"><i
-                                            class="fa fa-caret-right"></i></a> {% endif %}
-                            </div>
-                        </center>
-                  
-                    
-                   
-                    
-                   
+<div id="wrapper">
+    <!-- content -->
+    <div class="content">
+        <!--  section  -->
+        {% if not browse_by %}
+        <section class="hero-section hero-section_dec" data-scrollax-parent="true">
+            <div class="bg-wrap">
+                <div class="bg par-elem " data-bg="{% static 'images/slider.jpg' %}"
+                    data-scrollax="properties: { translateY: '100%' }"></div>
+            </div>
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="hero-title hero-title_small">
+                    <h4>Events happening across the campus</h4>
+                    <h2>See what's going on at PES University <br>
+                        <!-- Using Our Platform -->
+                    </h2>
                 </div>
-               
-            
-            <!-- wrapper end -->
-            
-            <a class="to-top color-bg"><i class="fas fa-caret-up"></i></a>   
-            <!--map-modal -->
-            <div class="map-modal-wrap">
-                <div class="map-modal-wrap-overlay"></div>
-                <div class="map-modal-item">
-                    <div class="map-modal-container fl-wrap">
-                        <h3> <span>Listing Title </span></h3>
-                        <div class="map-modal-close"><i class="far fa-times"></i></div>
-                        <div class="map-modal fl-wrap">
-                            <div id="singleMap" data-latitude="40.7" data-longitude="-73.1"></div>
-                            <div class="scrollContorl"></div>
+
+            </div>
+        </section>
+        <!--  section  end-->
+        <!-- breadcrumbs-->
+        <div class="breadcrumbs fw-breadcrumbs sp-brd fl-wrap">
+            <div class="container">
+                <div class="breadcrumbs-list">
+                    <a href="{% url 'home' %}">Home</a> <span>Discover the Exciting Events of PES University</span>
+                </div>
+
+            </div>
+        </div>
+        <!-- breadcrumbs end -->
+        {% endif %}
+        <!-- section -->
+        <section class="gray-bg small-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        {% if not is_home %}
+                        <div class=" browseresult list-main-wrap-title">
+                            {% if total_count %}
+                            <h2>Results For : <span>{{browse_by}} </span><strong>{{total_count}}</strong></h2>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <!-- grid-item-holder-->
+
+                <div class="grid-item-holder gallery-items gisp fl-wrap">
+                    <!-- gallery-item-->
+                    {% if on_up_events %}
+                    {% for event in on_up_events %}
+
+                    <div class="gallery-item for_sale">
+                        <!-- listing-item -->
+                        <div class="listing-item">
+                            <article class="geodir-category-listing fl-wrap">
+                                <div class="geodir-category-img fl-wrap">
+                                    <a href="{% url 'single-event' event.id %}" class="geodir-category-img_item">
+                                        {% if event.featured_img %}
+                                        <img src="{% static 'images/Uploads/' %}{{ event.featured_img }}" alt="">  
+                                        {% else %}
+                                        <img src="{% static 'images/deafaultimage/default-image.jpg' %}" />
+                                        <div class="title-overlay"><h1>{{event.title | title}}</h1></div>
+                                    
+
+                                        {% endif %}
+
+                                        <div class="overlay"></div>
+                                    </a>
+                                    <ul class="list-single-opt_header_cat">
+                                        {% now "Y-m-d" as todays_date %}
+
+                                        <div>
+
+                                            {% if todays_date < event.event_start_date|date:"Y-m-d" %} <li><a href="#"
+                                                    class="cat-opt "
+                                                    style="background-color: rgb(252, 50, 14);">UPCOMING</a></li>
+                                                {% elif todays_date == event.event_start_date|date:"Y-m-d" or todays_date <= event.event_end_date|date:"Y-m-d" %} <li><a href="#"
+                                                        class="cat-opt " style="background-color: #33c1b7;">ONGOING</a>
+                                                    </li>
+                                                    {% endif %}
+
+
+                                    </ul>
+                                    <a href="#" class="geodir_save-btn tolt" data-microtip-position="left"
+                                        data-tooltip="{{event.num_likes}}"><span><i class="fal fa-heart"></i></span></a>
+                                    <a href="#" class="compare-btn tolt" data-microtip-position="left"
+                                        data-tooltip="{{event.view_count}}"><span><i class="fal fa-eye"></i></span></a>
+
+                                </div>
+
+                                <div class="geodir-category-content fl-wrap">
+                                    <h3 class="title-sin_item"><a href="{% url 'single-event' event.id %}">{{event.title | truncatewords:5 |upper}}</a></h3>
+                                    <!-- <div class="geodir-category-content_price"> {{event.event_start_date}}</div> -->
+
+                                    {% if event.description %}
+                                    <h6
+                                        style="font-size: 13px; line-height: 22px; padding-bottom: 10px; font-weight: 400; color: #878C9F; text-align: left;">
+                                        {{ event.description |truncatewords:9 | safe }}</h6>
+                                    {% else %}
+                                    <h6
+                                        style="font-size: 13px; line-height: 22px; padding-bottom: 10px; font-weight: 400; color: #878C9F; text-align: left;">
+                                        {{ event.about | striptags | replace_nbsp | truncatewords:9 }}</h6>
+                                    {% endif %}
+
+                                    {% if event.event_start_date != "None" %}
+                                    <div class="geodir-category-content-details">
+                                        <ul>
+                                            <li><i class="far fa-calendar-alt fa-thin"
+                                                    style="color:rgb(68, 133, 252);"></i><span>{{event.event_start_date}}</span>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if event.address and event.address.strip or event.is_online_event == "Yes" %}
+                                    <div class="geodir-category-footer fl-wrap" style="padding: 0px 10px 10px 0px;">
+                                        <a href="" class="gcf-company">
+                                            <span>
+                                                {% if event.is_online_event == "Yes" %}
+                                                <i class="fas fa-map-marker-alt" style="color: rgb(239, 127, 26);"> </i> Online
+                                                {% elif event.is_online_event != "No" and event.address.strip %}
+                                                <i class="fas fa-map-marker-alt" style="color: rgb(239, 127, 26);"> </i>
+                                                {{ event.address | truncatewords:5 }}
+                                                {% else %}
+                                                {% if event.campus %}
+                                                <i class="fas fa-university" style="color: rgb(239, 127, 26);"> </i>
+                                                {{event.campus | truncatewords:5 }}
+                                                {% endif %}
+                                                {% endif %}
+                                            </span>
+                                        </a>
+                                    </div>
+                                    {% endif %}
+
+
+
+                            </article>
+                        </div>
+
+                        <!-- listing-item end-->
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="section-title fl-wrap">
+
+                            {% if previous_events %}
+                            <h2 class="">PREVIOUS EVENTS</h2>
+                            {% endif %}
+
                         </div>
                     </div>
+                </div>
+                <div class="clearfix"></div>
+                <!-- grid-item-holder-->
+
+                <div class="grid-item-holder gallery-items gisp fl-wrap">
+                    <!-- gallery-item-->
+                    {% if previous_events %}
+                    {% for event in paginated_previous %}
+
+                    {% now "Y-m-d" as todays_date %}
+
+                    <div class="gallery-item for_sale">
+                        <!-- listing-item -->
+                        <div class="listing-item">
+                            <article class="geodir-category-listing fl-wrap">
+                                <div class="geodir-category-img fl-wrap">
+                                    <a href="{% url 'single-event' event.id %}" class="geodir-category-img_item">
+                                        {% if event.featured_img %}
+                                        <img src="{% static 'images/Uploads/' %}{{ event.featured_img }}" alt="">  
+                                        {% else %}
+
+                                        <img src="{% static 'images/defaultimage/default.jpg' %}"
+                                            style="max-width:100%;max-height:100%;" />
+                                        <div
+                                            style="position: absolute;top: 40%;
+                                                    left: 50%;transform: translate(-50%, -50%);font-size:200% ;max-width:100%;max-height:100%;color: #144273;">
+                                            <h1>{{event.title}}</h1>
+                                        </div>
+
+                                        {% endif %}
+
+                                        <div class="overlay"></div>
+                                    </a>
+                                    <ul class="list-single-opt_header_cat">
+
+                                        <div>
+
+                                            <li><a href="#" class="cat-opt color-bg"
+                                                    style="background-color: rgb(244, 127, 21) !important;">PREVIOUS</a>
+                                            </li>
+
+                                    </ul>
+                                    <a href="#" class="geodir_save-btn tolt" data-microtip-position="left"
+                                        data-tooltip="{{event.num_likes}}"><span><i class="fal fa-heart"></i></span></a>
+                                    <a href="#" class="compare-btn tolt" data-microtip-position="left"
+                                        data-tooltip="{{event.view_count}}"><span><i class="fal fa-eye"></i></span></a>
+
+                                </div>
+
+                                <div class="geodir-category-content fl-wrap">
+                                    <h3 class="title-sin_item"><a href="{% url 'single-event' event.id %}">{{event.title | truncatewords:5 | upper}}</a></h3>
+                                    <!-- <div class="geodir-category-content_price"> {{event.event_start_date}}</div> -->
+                                    {% if event.description %}
+                                    <h6
+                                        style="font-size: 13px; line-height: 22px; padding-bottom: 10px; font-weight: 400; color: #878C9F; text-align: left;">
+                                        {{ event.description |truncatewords:10 | safe }}</h6>
+                                    {% else %}
+                                    <h6
+                                        style="font-size: 13px; line-height: 22px; padding-bottom: 10px; font-weight: 400; color: #878C9F; text-align: left;">
+                                        {{ event.about | striptags | replace_nbsp | truncatewords:13 }}</h6>
+                                    {% endif %}
+                                    {% if event.event_start_date %}
+                                    <div class="geodir-category-content-details">
+                                        <ul>
+                                            <li><i class="far fa-calendar-alt fa-thin"
+                                                    style="color:rgb(68, 133, 252);"></i><span>{{event.event_start_date}}</span>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if event.address and event.address.strip or event.is_online_event == "Yes" %}
+                                    <div class="geodir-category-footer fl-wrap" style="padding: 0px 10px 10px 0px;">
+                                        <a href="" class="gcf-company">
+                                            <span>
+                                                {% if event.is_online_event == "Yes" %}
+                                                <i class="fas fa-map-marker-alt" style="color: rgb(239, 127, 26);"> </i> Online
+                                                {% elif event.is_online_event != "No" and event.address.strip %}
+                                                <i class="fas fa-map-marker-alt" style="color: rgb(239, 127, 26);"> </i>
+                                                {{ event.address | truncatewords:5 }}
+                                                {% else %}
+                                                {% if event.campus %}
+                                                <i class="fa fa-university" style="color: rgb(239, 127, 26);"> </i>
+                                                {{event.campus | truncatewords:5 }}
+                                                {% endif %}
+                                                {% endif %}
+                                            </span>
+                                        </a>
+                                    </div>
+                                    {% endif %}
+
+
+
+
+                                    <!-- </a> -->
+                                    <!-- </div> -->
+                            </article>
+                        </div>
+
+                        <!-- listing-item end-->
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
                 </div>
             </div>
-            <!--map-modal end --> 			
-    <!--secondary-nav -->
 
-    <div class="secondary-nav">
+            <center>
+                <style type="text/css">
+                    .paginator-li {
+                        list-style: none;
+                        display: inline;
+                        margin-top: 20px;
+                    }
+                </style>
+                <div class="pagination " style="margin-top: 1%; margin-bottom: 0%; ">
 
-        <ul>
+                    {%if events.has_previous %} <a href="?page={{events.previous_page_number}}"
+                        class="prevposts-link"><i class="fa fa-caret-left"></i></a>
+                    {% endif %} {% if events.has_previous %}
 
-            <!-- <li><a href="dashboard-add-listing.html" class="tolt" data-microtip-position="left"  data-tooltip="Sell Property"><i class="fal fa-truck-couch"></i> </a></li> -->
+                    {% endif %} {% for n in events.paginator.page_range %} {% if events.number == n %} <li
+                        class="paginator-li ">
+                        <span class="page-numbers "><a class="current-page">{{ n }}</a></span>
+                    </li>
+                    {% elif n > events.number|add:'-3' and n < events.number|add:'3' %} <li class="paginator-li"><a
+                            class="paginator-li" href="?page={{ n }}">{{ n }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if events.has_next %} .... <li class="paginator-li">
+                            <a class="paginator-li" href="?page={{ events.paginator.num_pages }}" aria-label="Next">
+                                <span aria-hidden="true">{{ events.paginator.num_pages }}</span>
+                                <span class="sr-only">end</span> </a>
+                        </li> {% endif %}
+                        {%if events.has_next %} <a href="?page={{events.next_page_number}}" class="nextposts-link"><i
+                                class="fa fa-caret-right"></i></a> {% endif %}
+                </div>
+            </center>
+    </div>
 
-            {% if request.user.is_authenticated %}
+    </section>
 
-                <li><a href="/logout/" class="tolt" data-microtip-position="left"  data-tooltip="Logout"> <i class="far fa-power-off">  </i></a></li>
 
-            {% else %}
 
-                <li><a href="#" class="tolt" data-microtip-position="left"  data-tooltip="Login"><i class="fal fa-exchange"></i></a></li>
 
-            {% endif %}
 
-        </ul>       
-        <div class="progress-indicator">
 
-            <svg xmlns="http://www.w3.org/2000/svg"
 
-                viewBox="-1 -1 34 34">
 
-                <circle cx="16" cy="16" r="15.9155"
+</div>
 
-                    class="progress-bar__background" />
 
-                <circle cx="16" cy="16" r="15.9155"
+<!-- wrapper end -->
 
-                    class="progress-bar__progress
+<a class="to-top color-bg"><i class="fas fa-caret-up"></i></a>
+<!--map-modal -->
+<div class="map-modal-wrap">
+    <div class="map-modal-wrap-overlay"></div>
+    <div class="map-modal-item">
+        <div class="map-modal-container fl-wrap">
+            <h3> <span>Listing Title </span></h3>
+            <div class="map-modal-close"><i class="far fa-times"></i></div>
+            <div class="map-modal fl-wrap">
+                <div id="singleMap" data-latitude="40.7" data-longitude="-73.1"></div>
+                <div class="scrollContorl"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--map-modal end -->
+<!--secondary-nav -->
+
+<div class="secondary-nav">
+
+    <ul>
+
+        
+
+        {% if request.user.is_authenticated %}
+
+        <li><a href="/logout/" class="tolt" data-microtip-position="left" data-tooltip="Logout"> <i
+                    class="far fa-power-off"> </i></a></li>
+
+       
+
+        {% endif %}
+
+    </ul>
+    <div class="progress-indicator">
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 34 34">
+
+            <circle cx="16" cy="16" r="15.9155" class="progress-bar__background" />
+
+            <circle cx="16" cy="16" r="15.9155" class="progress-bar__progress
 
                     js-progress-bar" />
 
-            </svg>
-
-        </div>
+        </svg>
 
     </div>
 
-    <!--secondary-nav end -->
+</div>
 
-    <a class="to-top color-bg"><i class="fas fa-caret-up"></i></a>  
-    {% include "base/footer.html" %} 
+<!--secondary-nav end -->
+
+<a class="to-top color-bg"><i class="fas fa-caret-up"></i></a>
+{% include "base/footer.html" %}
 
 </div>
-            
+
 
 {% endblock content %}

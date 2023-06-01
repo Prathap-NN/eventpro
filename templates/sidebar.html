@@ -1,0 +1,44 @@
+
+{% load static %}
+
+ {% block content %} 
+<div class="dashbard-menu-wrap">
+    <div class="dashbard-menu-close"><i class="fal fa-times"></i></div>
+    <div class="dashbard-menu-container">
+        <!-- user-profile-menu-->
+        <div class="user-profile-menu">
+            <h3>Main</h3>
+            <ul class="no-list-style">
+                <li><a href="{% url 'dashboard' %}"><i class="fal fa-chart-line"  style="color: #3270FC;"></i>Dashboard</a></li>
+                <li><a href="{% url 'event_listing' %}"><i class="fal fa-th-list" style="color: #3270FC;"></i> Event Listing  </a></li>
+                <li><a href="{% url 'change_password' %}"><i class="fal fa-key" style="color: #3270FC;"></i> Change Password</a></li>
+                {% if request.user.is_superuser  %}
+                <li><a href="{% url 'add_user' %}"><i class="fal fa-user" style="color: #3270FC;"></i>Users</a></li>
+                {% endif %}
+                
+                <!-- <span class="color-orange">{{total_events}}</span> -->
+              
+            </ul>
+        </div>
+        <!-- user-profile-menu end-->
+        <!-- user-profile-menu-->
+        <div class="user-profile-menu">
+            <h3>Listings</h3>
+            
+            <ul  class="no-list-style">
+                
+                <li><a href="{% url 'create-event' %}"><i class="fal fa-plus" style="color: #3270FC;"></i>Create Event</a></li>
+                <li><a href="{% url 'add_department' %}"><i class="fal fa-school" style="color: #3270FC;"></i>Department</a></li>
+                <li><a href="{% url 'add_campus' %}"><i class="fal fa-university" style="color: #3270FC;"></i>Campus</a></li>
+                <li><a href="{% url 'add_tags' %}"><i class="fal fa-tag" style="color: #3270FC;"></i>Tag</a></li>
+                <li><a href="{% url 'add_location' %}"><i class="fal fa-map-marker-alt" style="color: #3270FC;"></i>Location</a></li>
+                <li><a href="{% url 'add_platform' %}"><i class="fal fa-map-signs" style="color: #3270FC;"></i>Platform</a></li>
+                <li><a href="{% url 'draft-page' %}"><i class="fal fa-archive" style="color: #3270FC;"></i>Archive</a></li>
+               
+            </ul>
+        </div>
+        <!-- user-profile-menu end--> 
+    </div>
+    <div class="dashbard-menu-footer">© PES University | Powered by <a href="https://nith.ooo" target="_blank">NiTH</a></div>
+</div>
+{% endblock content %}  

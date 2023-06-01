@@ -1,136 +1,258 @@
-
 <!DOCTYPE HTML>
 {% load static %}
 <html lang="en">
-    <head>
-        <!--=============== basic  ===============-->
-        <meta charset="UTF-8">
-        <title>EVENTS | PES University</title>
-        <meta name="robots" content="index, follow"/>
-        <meta name="keywords" content=""/>
-        <meta name="description" content=""/>
-        <!--=============== css  ===============-->	
-        <link type="text/css" rel="stylesheet" href="{% static 'css/plugins.css' %}">
-        <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
-        <link type="text/css" rel="stylesheet" href="{% static 'css/dashboard-style.css' %}">
-        <link type="text/css" rel="stylesheet" href="{% static 'css/color.css' %}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <link type="text/css" rel="stylesheet" href="{% static 'css/_notes/custom.css' %}">
-        
-        <!--=============== favicons ===============-->
-        <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-UFwFJDOgSU7MSiIMaFnDNPtNbe856Q1tpZCy7C2M2mZV7wCwO+hGzBCKR0NxIy1b" crossorigin="anonymous">
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-BlUO7v/s5BxyEkJGKUKy1O2ttmNXEy8ksmMdL+E9X2NS2QxMxLnFJfAePynoq55+qNlEbDd36lB9L9XrFk/2hA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-d3qoDE0eTtjK9XhLClpjTJ+AiMx2gkJfZGfrRWaLa0osvNxr7QW8SM9+V7oHlZaz+tVnfnWJdf4ld+7Ur4KwLg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-        <!-- <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> -->
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-Xzz6aFudIY4+i4Trc1i2QGbbJHXTHFbjlSv9Cn89dBYNk05G5w5Y5pHyZf3tIV1d3q+z26QmI+v9yR09qwLkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
-        
+
+<head>
+  <!--=============== basic  ===============-->
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock title %}</title>
+  {% block description %}
+  <meta name="description" content="" />{% endblock %}
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+
+  <!-- js  -->
+
+  <!--=============== scripts  ===============-->
+
+  <!--=============== css  ===============-->
+  <link type="text/css" rel="stylesheet" href="{% static 'css/plugins.css' %}">
+  <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link type="text/css" rel="stylesheet" href="{% static 'css/dashboard-style.css' %}">
+  <link type="text/css" rel="stylesheet" href="{% static 'css/color.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  <link type="text/css" rel="stylesheet" href="{% static 'css/_notes/custom.css' %}">
+  <!--=============== favicons ===============-->
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+  
 
 
-        
-        <script>
-            const registerButton = document.getElementById('radio-aaa5');
-            const confirmAttendanceButton = document.getElementById('radio-bb5');
-            const customButton = document.getElementById('radio-dd5');
-            const customButtonText = document.getElementById('custom-button-text');
-            const externalLinkInput = document.getElementsByName('external_link')[0];
-            
-            // Add event listener to radio button group
-            const radioButtons = [registerButton, confirmAttendanceButton, customButton];
-            radioButtons.forEach((radioButton) => {
-              radioButton.addEventListener('change', () => {
-                if (customButton.checked) {
-                  customButtonText.value = externalLinkInput.value;
-                } else {
-                  customButtonText.value = radioButton.value;
-                }
-              });
-            });
-          </script>
-          <script>
-          $(document).ready(function() {
-            $('#myonoffswitch5').change(function() {
-                var isChecked = $(this).prop('checked');
-                if (isChecked) {
-                    $('#location-status').text('Online');
-                } else {
-                    $('#location-status').text('Offline');
-                }
-            });
+
+
+  <script>
+
+    // likes
+    $(document).ready(function () {
+
+
+      $(".box-item img").on("click", function () {
+        alert();
+  var link = $(this).siblings("a");
+  link.addClass("popup-image");
+  link.click();
+});
+
+      $('.link_group').change(function () {
+        console.log('clicked on radio', $(this).attr('id'));
+        if ($(this).attr('id') == 'radio-dd5') {
+          console.log('in the checked');
+          $('#custom_link').removeAttr("hidden");
+        }
+        else {
+          console.log('not checked');
+          $('#custom_link').attr("hidden", '');
+        }
+
+
+      })
+
+
+      $('.like-button').click(function (event) {
+        event.preventDefault();
+        var eventId = $(this).data('event-id');
+        var likeCount = $(this).find('.like-count');
+        var heartIcon = $('#slider-heart')
+        console.log("heart icon is ", heartIcon)
+        var updatedCount
+        if (heartIcon.hasClass('far')) {
+          console.log('requeting to increase',parseInt(likeCount.text()));
+          updatedCount = parseInt(likeCount.text()) + 1;
+          heartIcon.removeClass('far');
+          heartIcon.addClass('fa');
+          like_type="like"
+        }
+        else if(parseInt(likeCount.text()) > 1) {
+          console.log('requeting to decrease',parseInt(likeCount.text()));
+          updatedCount = parseInt(likeCount.text()) - 1;
+          heartIcon.removeClass('fa');
+          heartIcon.addClass('far');
+          like_type="unlike"
+
+        }
+        else{
+          return
+        }
+        var csrfToken = $('input[name="csrfmiddlewaretoken"]').val(); // get the CSRF token from a hidden input field in the form
+        $.ajax({
+          type: 'POST',
+          url: 'http://127.0.0.1:8000/like_event/' + eventId + '/'+like_type,
+          headers: {
+            'X-CSRFToken': csrfToken // include the CSRF token in the request headers
+          },
+          success: function (data) {
+
+            likeCount.text(updatedCount);
+            $('#like-counter').text(updatedCount);
+            heartIcon.toggleClass('fa-heart fa-solid fa-heart fa-sharp');
+          },
+          error: function (xhr, textStatus, errorThrown) {
+            console.error('Ajax request failed:', errorThrown);
+          }
         });
-        $(document).ready(function() {
-                          $('.card-verified').on('click', function(event) {
-                            event.preventDefault();
-                            var eventId = $(this).data('event-id');
-                            var url = '/like-event/' + eventId + '/';
-                            $.ajax({
-                              url: url,
-                              success: function(data) {
-                                if (data.success) {
-                                  var numLikes = data.num_likes;
-                                  $('.bookmark-counter').html('<i class="fas fa-heart" style="color:red;"></i> Liked - ' + numLikes);
-                                  $('.card-verified i').removeClass('far').addClass('fas').addClass('liked');
-                                }
-                              }
-                            });
-                          });
-                        });
-        
-                      function edit_department(number) {
-                        console.log("number is ",number)
-                        var ip=document.getElementById("department_text_"+number)
-                        console.log("ip is ",ip)
-                        ip.removeAttribute("readonly")
-                        var save_button = document.getElementById("department_save_"+number)
-                        save_button.removeAttribute("hidden")
-                        $("#department_save_"+number).toggle()
-                      }
+      });
+    });
 
-                      $(document).ready(function () {
-                          $(".box-item img").on("click", function () {
-                            var link = $(this).siblings("a");
-                            link.addClass("popup-image");
-                            link[0].click();
-                          });
-                        });
-                        </script>
-        
-    </head>
-    <body>
-       <!--loader-->
-       <div class="loader-wrap">
-        <div class="loader-inner">
-            <svg>
-                <defs>
-                    <filter id="goo">
-                        <fegaussianblur in="SourceGraphic" stdDeviation="2" result="blur" />
-                        <fecolormatrix in="blur"   values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 5 -2" result="gooey" />
-                        <fecomposite in="SourceGraphic" in2="gooey" operator="atop"/>
-                    </filter>
-                </defs>
-            </svg>
-        </div>
-    </div>
-    <!--loader end-->
-    <!-- main -->
-    <div id="main"> 
-        
-    {% include 'navbar.html' %}
-    
-     {% block content %}
 
-     {% endblock content %}
-    </div>
+
+    // likes ends
+    console.log("element is", document.getElementById("res"))
+    const registerButton = document.getElementById('radio-aaa5');
+    const confirmAttendanceButton = document.getElementById('radio-bb5');
+    const customButton = document.getElementById('radio-dd5');
+    const customButtonText = document.getElementById('custom-button-text');
+    const externalLinkInput = document.getElementsByName('external_link')[0];
+
+           
+
+  </script>
+  <script>
+  
+    $(document).ready(function () {
+
+    //   // popupop
+    // $(".box-item img").on("click", function () {
+    //     var link = $(this).siblings("a");
+    //     link.addClass("popup-image");
+    //     link[0].click();
+    //   });
+   
     
-     <!--=============== scripts  ===============-->
-     <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/plugins.js' %}"></script>
-    <script src="{% static 'js/scripts.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOU_API_KEY_HERE&libraries=places"></script>
-    <script src="{% static 'js/map-add.js' %}"></script>
-    <script src="{% static 'js/dashboard.js' %}"></script>
+
+
+      $('#myonoffswitch5').change(function () {
+        var isChecked = $(this).prop('checked');
+        if (isChecked) {
+          $('#location-status').text('Online');
+        } else {
+          $('#location-status').text('Offline');
+        }
+      });
+
+   
+    });
+
+
+
+
+    function edit_department(number) {
+      console.log("number is ", number)
+      var ip = document.getElementById("department_text_" + number)
+      console.log("ip is ", ip)
+      ip.removeAttribute("readonly")
+      var save_button = document.getElementById("department_save_" + number)
+      save_button.removeAttribute("hidden")
+      $("#department_save_" + number).toggle()
+    }
+
+    function edit_location(number) {
+      console.log("number location  is ", number)
+      var ip = document.getElementById("location_text_" + number)
+      console.log("ip is ", ip)
+      ip.removeAttribute("readonly")
+      var save_button = document.getElementById("location_save_" + number)
+      save_button.removeAttribute("hidden")
+      $("#location_save_" + number).toggle()
+    }
+
+    function edit_platform(number) {
+      console.log("number location  is ", number)
+      var ip = document.getElementById("platform_text_" + number)
+      console.log("ip is ", ip)
+      ip.removeAttribute("readonly")
+      var save_button = document.getElementById("platform_save_" + number)
+      save_button.removeAttribute("hidden")
+      $("#platform_save_" + number).toggle()
+    }
+
+    function edit_tag(number) {
+      console.log("number is ", number)
+      var ip = document.getElementById("tag_text_" + number)
+      console.log("ip is ", ip)
+      ip.removeAttribute("readonly")
+      var save_button = document.getElementById("tag_save_" + number)
+      save_button.removeAttribute("hidden")
+      $("#tag_save_" + number).toggle()
+    }
+
+    // edit campus
+
+    function edit_campus(number) {
+      console.log("number is ", number)
+      var ip = document.getElementById("campus_text_" + number)
+      console.log("ip is ", ip)
+      ip.removeAttribute("readonly")
+      var save_button = document.getElementById("campus_save_" + number)
+      save_button.removeAttribute("hidden")
+      $("#campus_save_" + number).toggle()
+    }
 
 
    
-    </body>
+    // $(document).ready(function () {
+    //     $(".slick-slide-item").on("click", function () {          
+    //         var href = $(this).find(".popup-image").attr("href");
+    //         $(this).closest(".lightgallery").lightGallery({
+    //             dynamic: true,
+    //             dynamicEl: [{ src: href }]
+    //         });
+    //     });
+    // });
+    // likes
+
+
+
+  </script>
+
+</head>
+
+<body>
+  <!--loader-->
+  <div class="loader-wrap">
+    <div class="loader-inner">
+      <svg>
+        <defs>
+          <filter id="goo">
+            <fegaussianblur in="SourceGraphic" stdDeviation="2" result="blur" />
+            <fecolormatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 5 -2" result="gooey" />
+            <fecomposite in="SourceGraphic" in2="gooey" operator="atop" />
+          </filter>
+        </defs>
+      </svg>
+    </div>
+  </div>
+  <!--loader end-->
+  <!-- main -->
+  <div id="main">
+
+    {% include 'navbar.html' %}
+
+    {% block content %}
+
+    {% endblock content %}
+  </div>
+
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/plugins.js' %}"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOU_API_KEY_HERE&libraries=places"></script>
+  <script src="{% static 'js/map-add.js' %}"></script>
+  <script src="{% static 'js/dashboard.js' %}"></script>
+  <script src="{% static 'js/custom.js' %}"></script>
+
+
+
+</body>
+
 </html>

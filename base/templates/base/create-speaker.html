@@ -1,29 +1,12 @@
 {% extends 'main.html' %}
 {% block content%}
+{% block title %}Create Speaker - PES University{% endblock title %}
 {% load static %}
     <!-- wrapper  -->	
             <div id="wrapper">
                 <!-- dashbard-menu-wrap -->
                 <div class="dashbard-menu-overlay"></div>
-                <div class="dashbard-menu-wrap">
-                    <div class="dashbard-menu-close"><i class="fal fa-times"></i></div>
-                    <div class="dashbard-menu-container">
-                        <!-- user-profile-menu-->
-                        <div class="user-profile-menu">
-                            <h3>Main</h3>
-                            <ul class="no-list-style">
-                                <li><a href="{% url 'list' %}"><i class="fal fa-chart-line"></i>Dashboard</a></li>
-                              
-                              
-                            </ul>
-                        </div>
-                        <!-- user-profile-menu end-->
-                        <!-- user-profile-menu-->
-                       
-                        <!-- user-profile-menu end--> 
-                    </div>
-                    <div class="dashbard-menu-footer">© PES University | Powered by <a href="https://nith.ooo" target="_blank">NiTH</a></div>
-                </div>
+                {% include 'sidebar.html' %} 
                 <!-- dashbard-menu-wrap end  -->		
                 <!-- content -->	
                 <div class="dashboard-content">
@@ -31,11 +14,11 @@
                     <div class="container dasboard-container">
                         <!-- dashboard-title -->	
                         <div class="dashboard-title fl-wrap">
-                            <div class="dashboard-title-item"><span>Event Listing</span></div>
+                            <div class="dashboard-title-item"><span>Speaker</span></div>
                             <div class="dashbard-menu-header">
                                 <div class="dashbard-menu-avatar fl-wrap">
-                                    <img src="{% static 'images/admin.jpg.png' %}" alt="">
-                                    <h4>Welcome,<span>{{ request.user }}</span></h4>
+                                    <img src="{% static 'images/admin.png' %}" alt="">
+                                    <h4>Welcome,<span>{{ request.user |title}}</span></h4>
                                 </div>
                                 <a href="{% url 'logout' %}" class="log-out-btn   tolt" data-microtip-position="bottom"  data-tooltip="Log Out"><i class="far fa-power-off"></i></a>
                             </div>
@@ -62,7 +45,8 @@
                                     </svg>
                                 </div>
                             </div>
-                    <form  method="POST" action="" enctype="multipart/form-data" >
+                            {% if not speaker.id %}
+                             <form  method="POST" action="" enctype="multipart/form-data" >
                                 {%csrf_token %}
                                 {{ EventsForms.media }}
                                
@@ -82,7 +66,15 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label>Speaker Email Address <span class="dec-icon"><i class="far fa-envelope" multiple></i></span>  </label>
-                                            <input type="text" name="spkrgmail" value=""/>
+                                            <input type="text" name="Speakermail" value=""/>
+                                        </div>
+                                        <div class="col-sm-6">		 
+                                            <label>Speaker Contact  <span class="dec-icon"><i class="far fa-briefcase"></i></span></label>
+                                            <input type="text" name="spkr_contact" value=""/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Speaker Designation <span class="dec-icon"><i class="far fa-envelope" multiple></i></span>  </label>
+                                            <input type="text" name="designation" value=""/>
                                         </div>
                                        
                                     </div>  
@@ -106,10 +98,6 @@
                                             </div>
                                         </div>
                                     </div> 
-                               
-                                   
-                                   
-                                    
                                     </div>
                                 </div>
                             <!-- sdfgh -->
@@ -127,6 +115,89 @@
                         </div>
                     </div>
                 </form>
+
+                {% else %}
+
+                <form  method="POST" action="{% url 'editSpeaker' pk=speaker.id %}" enctype="multipart/form-data" >
+                    {%csrf_token %}
+                    {{ EventsForms.media }}
+                   
+                <!-- dasboard-widget-box  end-->	
+                <!--  Speaker-->
+                <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec4">
+                    <h5><i class="fas fa-list"></i>Speaker Details</h5>
+                </div>
+                
+                <div class="dasboard-widget-box fl-wrap">
+                    <div class="custom-form">
+                        <div class="row">
+                           
+                            <div class="col-sm-6">		 
+                                <label>Speaker name  <span class="dec-icon"><i class="far fa-briefcase"></i></span></label>
+                                <input type="text" name="spkr_name" value="{{speaker.name}}" required/>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Speaker Email Address <span class="dec-icon"><i class="far fa-envelope" multiple></i></span>  </label>
+                                <input type="text" name="Speakermail" value="{{speaker.speakermail}}"/>
+                            </div>
+                            <div class="col-sm-6">		 
+                                <label>Speaker Contact  <span class="dec-icon"><i class="far fa-briefcase"></i></span></label>
+                                <input type="text" name="spkr_contact" value="{{speaker.contact}}"/>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Speaker Designation <span class="dec-icon"><i class="far fa-envelope" multiple></i></span>  </label>
+                                <input type="text" name="designation" value="{{speaker.designation}}"/>
+                            </div>
+                           
+                        </div>  
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <label>About</label>
+                                <div class="listsearch-input-item">
+                                    <textarea cols="40" rows="3" style="height: 200px;margin-bottom: 10px"  spellcheck="true"  name="spkr_about" >{{speaker.about}}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Speaker Image</label>
+                                <div class="listsearch-input-item fl-wrap">
+                                    <div class="fuzone">
+                                        <div class="fu-text">
+                                            <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                                            <div class="photoUpload-files fl-wrap"></div>
+                                        </div>
+                                        <input type="file" class="upload" name="spkr_profile_pic"  value="speaker.profile_pic" multiple>
+                                    </div>
+                                </div>
+                                
+                                {% if speaker.profile_pic %}
+                                <a href="{% url 'deletespeakerpic' speaker.id %}" onclick="confirmDelete(event)"><i class="fa fa-trash" style="color:rgb(241, 88, 17);padding-right: 8px;"></i></a>
+                                <img src="{{ speaker.profile_pic.url }}" width="90" height="90" />
+                               {% endif %}
+                            </div>
+                            <script>
+                                function confirmDelete(event) {
+                                    event.preventDefault(); 
+                            
+                                    if (confirm("Are you sure you want to delete the profile picture?")) {
+                                        window.location.href = event.currentTarget.href;
+                                    }
+                                }
+                            </script>
+                        </div>                                     
+                        </div>
+                    </div>
+            
+              <div></div>
+              <div></div>
+               
+              
+               
+                <input class="btn  color-bg float-btn" type="submit" value="Submit">
+                
+            </div>
+        </div>
+    </form>
+    {% endif %}
                     <div class="limit-box fl-wrap"></div>
                     				
                 </div>

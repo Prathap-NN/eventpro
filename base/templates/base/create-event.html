@@ -1,564 +1,593 @@
 {% extends 'main.html' %}
 {% block content%}
+{% block title %}Create Event - PES University{% endblock title %}
 {% load static %}
-    <!-- wrapper  -->	
-            <div id="wrapper">
-                <!-- dashbard-menu-wrap -->
-                <div class="dashbard-menu-overlay"></div>
-                <div class="dashbard-menu-wrap">
-                    <div class="dashbard-menu-close"><i class="fal fa-times"></i></div>
-                    <div class="dashbard-menu-container">
-                        <!-- user-profile-menu-->
-                        <div class="user-profile-menu">
-                            <h3>Main</h3>
-                            <ul class="no-list-style">
-                                <li><a href="{% url 'list' %}"><i class="fal fa-chart-line"  style="color: #3270FC;"></i>Dashboard</a></li>
-                        <li><a href="{% url 'add_department' %}"><i class="fal fa-plus" style="color: #3270FC;"></i>Add Department</a></li>
-                                <li><a href="#"><i class="fal fa-plus" style="color: #3270FC;"></i>Add Tags</a></li>
-                              
-                            </ul>
-                        </div>
-                        <!-- user-profile-menu end-->
-                        <!-- user-profile-menu-->
-                        <div class="user-profile-menu">
-                            <h3>Event Listings</h3>
-                            <ul  class="no-list-style">
-                                <li><a href="dashboard-listing-table.html"><i class="fal fa-th-list" style="color: #3270FC;"></i> My listigs  </a></li>
-                               
-                            </ul>
-                        </div>
-                        <!-- user-profile-menu end--> 
+<!-- wrapper  -->
+<div id="wrapper">
+    <!-- dashbard-menu-wrap -->
+    <div class="dashbard-menu-overlay"></div>
+    {% include 'sidebar.html' %}
+    <!-- dashbard-menu-wrap end  -->
+    <!-- content -->
+    <div class="dashboard-content">
+        <div class="dashboard-menu-btn color-bg"><span><i class="fas fa-bars"></i></span>Dasboard Menu</div>
+        <div class="container dasboard-container">
+            <!-- dashboard-title -->
+
+            <div class="dashboard-title fl-wrap">
+                <div class="dashboard-title-item"><span>Event Listing</span></div>
+                <div class="dashbard-menu-header">
+                    <div class="dashbard-menu-avatar fl-wrap">
+                        <img src="{% static 'images/admin.png' %}" alt="">
+                        <h4>Welcome, <span>{{ request.user | title }}</span></h4>
                     </div>
-                    <div class="dashbard-menu-footer">© PES University | Powered by <a href="https://nith.ooo" target="_blank">NiTH</a></div>
+                    <a href="{% url 'logout' %}" class="log-out-btn   tolt" data-microtip-position="bottom"
+                        data-tooltip="Log Out"><i class="far fa-power-off"></i></a>
                 </div>
-                <!-- dashbard-menu-wrap end  -->		
-                <!-- content -->	
-                <div class="dashboard-content">
-                    <div class="dashboard-menu-btn color-bg"><span><i class="fas fa-bars"></i></span>Dasboard Menu</div>
-                    <div class="container dasboard-container">
-                        <!-- dashboard-title -->	
-                      
-                        <div class="dashboard-title fl-wrap">
-                            <div class="dashboard-title-item"><span>Event Listing</span></div>
-                            <div class="dashbard-menu-header">
-                                <div class="dashbard-menu-avatar fl-wrap">
-                                    <img src="{% static 'images/admin.png' %}" alt="">
-                                    <h4>Welcome,<span>{{ request.user }}</span></h4>
-                                </div>
-                                <a href="{% url 'logout' %}" class="log-out-btn   tolt" data-microtip-position="bottom"  data-tooltip="Log Out"><i class="far fa-power-off"></i></a>
-                            </div>
-                            <!--Tariff Plan menu-->
-                           
-                            <!--Tariff Plan menu end-->						
-                        </div>
-                        <!-- dashboard-title end -->		
-                        <div class="dasboard-wrapper fl-wrap ">
-                            <div class="dasboard-scrollnav-wrap scroll-to-fixed-fixed scroll-init2 fl-wrap">
-                                <ul>
-                                    <li><a href="#sec1" class="act-scrlink">Event Info</a></li>
-                                    <li><a href="#sec2">Location</a></li>
-                                    <li><a href="#sec3">Upload Images</a></li>
-                                    <li><a href="#sec4">Listing Details</a></li>
-                                    
-                                </ul>
-                                <div class="progress-indicator">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="-1 -1 34 34">
-                                        <circle cx="16" cy="16" r="15.9155"
-                                            class="progress-bar__background" />
-                                        <circle cx="16" cy="16" r="15.9155"
-                                            class="progress-bar__progress 
+                <!--Tariff Plan menu-->
+
+                <!--Tariff Plan menu end-->
+            </div>
+            <!-- dashboard-title end -->
+            <div class="dasboard-wrapper fl-wrap ">
+                <div class="dasboard-scrollnav-wrap scroll-to-fixed-fixed scroll-init2 fl-wrap">
+                    <ul>
+                        <li><a href="#sec1" class="act-scrlink">Event Info</a></li>
+                        <li><a href="#sec5" class="act-scrlink">Date / Time</a></li>
+                        <li><a href="#sec2">Location</a></li>
+                        <li><a href="#sec4">Campus</a></li>
+                        <li><a href="#sec6">Department / Tags</a></li>
+                        <li><a href="#sec3">Images / Files</a></li>
+
+
+                    </ul>
+                    <div class="progress-indicator">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 34 34">
+                            <circle cx="16" cy="16" r="15.9155" class="progress-bar__background" />
+                            <circle cx="16" cy="16" r="15.9155" class="progress-bar__progress 
                                             js-progress-bar" />
-                                    </svg>
-                                </div>
-                            </div>
-        <form  method="POST" action="" enctype="multipart/form-data" >
-                                {%csrf_token %}
-                                {{ EventsForms.media }}
-                               
-                            <!-- dasboard-widget-title -->
-                            <div class="dasboard-widget-title fl-wrap" id="sec1">
-                                <h5><i class="fas fa-info"></i>Basic Information</h5>
-                            </div>
-                            <!-- dasboard-widget-title end -->
-                            <!-- dasboard-widget-box  -->
-                            <div class="dasboard-widget-box fl-wrap ">
-                                <div class="custom-form">
+                        </svg>
+                    </div>
+                </div>
+                <form method="POST" class="create_event_form" onsubmit="process_submit()" action="" enctype="multipart/form-data">
+                    {%csrf_token %}
+                    {{ EventsForms.media }}
+                    <!-- basic start -->
+                       <!-- dasboard-widget-title -->
+                       <div class="dasboard-widget-title fl-wrap" id="sec1">
+                        <h5><i class="fas fa-info"></i>Event Information</h5>
+                    </div>
+                    <!-- dasboard-widget-title end -->
+                    <div class="dasboard-widget-box   fl-wrap">
+                        <div class="custom-form add_room-item-wrap">
+                            <div class="add_room-container fl-wrap">
+                                <!-- add_room-item   -->
+                                <div class="add_room-item fl-wrap" >
+                                    <span class="remove-rp tolt" data-microtip-position="left"  data-tooltip="Remove"><i class="fal fa-times-circle"></i></span>
                                     <div class="row">
-                                        <div class="col-sm-6">		 
-                                            <label>Event Title  <span class="dec-icon"><i class="far fa-briefcase"></i></span></label>
-                                            <input type="text" name="title" value=""/>
+                                        <div class="col-sm-12">
+                                           <label>Event Title <span class="dec-icon"><i
+                                                class="far fa-briefcase"></i></span></label>
+                                    <input type="text" name="title" value="" required/>				
                                         </div>
-                                        <div class="col-sm-6">		 
-                                            <label>Event Price  <span class="dec-icon"><i class="far fa-money-bill-wave"></i></span></label>
-                                            <input type="text"  name="event_price" value="">
-                                        </div>
-                                       
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             <label>Sub Title <span class="dec-icon"><i class="fal fa-layer-plus"></i></span></label>
-                                            <input type="text" name="description"  value=""/>				
+                                        <input type="text" name="description" value="" />				
                                         </div>
-                                        <div class="col-sm-6">
-                                            <label>Custom Tag  <span class="dec-icon"><i class="far fa-tag" multiple></i></span>  </label>
-                                            <input type="text" name="tag[]" value=""/>				
-                                        </div>
-                                    </div>  
-                                    <div class="row" style="margin-top: 20px;">
-                                        <div class="col-sm-9">
-                                            <label>Event Details</label>
-                                            <div class="listsearch-input-item">
-                                                <!-- <textarea cols="40" rows="3" style="height: 200px;margin-bottom: 10px"  spellcheck="true" name="about" ></textarea> -->
-                                                
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-7" >
+                                            <label>About</label>
+                                            <div class="listsearch-input-item" >
                                                 {{ EventsForms.about }}
                                             </div>
                                         </div>
-                                        
-                                        <div class="col-sm-3">
-                                            <label>Featured Image</label>
-                                            <div class="listsearch-input-item fl-wrap">
+                                        <div class="col-sm-4">
+                                            <label>Event Profile</label>
+                                            <div class="listsearch-input-item fl-wrap" >
                                                 <div class="fuzone">
                                                     <div class="fu-text">
-                                                        <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                                                        <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files
+                                                            to upload</span>
                                                         <div class="photoUpload-files fl-wrap"></div>
                                                     </div>
-                                                    <input type="file" class="upload" name="featured_img"  multiple>
+                                                    <input type="file" class="upload" name="featured_img" multiple>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> 
-                                    
-                                    <!-- <label>Date/Time</label>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <label>Start Date <span class="dec-icon"><i class="fas fa-calendar-check"></i></span></label>
-                                            <div class="date-container fl-wrap">
-                                                <input type="text"  style="padding: 16px 5px 16px 60px;" id="datepicker" placeholder="dd-mm-yy" name="start_date"  value=""/>
-                                            </div>
-                                        </div>
-                                            <div class="col-sm-2">
-                                                <label>Start Time  </label>
-                                                <input type="time" class="form-control date-time-field mr-1" id="start_time" name="start_time" >
-                                            </div>
-                                        <div class="col-sm-3">
-                                            <label>End Date <span class="dec-icon"><i class="fas fa-calendar-check"></i></span></label>
-                                            <div class="date-container fl-wrap">
-                                                <input type="text"  style="padding: 16px 5px 16px 60px;" id="datepicker-here" format="dd-mm-yy" name="end_date"  value=""/>                                                 
-                                            </div>
-                                        </div>
-                                            <div class="col-sm-2">
-                                                <label>End Time  </label>
-                                                <input type="time" class="form-control date-time-field mr-1" id="end_time" name="end_time" >
-                                            </div> -->
-                                    
-
-
-
-                                            <label style="margin-top: 20px;">Start/End</label>
-                                   
-                                    <div class="card ">
-                                        <div class="row">
-                                            <label class="col-md-2 text-left col-form-label"></label> 
-                                           
-                                                
-                                                <input type="date" id="datepicker-here" class="form-control date-time-field mr-1" placeholder="dd-mm-yy" name="start_date" >
-                                                <input type="time" class="form-control date-time-field mr-1" id="start_time" name="start_time" ><span class="mr-1"> to </span>
-                                                <input type="date" id="datepicker-here" class="form-control date-time-field mr-1" placeholder="dd-mm-yy" name="end_date" >
-                                                <input type="time" class="form-control date-time-field mr-1" id="end_time" name="end_time" >
-                                            
-                                        </div>
-                                    </div> 
-                                    
-                                   
-                                    
                                     </div>
-                                </div>
-                            </div>
-                           
-                            <!-- dasboard-widget-title -->
-                            <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec4">
-                                <h5><i class="fas fa-list"></i>Listing Details</h5>
-                            </div>
-                            <!-- dasboard-widget-title end -->
-                            <!-- dasboard-widget-box  -->
-                            <div class="dasboard-widget-box   fl-wrap">
-                                <div class="custom-form">
-                                    <div class="row">
-                                        <div class="clearfix"></div>
-                                    <label>Campus </label>
-                                    <div class=" add-list-tags fl-wrap">
-                                        <!-- Checkboxes -->
-                                        <ul class="fl-wrap filter-tags no-list-style ds-tg">
-                                            <li>
-                                                <input id="check-2aaa5" type="checkbox" value=" RR Campus" name="campus[]">
-                                                <label for="check-2aaa5">RR Campus</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-2bb5" type="checkbox" name="campus[]" value=" EC Campus" >
-                                                <label for="check-2bb5">EC Campus</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-2dd5" type="checkbox" value=" HN Campus" name="campus[]">
-                                                <label for="check-2dd5">HN Campus</label>
-                                            </li>
-                                            
-                                        </ul>
-                                        <!-- Checkboxes end -->												
-                                    </div>
-                                        <div class="clearfix">
-                                            
-
-                                    </div>
-                                    <label>Department </label>
-                                    <div class=" add-list-tags fl-wrap">
-                                        <!-- Checkboxes -->
-                                        <ul class="fl-wrap filter-tags no-list-style ds-tg">
-                                            {% for department in departments  %}
-                                            <li>
-                                                <input id="check-aaa5" type="checkbox" name="department[]" value="{{department}} ">
-                                                <label for="check-aaa5"> {{department}} </label>
-                                            </li>
-                                            
-                                            {% endfor %}
-
-                                        </ul>
-
-                                        <ul class="fl-wrap filter-tags no-list-style ds-tg">
-                                            <li>
-                                                <input id="check-aaa5" type="checkbox" name="department[]" value="Science &amp; Humanities">
-                                                <label for="check-aaa5"> Science &amp; Humanities department</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-bb5" type="checkbox" name="department[]" value="Computer Science">
-                                                <label for="check-bb5">Computer Science</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-dd5" type="checkbox" name="department[]" value="Electronics &amp; Communications">
-                                                <label for="check-dd5"> Electronics &amp; Communications</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-cc5" type="checkbox" name="department[]" value="Electrical &amp; Electronics">
-                                                <label for="check-cc5"> Electrical &amp; Electronics</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-ff5" type="checkbox" name="department[]"  value="Mechanical">
-                                                <label for="check-ff5">Mechanical</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c4" type="checkbox" name="department[]" value="Biotechnology">
-                                                <label for="check-c4">Biotechnology</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="department[]" value="Civil">
-                                                <label for="check-c18">Civil</label>
-                                            </li>
-                                          
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="department[]" value="Management Studies">
-                                                <label for="check-c18">Management Studies</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="department[]" value="Architecture">
-                                                <label for="check-c18">Architecture</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="department[]"  value="Design">
-                                                <label for="check-c18">Design</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="department[]" value="Law" >
-                                                <label for="check-c18">Law</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="department[]" value="Computer Applications">
-                                                <label for="check-c18">Computer Applications</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="department[]" value="Pharmacy">
-                                                <label for="check-c18">Pharmacy</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="department[]"  value="Commerce">
-                                                <label for="check-c18">Commerce</label>
-                                            </li>
-                                        </ul>
-                                        <!-- Checkboxes end -->												
-                                    </div>
-                                    <label>Tag </label>
-                                    <div class=" add-list-tags fl-wrap">
-                                        <!-- Checkboxes -->
-                                        <ul class="fl-wrap filter-tags no-list-style ds-tg">
-                                            <li>
-                                                <input id="check-aaa5" type="checkbox" name="tag[]" value="Alumni">
-                                                <label for="check-aaa5">Alumni</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-bb5" type="checkbox" name="tag[]" value="Clubs &amp; Activities" >
-                                                <label for="check-bb5">Clubs &amp; Activities</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-dd5" type="checkbox" name="tag[]"  value="Music">
-                                                <label for="check-dd5"> Music</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-cc5" type="checkbox" name="tag[]" value="Sports">
-                                                <label for="check-cc5">Sports</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-ff5" type="checkbox" name="tag[]" value="Research">
-                                                <label for="check-ff5">Research</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c4" type="checkbox" name="tag[]" value="Workshop">
-                                                <label for="check-c4">Workshop</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Dance">
-                                                <label for="check-c18">Dance</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Cultural">
-                                                <label for="check-c18">Cultural</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Technical">
-                                                <label for="check-c18">Technical</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Conference">
-                                                <label for="check-c18">Conference</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Art">
-                                                <label for="check-c18">Art</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Management">
-                                                <label for="check-c18">Management</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Innovation">
-                                                <label for="check-c18">Innovation</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Academics">
-                                                <label for="check-c18">Academics</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="SocialActivities">
-                                                <label for="check-c18">SocialActivities</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="InfoSession">
-                                                <label for="check-c18">InfoSession</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Admissions">
-                                                <label for="check-c18">Admissions</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Media">
-                                                <label for="check-c18">Media</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Webinar">
-                                                <label for="check-c18">Webinar</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]" value="Debate">
-                                                <label for="check-c18">Debate</label>
-                                            </li>
-                                            <li>
-                                                <input id="check-c18" type="checkbox" name="tag[]"  value="Photography">
-                                                <label for="check-c18">Photography</label>
-                                            </li>
-                                        </ul>
-                                       
-                                       											
-                                    </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                           
-                            <!-- da
-                            {% comment %}  {% endcomment %}
-                            <!- dasboard-widget-box  end-->
-                            <!-- dasboard-widget-title -->
-                            <div class="dasboard-widget-title dwb-mar fl-wrap margin-top: auto !important;" id="sec2">
-                                <h5><i class="fas fa-street-view"></i>Location / Contacts</h5>
-                                
-                                <div class="onoffswitch">
-                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" checked>
-                                    <label class="onoffswitch-label" for="myonoffswitch5">
-                                        <span class="onoffswitch-inner"></span>
-                                        <span class="onoffswitch-switch"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- dasboard-widget-title end -->
-                            <!-- dasboard-widget-box  -->
-                            <div class="dasboard-widget-box   fl-wrap">
-                                <div class="custom-form">
-                                    
-                                    <div class="row">
-                                        <div class="col-md-6">
-                            
-                                            <label>Address <span class="dec-icon"><i class="far fa-map-marker"></i></span></label>
-                                            <input type="text" name="venue_name" value=""/>
-                                           
-                                        </div>
-                                       
-                                        <div class="col-sm-6">
-                                            <label>Default Campus</label>
-                                            <div class="listsearch-input-item">
-                                                <select data-placeholder="All Types" class="chosen-select no-search-select" name="default_venue"  style="display: none;">
-                                                    <option disabled selected value> -- select an option -- </option>
-                                                    <option>PES University, Ring Road Campus, Bangalore 560 085</option>
-                                                    <option>PES University, Electronic City Campus, Bangalore</option>
-                                                    <option>PES HN Campus,Hanumanthanagar, Bangalore <br>560050</option>
-                                                </select>
-                                              
-                                            </div>
-                                           
-                                        </div>
-                                        
-                                       
-                                       
-                                    </div>
-                                    {% comment %} <div class="clearfix"></div>
-                                    <div class="map-container">
-                                        <div id="singleMap" class="drag-map" data-latitude="40.7427837" data-longitude="-73.11445617675781"></div>
-                                    </div> {% endcomment %}
                                     <div class="clearfix"></div>
-                                    <div class="row">
-                                       
-                                        <div class="col-sm-6">
-                                            <label>External Link</label>
-                                            <input type="text" name="external_link" value=""/>
-                                            <div class=" add-list-tags fl-wrap">
-                                                <label>Choose a Button</label>
-                                                <ul class="fl-wrap filter-tags no-list-style ds-tg">
-                                                    <li>
-                                                        <input id="radio-aaa5" type="radio" name="button_name[]" value="Register">
-                                                        <label for="radio-aaa5"> Register</label>
-                                                    </li>
-                                                    <li>
-                                                        <input id="radio-bb5" type="radio" name="button_name[]" value="Confirm Attendance">
-                                                        <label for="radio-bb5">Confirm Attendance</label>
-                                                    </li>
-                                                    <li>
-                                                        <input id="radio-dd5" type="radio" name="button_name[]" value="Custom Text">
-                                                        <label for="radio-dd5"> Custom Text</label>
-                                                    </li>
-                                                  
-                                                </ul>
-                                              
-                                               
-                                            </div>
-                                            <div class="col-sm-12" >
-                                                <label>Link Text<span class="dec-icon" id="check-dd5"><i class="far fa-edit" multiple></i></span>  </label>
-                                                <input type="text" name="custom_text" value=""/>
-                                            </div>
-                                        </div>
-                                        
-                                      
-                                         <!-- Checkboxes end -->	
-                                         
-                                        <div class="col-sm-6">
-                                            <label>Email  <span class="dec-icon"><i class="far fa-envelope" multiple></i></span>  </label>
-                                            <input type="text" name="gmail" value=""/>
-                                            
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label>Phone <span class="dec-icon"><i class="far fa-phone" multiple></i></span>  </label>
-                                            <input type="text" name="contact" value=""/>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label>FaceBook<span class="dec-icon"><i class="fab fa-facebook-f"></i></span>  </label>
-                                            <input type="text" name="facebook" value=""/>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label>You Tube<span class="dec-icon"><i class="fab fa-youtube"></i></span>  </label>
-                                            <input type="text" name="youtube" value=""/>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label>Instagram<span class="dec-icon"><i class="fab fa-instagram"></i></span>  </label>
-                                            <input type="text"  name="instagram" value=""/>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label>Twitter<span class="dec-icon"><i class="fab fa-twitter"></i></span>  </label>
-                                            <input type="text" name="twitter" value=""/>
-                                        </div>
-                                       
-                                        <div class="col-sm-6">
-                                            <label> Website <span class="dec-icon"><i class="far fa-globe"></i> </span> </label>
-                                            <input type="text" name="website" value=""/>
-                                            
-                                        </div>
-                                       
-                                    </div>
                                     
                                 </div>
-                               
+                                <!--add_room-item end  -->
                             </div>
-
-                                <div class="dasboard-widget-box  dwb-mar fl-wrap" style="padding-bottom: 40px;">
-                                <div class="custom-form">
-                                    <div class="row">
-                                        <!-- content-widget-switcher -->	
-                                        <div class="col-md-6">
-                                            <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec3">
-                                                <h5><i class="fas fa-image"></i>Upload Images</h5>
-                                            </div>
-                                            <div class="content-widget-switcher fl-wrap">
-                                                
-                                              
-                                                <div class="fuzone">
-                                                    <div class="fu-text">
-                                                        <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
-                                                        <div class="photoUpload-files fl-wrap"></div>
-                                                    </div>
-                                                    <input type="file" class="upload" name="event_images" multiple="multiple">
-        
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- content-widget-switcher end-->									  
-                                        <!-- content-widget-switcher -->	
-                                        <div class="col-md-6">
-                                            <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec3">
-
-                                                <h5><i class="fas fa-image"></i>Upload PDF</h5>
-                                            </div>
-                                            <div class="content-widget-switcher fl-wrap">
-                                                
-                                                <div class="fuzone">
-                                                    <div class="fu-text">
-                                                        <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
-                                                        <div class="photoUpload-files fl-wrap"></div>
-                                                    </div>
-                                                    <input type="file" class="upload" name="event_broucher" multiple>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- content-widget-switcher end-->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <input class="btn  color-bg float-btn" type="submit" value="Submit">
                             
                         </div>
                     </div>
-                </form>
-                    <div class="limit-box fl-wrap"></div>
-                    				
-                </div>
-                <!-- content end -->	
-                <div class="dashbard-bg gray-bg"></div>
+
+                   
             </div>
-            <!-- wrapper end -->
+
+
+            <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec5">
+                <h5><i class="fas fa-calendar-check"></i>Date / Time</h5>
+            </div>
+            <!-- dasboard-widget-title end -->
+            <!-- dasboard-widget-box  -->
+            <div class="dasboard-widget-box   fl-wrap">
+                <div class="custom-form">
+                    <label class="col-md-2 text-left col-form-label"></label>
+
+                    <label>From</label>
+                    <div class="row align-items-center">
+                      <div class="col-sm-6">
+                        <input type="date" class="form-control" name="start_date" required>
+                      </div>
+                      <div class="col-sm-6">
+                        <input type="time" class="form-control" name="start_time">
+                      </div>
+                    </div>
+                    <label>To</label>
+                    <div class="row align-items-center">
+                      <div class="col-sm-6">
+                        <input type="date" class="form-control" name="end_date">
+                      </div>
+                      <div class="col-sm-6">
+                        <input type="time" class="form-control" name="end_time">
+                      </div>
+                    </div>
+                    
+                    <div class="clearfix"></div>
+                 
+                </div>
+            </div>  
+
+
+ <!-- dasboard-widget-box  end-->
+                            <!-- dasboard-widget-title -->
+                            <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec2">
+                                <h5><i class="fas fa-map-marker-alt"></i>Location</h5>
+
+                                
+                                    <span style="display: none;"class="content-widget-switcher-title" id="online_result">Offline</span>
+                                    <input type="text" value="Offline" id="is_online_event" name="is_online_event" hidden>
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitchmc923">
+                                        <label class="onoffswitch-label" for="myonoffswitchmc923">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                    <div id="result"></div>
+                            </div>
+                            <!-- dasboard-widget-title end -->
+                            
+                            <div class="dasboard-widget-box   fl-wrap">
+                                <div class="custom-form">
+                                    <div class="row">
+                                        <div class="col-md-4" id="offline_options">
+                                            <label id="location_select_label">Choose a Location</label>
+                                            <div class="listsearch-input-item">
+                                                <select data-placeholder="All Types" class="chosen-select no-search-select" name="default_venue" id="offline_select">
+                                                    <option disabled selected value> -- select an option -- </option>
+                                                    <!-- <option>Others</option> -->
+                                                    {% for locations in location %}
+                                                    <option>{{locations.name}} </option>
+                                                    {% endfor %}
+                                                    <option>Others</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" id="online_options" hidden>
+                                            <label id="location_select_label">Platform</label>
+                                            <div class="listsearch-input-item">
+                                                <select data-placeholder="All Types" class="chosen-select no-search-select" name="default_venue" id="online_select" style="display: none;">
+                                                    <option id="selected" disabled selected value> -- select an option -- </option>
+                                                    {% for platforms in platform %}
+                                                        <option>{{platforms.name}}</option>
+                                                    {% endfor %}
+                                                    <option>Others</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <label id="location_value_label">Full Address <span class="dec-icon"><i class="far fa-map-marker-alt"></i></span></label>
+                                            <input type="text" name="venue_name" id="venue_name" value="" />
+                                        </div>
+                                        
+                                        <div id="final_address1"></div> 
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                
+                            </div>
+
+
+<!-- add contacts -->
+
+ <!-- dasboard-widget-box  -->
+ <div class="dasboard-widget-title dwb-mar fl-wrap add_room-container" id="sec5" >
+    <h5><i class="fas fa-address-book"></i>Contacts</h5>
+   
+</div>
+ <div class="dasboard-widget-box   fl-wrap">
+    <div class="custom-form add_room-item-wrap">
+        <div class="add_room-container fl-wrap contact_room_container" id="room-container">
+            <!-- add_room-item   -->
+            <div class="add_room-item fl-wrap" count="1">
+                <span class="remove-rp tolt" data-microtip-position="left"  data-tooltip="Remove Room"><i class="fal fa-times-circle"></i></span>
+                
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>Name <span class="dec-icon"><i class="far fa-user" multiple></i></span> </label>
+                        <input type="text" name="contact_name[]" value="" />
+                    </div>
+                    <div class="col-sm-4">
+                       
+                        <label>Phone <span class="dec-icon"><i class="far fa-phone" multiple></i></span> </label>
+                        <input type="text" name="contact[]" value="" />
+                    </div>
+                    <div class="col-sm-4">
+                       
+                        <label>Email <span class="dec-icon"><i class="far fa-envelope" multiple></i></span> </label>
+                        <input type="text" name="contact_email[]" value="" />
+                    </div>
+                    
+                </div>
+                <div class="clearfix"></div>
+                
+                
+            </div>
+
+           
+            <!--add_room-item end  -->
         </div>
-{% endblock content%}     
-  
+        <a href="#" type="button" class="add-room-item button">Add New <i class="fal fa-plus"></i> </a>
+    </div>
+</div>
+
+
+
+<!-- contacts -->
+
+                            
+
+
+
+                             <!-- dasboard-widget-title -->
+                             <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec5">
+                                <h5><i class="fas fa-link"></i>Register</h5>
+                               
+                            </div>
+                            <!-- dasboard-widget-title end -->													
+                            <!-- dasboard-widget-box  -->
+                            <div class="dasboard-widget-box   fl-wrap">
+                                <div class="custom-form add_room-item-wrap">
+                                    <div class="add_room-container fl-wrap">
+                                        <!-- add_room-item   -->
+                                        <div class="add_room-item fl-wrap" >
+                                            <span class="remove-rp tolt" data-microtip-position="left"  data-tooltip="Remove Room"><i class="fal fa-times-circle"></i></span>
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                <label>Button Title</label>
+                                                <div class=" add-list-tags fl-wrap">
+                                                    <!-- Checkboxes -->
+                                                    <ul class="fl-wrap filter-tags no-list-style ds-tg">
+                                                        
+                                                        <li>
+                                                            <input class="link_group" id="radio-aaa5" type="radio" name="button_name[]" value="Register" checked>
+                                                            <label for="radio-aaa5"> Register</label>
+                                                        </li>
+                                                        <li>
+                                                            <input class="link_group" id="radio-bb5" type="radio" name="button_name[]"
+                                                                value="Confirm Attendance">
+                                                            <label for="radio-bb5">Confirm Attendance</label>
+                                                        </li>
+                                                        <li>
+                                                            <input class="link_group" id="radio-dd5" type="radio" name="button_name[]" value="Custom Text">
+                                                            <label for="radio-dd5"> Custom Text</label>
+                                                        </li>
+                                                    </ul>
+                                                    <!-- Checkboxes end -->												
+                                                </div>
+                                            </div>
+                                                <div class="col-sm-7">
+                                                    <label>External Link<span class="dec-icon"><i class="fal fa-link"></i></span></label>
+                                                    <input type="text" name="external_link" value="" />				
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-sm-6" id="custom_link" hidden>
+                                                    <label>Custom Buttton Title<span class="dec-icon"><i class="fa fa-pencil"></i></span></label>
+                                                    <input type="text" name="custom_text" value="" />			
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            
+                                        </div>
+                                        <!--add_room-item end  -->
+                                    </div>
+                                    
+                                </div>
+                            </div>
+             <!-- dasboard-widget-title -->
+             <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec1">
+                <h5><i class="fas fa-hashtag"></i>Social Media / Website</h5>
+            </div>
+            <!-- dasboard-widget-title end -->
+            <!-- dasboard-widget-box  -->
+            <div class="dasboard-widget-box fl-wrap">
+                <div class="custom-form">
+                    <div class="row">
+                        <div class="col-sm-6">		 
+                             <label>Facebook<span class="dec-icon"><i class="fab fa-facebook-f"></i></span> </label>
+                            <input type="text" name="facebook" value="" />
+                        </div>
+                        <div class="col-sm-6">
+                            
+                              <label>YouTube<span class="dec-icon"><i class="fab fa-youtube"></i></span> </label>
+                            <input type="text" name="youtube" value="" />
+                        </div>
+                        <div class="col-sm-6">		 
+                            <label>Instagram<span class="dec-icon"><i class="fab fa-instagram"></i></span> </label>
+                            <input type="text" name="instagram" value="" />
+                        </div>
+                        <div class="col-sm-6">
+                           <label>Twitter<span class="dec-icon"><i class="fab fa-twitter"></i></span> </label>
+                            <input type="text" name="twitter" value="" />
+                            
+                        </div>
+                        <div class="col-sm-12">
+                            <label> Website <span class="dec-icon"><i class="far fa-globe"></i> </span> </label>
+                            <input type="text" name="website" value="" />
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- dasboard-widget-title -->
+            <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec4">
+                <h5><i class="fa fa-university"></i>Campus</h5>
+            </div>
+            <!-- dasboard-widget-title end -->
+            <!-- dasboard-widget-box  -->
+
+            
+            <div class="dasboard-widget-box   fl-wrap">
+                <div class="custom-form">
+                    <div class="row">
+                        <div class="clearfix"></div>
+                        <div class="col-sm-6">
+                        <div class=" add-list-tags fl-wrap">
+                           
+                            <!-- Checkboxes -->
+
+                            <ul class="fl-wrap filter-tags no-list-style ds-tg">
+                                {% for campus in campuspes %}
+                                
+                                <li>
+                                    <input id="check-aaa5" type="checkbox" name="campus[]" value="{{campus}} ">
+                                    <label for="check-aaa5"> {{campus}} </label>
+                                </li>
+                                
+                                {% endfor %}
+
+                            </ul>
+                           
+                            <!-- Checkboxes end -->
+                        </div>
+                    </div>
+                        
+                 
+                   
+                    </div>
+
+                </div>
+            </div>
+
+
+
+<div class="dasboard-wrapper fl-wrap no-pag">
+    <div class="row">
+        <div class="col-md-6">
+            
+            
+            <div class="dasboard-widget-title fl-wrap" id="sec6">
+                <h5><i class="fas fa-sitemap"></i>Department</h5>
+            </div>
+            <div class="dasboard-widget-box fl-wrap">
+                <div class="custom-form">
+                    <ul class="fl-wrap filter-tags no-list-style ds-tg">
+                        {% for department in departments %}
+                        <div class="col-sm-6 departmentspace"> 
+                            <li>
+                                <input id="check-aaa5" type="checkbox" name="department[]" value="{{department}} ">
+                                <label for="check-aaa5"> {{department}} </label>
+                            </li>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="dasboard-widget-title dbt-mm fl-wrap">
+                <h5><i class="fas fa-tag"></i>Tags</h5>
+            </div>
+            <div class="dasboard-widget-box fl-wrap">
+                <div class="custom-form">
+                    <ul class="fl-wrap filter-tags no-list-style ds-tg">
+                        {% for tag in tags %}
+                        <div class="col-sm-4 departmentspace"> <!-- Add a wrapping div with column class -->
+                            <li>
+                                <input id="check-aaa5" type="checkbox" name="tag[]" value="{{tag}} ">
+                                    <label for="check-aaa5"> {{tag}} </label>
+                            </li>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                    
+                </div>
+            </div>
+           
+            
+        </div>
+    </div>
+</div>
+<!-- content end -->
+
+
+<!-- ---------------- -->
+<div class="dasboard-wrapper fl-wrap no-pag">
+    <div class="row">
+        <div class="col-md-6">
+            
+            
+            <div class="dasboard-widget-title  fl-wrap" id="sec3">
+                <h5><i class="fas fa-image"></i>Gallery Image</h5>
+            </div>
+            <div class="content-widget-switcher fl-wrap">
+
+
+                <div class="fuzone">
+                    <div class="fu-text">
+                        <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to
+                            upload</span>
+                        <div class="photoUpload-files fl-wrap"></div>
+                    </div>
+                    <input type="file" class="upload" name="event_images" multiple="multiple">
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="dasboard-widget-title  fl-wrap" id="sec3">
+
+                <h5><i class="fas fa-file-plus"></i>Brochure</h5>
+            </div>
+            <div class="content-widget-switcher fl-wrap">
+
+                <div class="fuzone">
+                    <div class="fu-text">
+                        <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to
+                            upload</span>
+                        <div class="photoUpload-files fl-wrap"></div>
+                    </div>
+                    <input type="file" class="upload" name="event_broucher" multiple>
+                </div>
+            </div>
+           
+            
+        </div>
+    </div>
+</div>
+<input type="submit" class="btn    color-bg  float-btn" value="Submit"   style="border:none;">
+
+        </div>
+    </div>
+    </form>
+    <div class="limit-box fl-wrap"></div>
+
+</div>
+<!-- content end -->
+<div class="dashbard-bg gray-bg"></div>
+</div>
+<!-- wrapper end -->
+</div>
+
+
+<script>
+    document.getElementById("myonoffswitchmc923").addEventListener("change", function() {
+            var isChecked = this.checked;
+            
+            var online_options= document.getElementById('online_options');
+            var offline_options= document.getElementById('offline_options');
+
+
+            online_result =document.getElementById("online_result");
+            online_input =document.getElementById("is_online_event");       
+            online_label = document.getElementById("location_value_label")
+            final_address =document.getElementById("final_address1").innerHTML="";
+
+            if (isChecked) {
+                online_input.setAttribute("value","Online")
+                location_value_label.innerHTML ="URL"
+                online_options.removeAttribute("hidden")
+                offline_options.setAttribute("hidden","")
+
+                
+                
+            } else {
+                online_input.setAttribute("value","Offline")
+                location_value_label.innerHTML ="Full Address"
+                online_options.setAttribute("hidden","")
+                offline_options.removeAttribute("hidden")
+                
+            }
+
+            console.log("online input is",online_input.value,online_input)
+        });
+
+        document.getElementById("venue_name").addEventListener("input",function () {
+            
+            final_address =document.getElementById("final_address1");
+            online_result =document.getElementById("is_online_event").value;
+            console.log({online_result,offline_select})
+            if(online_result =="Offline"){
+                offline_select =document.getElementById("offline_select").value;
+                if (offline_select=="Others"){
+                    final_address.innerHTML =this.value;
+                }else{
+                    final_address.innerHTML =this.value+" "+offline_select;
+                
+                }
+              
+            }
+            if(online_result =="Online"){
+                online_select =document.getElementById("online_select").value;
+                if (online_select=="Others") {
+                    final_address.innerHTML ="Online"
+                }
+                else{
+                    final_address.innerHTML ="Online - Watch on " + online_select;
+                }
+            }
+            
+
+            
+        })
+        document.getElementById("offline_select").addEventListener("change",function () {
+        final_address =document.getElementById("final_address1").innerHTML="";
+                    
+        })
+
+        document.getElementById("online_select").addEventListener("change",function () {
+        final_address =document.getElementById("final_address1").innerHTML="";
+                    
+        })
+//         
+//thiis is not me
+// Counter to keep track of the number of input field sets
+var count = 0;
+
+// Add an event listener to the "Remove" button to remove the corresponding input field set
+
+// Add an event listener to the "Show Popup Form" button to toggle the visibility of the form
+$(".show-popup-form").on('click', function (ex) {
+    ex.preventDefault();
+    $(".popup-form").toggleClass("vis-pf");
+});
+
+// Loop through all the input field sets and print them individually
+
+
+</script>
+{% endblock content%}

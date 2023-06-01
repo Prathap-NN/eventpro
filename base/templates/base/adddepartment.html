@@ -1,37 +1,23 @@
 {% extends 'main.html' %}
+
 {% load static %}
-<!-- {% static 'Uploads' as baseUrl %} -->
- {% block content %} 
+{% block title %}Department - PES University{% endblock title %}
+{% block content %}
+<style>
+    table, th, td {
+      border: 5px solid white;
+      border-collapse: collapse;
+    
+    }
+    
+</style>
+       
+	
+            <!-- wrapper  -->	
             <div id="wrapper">
                 <!-- dashbard-menu-wrap -->
                 <div class="dashbard-menu-overlay"></div>
-                <div class="dashbard-menu-wrap">
-                    <div class="dashbard-menu-close"><i class="fal fa-times"></i></div>
-                    <div class="dashbard-menu-container">
-                        <!-- user-profile-menu-->
-                        <div class="user-profile-menu">
-                            <h3>Main</h3>
-                            <ul class="no-list-style">
-                                <li><a href="{% url 'list' %}"><i class="fal fa-chart-line"  style="color: #3270FC;"></i>Dashboard</a></li>
-                        <li><a href="{% url 'add_department' %}"><i class="fal fa-plus" style="color: #3270FC;"></i>Add Department</a></li>
-                                <li><a href="#"><i class="fal fa-plus" style="color: #3270FC;"></i>Add Tags</a></li>
-                              
-                            </ul>
-                        </div>
-                        <!-- user-profile-menu end-->
-                        <!-- user-profile-menu-->
-                        <div class="user-profile-menu">
-                            <h3>Event Listings</h3>
-                            
-                            <ul  class="no-list-style">
-                                <li><a href="dashboard-listing-table.html"><i class="fal fa-th-list" style="color: #3270FC;"></i> My listigs  </a></li>
-                               
-                            </ul>
-                        </div>
-                        <!-- user-profile-menu end--> 
-                    </div>
-                    <div class="dashbard-menu-footer">© PES University | Powered by <a href="https://nith.ooo" target="_blank">NiTH</a></div>
-                </div>
+                 {% include 'sidebar.html' %} 
                 <!-- dashbard-menu-wrap end  -->		
                 <!-- content -->	
                 <div class="dashboard-content">
@@ -39,111 +25,85 @@
                     <div class="container dasboard-container">
                         <!-- dashboard-title -->	
                         <div class="dashboard-title fl-wrap">
-                            <div class="dashboard-title-item"><span>Add Department</span></div>
+                            <div class="dashboard-title-item"><span>Department </span></div>
                             <div class="dashbard-menu-header">
                                 
                                 <div class="dashbard-menu-avatar fl-wrap">
-                                    <img src="{% static 'images/admin.jpg.png' %}" alt="">
-                                    <h4>Welcome,<span>{{ request.user }}</span></h4>
+                                    <img src="{% static 'images/admin.png' %}" alt="">
+                                    <h4>Welcome, <span>{{ request.user | title }}</span></h4>
                                 </div>
                                 <a href="{% url 'logout' %}" class="log-out-btn   tolt" data-microtip-position="bottom"  data-tooltip="Log Out"><i class="far fa-power-off"></i></a>
-                            </div>
-                            <!--Tariff Plan menu-->
-                           
-                            <!--Tariff Plan menu end-->						
+                            </div>		
                         </div>
-                       
-                        <!-- dashboard-title end -->	
-                  
+                        <!-- dashboard-title end -->
+                        <!-- dasboard-wrapper-->
                         <div class="dasboard-wrapper fl-wrap no-pag">
-                           
-                             <!-- dasboard-widget-box  end-->						
-                            <!-- dasboard-widget-title -->
-                            <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec5">
-                                <h5><i class="fas fa-home-lg-alt"></i>Department</h5>
+                            <div class="row">
+                                <div class="col-md-10">
+                                   
+                                    <div class="dasboard-widget-title fl-wrap">
+                                        <h5><i class="fa fa-sitemap"></i>Add Department</h5>
+                                    </div>
+                                    <div class="dasboard-widget-box fl-wrap pesaddmore">
+                                        <div class="custom-form">
+                                            <form action="{% url 'add_department'%}" method="POST">
+                                                {% csrf_token %}
+                                                <label>  <span class="dec-icon"><i class="fa fa-sitemap"></i></span></label>
+                                                <input type="text" placeholder="Department Name" name="department_input" required/>
+                                               
+                                                <input type="submit" class="btn  color-bg float-btn" value="   Add   " style="border:0px;">	
+                                                						
+                                            
+                                            </form>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class=" ">
+                                    <div class="dasboard-widget-title fl-wrap margin-top">
+                                        <h5><i class="fa fa-sitemap"></i>Department</h5>
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="dasboard-widget-box fl-wrap">
+                                        <div class="row">
+                                          {% for department in departments %} 
+                                          <div class="col-md-4">
+                                            <form method="POST" action="{% url 'edit_department' pk=department.id %}" enctype="multipart/form-data">
+                                              <div class="custom-form">
+                                                {% csrf_token %}
+                                                <div class="pass-input-wrap fl-wrap">
+                                                  <label><span class="dec-icon"><i class="fal fa-edit color-blue" onclick="edit_department({{forloop.counter}})"></i></span></label>
+                                                  <input type="text" id="department_text_{{forloop.counter}}" class="pass-input" name="department_input" value="{{ department.name }}" readonly>
+                                                  <input id="department_id" value="{{department.id}}" hidden>
+                                                  <span class="eye"><a href="{% url 'delete_department' department.id %}" class="tolt" data-microtip-position="top-left" data-tooltip="Delete"><i class="far fa-trash-alt color-blue"></i></a></span>
+                                                </div>
+                                                <span><input id="department_save_{{forloop.counter}}" class="btn color-bg float-btn" type="submit" value="Save Changes" style="display:none;"></span>
+                                              </div>
+                                            </form>
+                                          </div>
+                                          {% endfor %}
+                                        </div>
+                                      </div>
+                                      
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                               
                                 
                             </div>
-                           
-                            <!-- dasboard-widget-title end -->													
-                            <!-- dasboard-widget-box  -->
-                            <form  method="POST" action="{% url 'add_department' %}" enctype="multipart/form-data" >
-                                {%csrf_token %}	
-                            <div class="dasboard-widget-box   fl-wrap">
-                                <div class="custom-form add_room-item-wrap">
-                                    <div class="add_room-container fl-wrap">
-                                        <!-- add_room-item   -->
-                                        <div class="add_room-item fl-wrap">
-                                            <span class="remove-rp tolt" data-microtip-position="left" data-tooltip="Remove Room"><i class="fal fa-times-circle"></i></span>
-                                            <div class="row">
-                                                <div class="col-sm-8">
-                                                    <label>Name: <span class="dec-icon"><i class="fal fa-layer-group"></i></span></label>
-                                                    <input type="text" placeholder="Add Department here" value="" name="department-input" id="department-input" required/>
-                                                    <input class="btn color-bg float-btn" type="submit" value="Submit">
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        
-                                </div>
-                            </div>
-                        </form>
-
-                            <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec4">
-                                <h5><i class="fas fa-list"></i>All Departments</h5>
-                            </div>
-                            <!-- dasboard-widget-title end -->
-                            <!-- dasboard-widget-box  -->
-                            <div class="dasboard-widget-box   fl-wrap">
-                                <div class="custom-form">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    {% for department in departments  %}
-                                                    <form  method="POST" action="{% url 'edit_department' pk=department.id %}" enctype="multipart/form-data" >
-                                                        {%csrf_token %}	
-                                                    <div style=" display: inline-block;">
-                                                    <div class="pass-input-wrap fl-wrap">
-                                                        <label><span class="dec-icon"><i class="fal fa-edit" onclick="edit_department({{forloop.counter}})"></i></span></label>
-                                                        <input id="department_text_{{forloop.counter}}" type="text" name="department_input"  class="pass-input" placeholder="" value=" {{ department.name }} " readonly required/>
-                                                        <input id="department_id" value="{{department.id}}" hidden>
-                                                        <span class="eye"> <a href="{% url 'delete_department' pk=department.id %}"><i class="fal fa-trash-alt"></i></a>
-                                                    </span>
-                                                    </div>
-                                                        <span><input id="department_save_{{forloop.counter}}" class="btn  color-bg float-btn" type="submit" value="Save Changes" style="display:none" ></span>
-                                                    </div>
-                                                </form>
-                                                    {% endfor %}
-
-                                                    
-
-                                                    												
-                                                </div>
-                                               
-                                                
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="clearfix"></div>
-                                   
-                                    
-                                </div>
-                            </div>
-                          
-                           
                         </div>
+                        <!-- dasboard-wrapper end -->	
                     </div>
-                    </form>
-                    <div class="limit-box fl-wrap"></div>
-                    <!-- dashboard-footer -->
-                    
-                    <!-- dashboard-footer end -->				
+                    		
                 </div>
                 <!-- content end -->	
                 <div class="dashbard-bg gray-bg"></div>
             </div>
             <!-- wrapper end -->
-        </div>
-        <!-- Main end -->
-        {% endblock content%}
+        
+
+{% endblock content %}
+
+        

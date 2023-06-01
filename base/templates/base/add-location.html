@@ -1,0 +1,107 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% block title %}Location - PES University{% endblock title %}
+{% block content %}
+<style>
+    table, th, td {
+      border: 5px solid white;
+      border-collapse: collapse;
+    
+    }
+    
+</style>
+            <!-- wrapper  -->	
+            <div id="wrapper">
+                <!-- dashbard-menu-wrap -->
+                <div class="dashbard-menu-overlay"></div>
+                 {% include 'sidebar.html' %} 
+                <!-- dashbard-menu-wrap end  -->		
+                <!-- content -->	
+                <div class="dashboard-content">
+                    <div class="dashboard-menu-btn color-bg"><span><i class="fas fa-bars"></i></span>Dasboard Menu</div>
+                    <div class="container dasboard-container">
+                        <!-- dashboard-title -->	
+                        <div class="dashboard-title fl-wrap">
+                            <div class="dashboard-title-item"><span>Location </span></div>
+                            <div class="dashbard-menu-header">
+                                
+                                <div class="dashbard-menu-avatar fl-wrap">
+                                    <img src="{% static 'images/admin.png' %}" alt="">
+                                    <h4>Welcome, <span>{{ request.user | title }}</span></h4>
+                                </div>
+                                <a href="{% url 'logout' %}" class="log-out-btn   tolt" data-microtip-position="bottom"  data-tooltip="Log Out"><i class="far fa-power-off"></i></a>
+                            </div>		
+                        </div>
+                        <!-- dashboard-title end -->
+                        <!-- dasboard-wrapper-->
+                        <div class="dasboard-wrapper fl-wrap no-pag">
+                            <div class="row">
+                                <div class="col-md-10">
+                                   
+                                    <div class="dasboard-widget-title fl-wrap">
+                                        <h5><i class="far fa-map-marker-alt"></i>Add Location</h5>
+                                    </div>
+                                    <div class="dasboard-widget-box fl-wrap pesaddmore">
+                                        <div class="custom-form">
+                                            <form action="{% url 'add_location'%}" method="POST">
+                                                {% csrf_token %}
+                                                <label>  <span class="dec-icon"><i class="fa fa-map-marker-alt"></i></span></label>
+                                                <input type="text" placeholder="Location Name" name="location_input" required/>
+                                               
+                                                <input type="submit" class="btn  color-bg float-btn" value="   Add   " style="border:0px;">	
+                                                						
+                                            
+                                            </form>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class=" ">
+                                    <div class="dasboard-widget-title fl-wrap margin-top">
+                                        <h5><i class="far fa-map-marker-alt"></i>All Location</h5>
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="dasboard-widget-box fl-wrap">
+                                        <div class="row">
+                                            {% for locations in location %} 
+                                            <div class="col-md-6">
+                                                <form method="POST" action="{% url 'edit_location' pk=locations.id %}" enctype="multipart/form-data" >
+                                                    {% csrf_token %}	
+                                                    <div class="custom-form">
+                                                        <div class="pass-input-wrap fl-wrap">
+                                                            <label><span class="dec-icon"><i class="fal fa-edit color-blue" onclick="edit_location({{forloop.counter}})"></i></span></label>
+                                                            <input type="text" id="location_text_{{forloop.counter}}" class="pass-input" name="location_input" value="{{ locations.name }}" readonly>
+                                                            <input id="location_id" value="{{locations.id}}" hidden>
+                                                            <span class="eye"><a href="{% url 'delete_location' locations.id %}" class="tolt" data-microtip-position="top-left" data-tooltip="Delete" ><i class="far fa-trash-alt color-blue"></i></a> </span>
+                                                        </div>
+                                                        <span><input id="location_save_{{forloop.counter}}" class="btn color-bg float-btn" type="submit" value="Save Changes" style="display:none;"></span>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            {% endfor %} 
+                                        </div>
+                                    </div>
+                                    
+                                        </div>
+                                        </div>
+                                    </div>
+                                
+                                
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <!-- dasboard-wrapper end -->	
+                    </div>
+                    		
+                </div>
+                <!-- content end -->	
+                <div class="dashbard-bg gray-bg"></div>
+            </div>
+            <!-- wrapper end -->
+        
+
+{% endblock content %}
+
+        

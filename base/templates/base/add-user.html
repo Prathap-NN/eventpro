@@ -1,0 +1,309 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% block title %}Users - PES University{% endblock title %}
+{% block content %}
+<style>
+    table, th, td {
+      border: 5px solid white;
+      border-collapse: collapse;
+    
+    }
+    
+</style>
+       
+	
+            <!-- wrapper  -->	
+            <div id="wrapper">
+                <!-- dashbard-menu-wrap -->
+                <div class="dashbard-menu-overlay"></div>
+                 {% include 'sidebar.html' %} 
+                <!-- dashbard-menu-wrap end  -->		
+                <!-- content -->	
+                <div class="dashboard-content">
+                    <div class="dashboard-menu-btn color-bg"><span><i class="fas fa-bars"></i></span>Dasboard Menu</div>
+                    <div class="container dasboard-container">
+                        <!-- dashboard-title -->	
+                        <div class="dashboard-title fl-wrap">
+                            <div class="dashboard-title-item"><span>Users </span></div>
+                            <div class="dashbard-menu-header">
+                                
+                                <div class="dashbard-menu-avatar fl-wrap">
+                                    <img src="{% static 'images/admin.png' %}" alt="">
+                                    <h4>Welcome, <span>{{ request.user | title }}</span></h4>
+                                </div>
+                                <a href="{% url 'logout' %}" class="log-out-btn   tolt" data-microtip-position="bottom"  data-tooltip="Log Out"><i class="far fa-power-off"></i></a>
+                            </div>		
+                        </div>
+                        <!-- dashboard-title end -->
+                        <!-- dasboard-wrapper-->
+
+
+
+
+                        <div class="dasboard-wrapper fl-wrap no-pag">
+                            <div class="row">
+                                
+                                <div class="col-md-12">
+                                    {% if form.instance.id  %}
+                                    <div class="dasboard-widget-title fl-wrap">
+                                        <h5><i class="fa fa-user"></i>Edit User</h5>
+                                    </div>
+                                    <div class="dasboard-widget-box fl-wrap pesaddmore">
+                                        <div class="custom-form">
+                                            <form method="post"  action="{% url 'edit_user' form.instance.id %}">
+                                                {% csrf_token %}
+                                                <div class="col-sm-6">
+                                                <label>User Name  * <span class="dec-icon"><i class="fal fa-user"></i></span></label>
+                                                <!-- <input name="username" type="gmail"  placeholder="Email"  onClick="" value="{{useredit.username}}" required> -->
+                                                {{form.username}}
+                                                {% if form.username.errors %}
+                                                    <p>{{form.username.errors|join:","}}</p>
+                                                {% endif %}
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label>Email  * <span class="dec-icon"><i class="fal fa-user"></i></span></label>
+                                                    <!-- <input name="username" type="gmail"  placeholder="Email"   onClick="" value="" required> -->
+                                                    {{form.email}}
+                                                    {% if form.email.errors %}
+                                                        <p>{{form.email.errors|join:","}}</p>
+                                                    {% endif %}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                <label>Name  * <span class="dec-icon"><i class="fal fa-address-book"></i></span></label>
+                                                <!-- <input name="first_name" type="text"    onClick="" value="{{useredit.first_name}}" required> -->
+                                                {{form.first_name}}
+                                                {% if form.first_name.errors %}
+                                                <p>{{form.first_name.errors|join:","}}</p>
+                                                 {% endif %}
+                                                 <div class="dasboard-widget-title fl-wrap">
+                                                    <h5><i class="fas fa-user-circle"></i>Profile Picture</h5>
+                                                </div>
+                                                 <div class="dasboard-widget-box nopad-dash-widget-box fl-wrap borderforuploadimage">
+                                                    <div class="edit-profile-photo">
+                                                        {% if form.instance.adminpic %}
+                                                       
+                                                        <img src="{% static '{{form.instance.adminpic}}' %}" alt="">
+                                                      {% else %}
+                                                      <img src="{% static 'images/admin.png' %}" alt="">
+                                                        {% endif %}
+
+
+
+                                                        <div class="change-photo-btn">
+                                                            <div class="photoUpload">
+                                                                <span class="blue">  Upload New Photo</span>
+                                                                
+                                                                {{form.adminpic}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                </div>
+                                                </div>
+                                                
+                                             
+                                            
+                                           
+                                                <div class="col-sm-6">
+                                                <label>Choose User * </label>
+                                                <div class="filter-tags" style="align-items: center;">
+                                                    {{form.is_superuser}}
+                                                  
+                                                    {% if form.is_superuser.errors %}
+                                                    <p>{{form.is_superuser.errors|join:","}}</p>
+                                                    {% endif %}
+                                                    <label for="check-a3">Admin</label>
+                                                    
+                                                    
+                                                </div>
+                                                <div class="filter-tags" style="align-items: center;">
+                                                    {{form.is_active}}
+                                                  
+                                                    {% if form.is_active.errors %}
+                                                    <p>{{form.is_active.errors|join:","}}</p>
+                                                    {% endif %}
+                                                    <label for="check-a3">Active</label>
+                                                    
+                                                    
+                                                </div>
+                                                
+
+                                                </div>
+                                            
+                                                <div class="clearfix"></div>
+                                                <button type="submit"  class="log_btn color-bg"> Save </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                   
+
+
+
+                                    {% else %}
+
+
+
+
+                                   
+                                    <div class="dasboard-widget-title fl-wrap">
+                                        <h5><i class="fa fa-user"></i>Add User</h5>
+                                    </div>
+                                    <div class="dasboard-widget-box fl-wrap pesaddmore">
+                                        <div class="custom-form">
+                                            <form method="post"  action="{% url 'add_user' %}">
+                                                {% csrf_token %}
+                                                
+                                                <div class="col-sm-6">
+                                                <label>User Name  * <span class="dec-icon"><i class="fal fa-user"></i></span></label>
+                                                <!-- <input name="username" type="gmail"  placeholder="Email"   onClick="" value="" required> -->
+                                                {{form.username}}
+                                                {% if form.username.errors %}
+                                                    <p>{{form.username.errors|join:","}}</p>
+                                                {% endif %}
+                                                </div>
+                                                   <div class="col-sm-6">
+                                                    <label>Email  * <span class="dec-icon"><i class="fal fa-user"></i></span></label>
+                                                    <!-- <input name="username" type="gmail"  placeholder="Email"   onClick="" value="" required> -->
+                                                    {{form.email}}
+                                                    {% if form.email.errors %}
+                                                        <p>{{form.email.errors|join:","}}</p>
+                                                    {% endif %}
+                                                   </div>
+
+
+                                                <div class="col-sm-6">
+                                                <label>Name  * <span class="dec-icon"><i class="fal fa-address-book"></i></span></label>
+                                                <!-- <input name="first_name" type="text"    onClick="" value="" required> -->
+                                                {{form.first_name}}
+                                                {% if form.first_name.errors %}
+                                                <p>{{form.first_name.errors|join:","}}</p>
+                                                {% endif %}
+                                                <label>Choose User * </label>
+                                                <div class="filter-tags" style="align-items: center;">
+                                                    <!-- <input id="check-a3" type="radio" value="0" name="is_superuser" > -->
+                                                    {{form.is_superuser}}
+                                                  
+                                                    {% if form.is_superuser.errors %}
+                                                    <p>{{form.is_superuser.errors|join:","}}</p>
+                                                    {% endif %}
+                                                    <label for="check-a3">Admin</label>
+                                                    <!-- <label for="check-a3">Manager</label> -->
+                                                    <!-- <input id="check-a3" type="radio" value="1" name="is_superuser"> -->
+                                                    
+                                                </div>
+                                                <div class="filter-tags" style="align-items: center;">
+                                                    <!-- <input id="check-a3" type="radio" value="0" name="is_superuser" > -->
+                                                    {{form.is_active}}
+                                                  
+                                                    {% if form.is_active.errors %}
+                                                    <p>{{form.is_active.errors|join:","}}</p>
+                                                    {% endif %}
+                                                    <label for="check-a3">Active</label>
+                                                    <!-- <label for="check-a3">Manager</label> -->
+                                                    <!-- <input id="check-a3" type="radio" value="1" name="is_superuser"> -->
+                                                    
+                                                </div>
+                                                </div>
+                                                
+                                                <div class="col-sm-6">
+                                                <div class="pass-input-wrap fl-wrap">
+                                                    <label >Password  * <span class="dec-icon"><i class="fal fa-key"></i></span></label>
+                                                    <!-- <input name="password1" type="password"  autocomplete="off" onClick="" value="" > -->
+                                                    {{form.password1}}
+                                                    {% if form.password1.errors %}
+                                                <p>{{form.password1.errors|join:","}}</p>
+                                                    {% endif %}
+                                                    <span class="eye"><i class="fal fa-eye"></i> </span>
+                                                </div>
+                                                <div class="pass-input-wrap fl-wrap">
+                                                    <label >Confirm Password  * <span class="dec-icon"><i class="fal fa-shield-check"></i></span></label>
+                                                    <!-- <input name="password2" type="password"  autocomplete="off" onClick="" value="" > -->
+                                                    {{form.password2}}
+                                                    {% if form.password2.errors %}
+                                                    <p>{{form.password2.errors|join:","}}</p>
+                                                {% endif %}
+                                                    <span class="eye"><i class="fal fa-eye"></i> </span>
+                                                </div>
+                                                
+                                            </div>
+                                           
+                                            <div class="col-sm-6">
+                                               
+                                                
+                                                <div class="dasboard-widget-box nopad-dash-widget-box fl-wrap borderforuploadimage">
+                                                    <div class="edit-profile-photo">
+                                                      
+                                                       
+                                                        <img src="{% static 'images/admin.png' %}" alt="">
+                                                      
+                                                        <div class="change-photo-btn">
+                                                            <div class="photoUpload">
+                                                                <span class="blue">  Upload New Photo</span>
+                                                                <!-- <input type="file" class="upload"> -->
+                                                                {{form.adminpic}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                </div>
+                                            </div>
+                                           
+                                                <div class="clearfix"></div>
+                                                <button type="submit"  class="log_btn color-bg"> Create </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                   
+                                    <div class=" ">
+                                    <div class="dasboard-widget-title fl-wrap margin-top">
+                                        <h5><i class="fa fa-address-book"></i>Users</h5>
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="dasboard-widget-box fl-wrap">
+                                        <div class="row">
+                                          {% for  user in  user_check  %} 
+                                          <div class="col-md-4">
+                                            <form method="POST" action="{% url 'edit_department' pk=user.id %}" enctype="multipart/form-data">
+                                              <div class="custom-form">
+                                                {% csrf_token %}
+                                                <div class="pass-input-wrap fl-wrap">
+                                                  <label><span class="dec-icon"><a href="{% url 'edit_user' user.id %}"><i class="fal fa-edit color-blue" ></i></a></span></label>
+                                                  <input type="text" id="department_text_{{forloop.counter}}" class="pass-input" name="department_input" value="{{ user.first_name }}" readonly>
+                                                  <input id="department_id" value="{{department.id}}" hidden>
+                                                  <span class="eye"><a href="{% url 'delete_user' pk=user.id %}" class="tolt" data-microtip-position="top-left" data-tooltip="Delete"><i class="far fa-trash-alt color-blue"></i></a></span>
+                                                </div>
+                                                <span><input id="department_save_{{forloop.counter}}" class="btn color-bg float-btn" type="submit" value="Save Changes" style="display:none;"></span>
+                                              </div>
+                                            </form>
+                                          </div>
+                                          {% endfor %}
+                                        </div>
+                                      </div>
+                                      
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                               
+                                
+                            </div>
+                        </div>
+                        <!-- dasboard-wrapper end -->	
+                    </div>
+                    		
+                </div>
+                <!-- content end -->	
+                <div class="dashbard-bg gray-bg"></div>
+            </div>
+            <!-- wrapper end -->
+        
+
+{% endblock content %}
+
+        

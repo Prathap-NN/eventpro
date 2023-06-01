@@ -866,11 +866,18 @@ $('.fuzone input').each(function () {
     });
 });
 //   Dashboard ------------------
+
+
 $('.add-room-item').on('click', function (e) {
     e.preventDefault();
+    
+    console.log('yooooooo');
     var newElem = $(this).parents(".add_room-item-wrap").find('.add_room-item').first().clone(),
         parclone = $(this).parents(".add_room-item-wrap").find(".add_room-container");
     newElem.find('input').val('');
+    if($(this).attr("id")=="edit-room-container"){
+    newElem.find("[name*='contact_id[]']").attr("value","dummy")
+    }
     newElem.appendTo(parclone);
     $('.fuzone input').each(function () {
 
@@ -887,12 +894,10 @@ $('.add-room-item').on('click', function (e) {
 
         });
     });
-    $(".remove-rp").on('click', function () {
-        $(this).parents(".add_room-item:not(:first-child)").remove();
-    });
 });
-$(".remove-rp").on('click', function () {
-    $(this).parents(".add_room-item").remove();
+
+$(document).on('click', '.remove-rp', function() {
+    $(this).closest('.add_room-item').remove();
 });
 
 $(".show-popup-form").on('click', function (ex) {
@@ -970,3 +975,8 @@ $(document).ready(function () {
     initparallax();
 });
 
+
+function process_submit(){
+    $('.create_event_form').append($('.contact_room_container'));
+    return true
+}

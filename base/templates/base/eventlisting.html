@@ -1,0 +1,132 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Events Listing - PES University{% endblock title %}
+{% static 'Uploads' as baseUrl %}
+ {% block content%}
+
+ <!-- wrapper  -->	
+ <div id="wrapper">
+    <!-- dashbard-menu-wrap -->
+    <div class="dashbard-menu-overlay"></div>
+    {% include 'sidebar.html' %} 
+    <!-- dashbard-menu-wrap end  -->		
+    <!-- content -->	
+    <div class="dashboard-content">
+        
+        <div class="container dasboard-container">
+            <!-- dashboard-title -->	
+            <div class="dashboard-title fl-wrap">
+                <div class="dashboard-title-item"><span>Event Listing</span></div>
+                <div class="dashbard-menu-header">
+                    <div class="dashbard-menu-avatar fl-wrap">
+                        <img src="{% static 'images/admin.png' %}" alt="">
+                        <h4>Welcome, <span>{{ request.user | title }}</span></h4>
+                    </div>
+                    <a href="{% url 'logout' %}" class="log-out-btn   tolt" data-microtip-position="bottom"  data-tooltip="Log Out"><i class="far fa-power-off"></i></a>
+                </div>
+            					
+            </div>
+            <!-- dashboard-title end -->	
+            <div>	
+            <div class="dasboard-wrapper fl-wrap">
+                
+                
+               
+                    <!-- dashboard-listings-wrap-->
+                    <div class="dashboard-listings-wrap fl-wrap">
+                       
+                        <div class="row">
+                            
+                            <!-- dashboard-listings-item-->
+                             {% for recent_event1 in recent_events2.object_list %} 
+                            <div class="col-md-6">
+                                <div class="dashboard-listings-item fl-wrap">
+                                    <div class="dashboard-listings-item_img">
+                                        {% if recent_event1.featured_img %}
+                                            <div class="bg-wrap">
+                                                <div class="bg" data-bg="{{ recent_event1.featured_img.url }}"></div>
+                                            </div>
+                                        {% else %}
+                                            <img src="{% static 'images/deafaultimage/default-image.jpg' %}">
+                                            <!-- <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 150%; max-width: 100%; max-height: 100%;">
+                                                <h1>{{ event.title }}</h1>
+                                            </div> -->
+                                        {% endif %}
+                                        <div class="overlay"></div>
+                                        <a href="{% url 'single-event' recent_event1.id %}" class="color-bg">View</a> 
+                                    </div>
+                                    
+                                    
+                                    <div class="dashboard-listings-item_content">
+                                        <h4><a href="{% url 'single-event' recent_event1.id %}"></a>{{recent_event1.title | truncatewords:5}}</h4>
+                                        {% if recent_event1.address and recent_event1.address.strip or recent_event1.is_online_event == "Yes" %}
+                                        <div class="geodir-category-location">
+                                            {% if recent_event1.is_online_event == "Yes" %}
+                                            <a class="colorforrecentpes" href="#"><i class="fas fa-map-marker-alt"></i> <span> Online</span></a>
+                                            {% elif recent_event1.is_online_event != "No" and recent_event1.address.strip %}
+                                            <a class="colorforrecentpes" href="#"><i class="fas fa-map-marker-alt"></i> <span>{{ recent_event1.address | truncatewords:5 }}</span></a>
+                                            {% else %}
+                                            {% if recent_event1.campus %}
+                                            <a href="#" class="colorforrecentpes"><i class="fas fa-map-marker-alt"></i> <span>{{recent_event1.campus | truncatewords:5 }}</span></a>                                                
+                                            
+                                            {% endif %}
+                                            {% endif %}
+                                        </div>
+                                        {% endif %}
+                                        <div class="clearfix"></div>
+                                        <div class="dashboard-listings-item_opt">
+                                            
+                                            <div class="viewed-counter"><i class="fas fa-eye"></i> Viewed -  {{recent_event1.view_count}}</div>
+                                             <ul>
+                                                <li><a href="{% url 'edit-event' recent_event1.id %}"  data-microtip-position="top-left"  data-tooltip="Edit"><i class="far fa-edit"></i></a></li>
+                                                <li><a href="{% url 'delete' recent_event1.id %}"  data-microtip-position="top-left"  onclick="return confirm('Are you sure you want to delete this?')"><i class="far fa-trash-alt"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}               
+                        </div>
+                    </div>
+                    <!-- dashboard-listings-wrap end-->
+                </div>
+                <center>
+                    <style type="text/css">
+                        .paginator-li {
+                            list-style: none;
+                            display: inline;
+                            margin-top: 20px;
+                        }
+                    </style>
+                    <div class="pagination " style="margin-top: 1%; margin-bottom: 0%; ">
+                
+                        {%if recent_events2.has_previous %} <a href="?page={{recent_events2.previous_page_number}}" class="prevposts-link"><i
+                                class="fa fa-caret-left"></i></a>
+                        {% endif %} {% if recent_events2.has_previous %}
+                        
+                        {% endif %} {% for n in recent_events2.paginator.page_range %} {% if recent_events2.number == n %} <li class="paginator-li ">
+                            <span class="page-numbers "><a class="current-page">{{ n }}</a></span></li> 
+                            {% elif n > recent_events2.number|add:'-3' and n < recent_events2.number|add:'3' %} <li class="paginator-li"><a class="paginator-li"
+                                href="?page={{ n }}">{{ n }}</a></li>
+                            {% endif %} 
+                            {% endfor %}
+                             {% if recent_events2.has_next %}                ....                <li class="paginator-li">     
+                                             <a class="paginator-li" href="?page={{ recent_events2.paginator.num_pages }}" aria-label="Next">      
+                                                            <span aria-hidden="true">{{ recent_events2.paginator.num_pages }}</span>     
+                                                                         <span class="sr-only">end</span>                  </a>                </li>                {% endif %} 
+                            {%if recent_events2.has_next %} <a href="?page={{recent_events2.next_page_number}}" class="nextposts-link"><i
+                                    class="fa fa-caret-right"></i></a> {% endif %}
+                    </div>
+                </center>
+                <!-- pagination end-->	
+            </div>
+        </div>
+        
+    </div>
+    <!-- content end -->	
+    <div class="dashbard-bg gray-bg"></div>
+</div>
+<!-- wrapper end -->
+</div>
+<!-- Main end -->
+ {% endblock content%}

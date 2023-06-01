@@ -50,3 +50,295 @@ span.mr-1 {
   padding-right: 6px !important;
   color: #7d93b2 !important;
 }
+.bganimation {
+	/* background: linear-gradient(-35deg, #da251c, #ef7f1a, #313c71, #da251c); */
+	background: linear-gradient(-35deg, #002699, #1a53ff, #fa0015, #fa6c00);
+	background-size: 300% 300%;
+	animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+.custom-icon-class {
+  color: #ffffff !important; /* Set icon color to white */
+  font-size: 17px; /* Increase icon size */
+}
+.tags-list {
+  float: left;
+  color: #ffffff;
+}
+
+.tag-item {
+  display: inline-block;
+  /* margin-right: 10px; */
+  color: #ffffff;
+}
+
+.stats-list {
+  float: right;
+}
+
+.custom-icon-class {
+  /* Customize the icon styles here */
+  color: #ffffff;
+  font-size: 16px;
+  vertical-align: text-top;
+}
+.fw-breadcrumbs-1 {
+  background-color: none !important;
+  background: none !important;
+  box-shadow: 0px !important;
+  box-shadow: 0px 0px 0px 0px;
+  border-bottom: 0px;
+  border-top: 0px;
+  padding: 0px 0px 0px 0px  !important;
+}
+.container-band {
+ width:100% !important;
+}
+.breadcrumbs-list-1 a:first-child:before {
+  display: none; 
+}
+
+
+.breadcrumbs-list-3 a, .breadcrumbs-list-3 span {
+  color: #ffffff !important;
+  top: 21px !important;
+  margin-right: 4px !important;
+    padding-right: 0px !important;
+    margin-left: 3px;
+}
+
+
+.like-btn-2 {
+  border: 0px !important;
+  background: none !important;
+  box-shadow: 0 0px 0px !important;
+  color:white !important;
+  padding: 5px 0px  !important;
+
+}
+.like-btn-22 {
+  border: 0px !important;
+  background: none !important;
+  } 
+  .custom-icon-class.active {
+    color: red;
+}
+/* .pesfooterborder {
+border-bottom: 1px solid rgba(255,255,255,0.2) !important;
+}
+   */
+.default-text {
+    position: absolute;
+    top: 28%;
+    left: 50%;
+    transform: translate(-156%, 70%);
+    font-size: 200%;
+    max-width: 100%;
+    max-height: 100%;
+    color: #144273;
+    z-index: 10;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .default-text {
+      font-size: 100%; /* Update the font-size value to make it responsive */
+      top: 24%; /* Update the top value to center vertically */
+      transform: translate(-46%, -49%); /* Update the translation value to center both horizontally and vertically */
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1024px) {
+  .default-text {
+      font-size: 131%; /* Update the font-size value to make it responsive */
+      top: 46%; /* Update the top value to center vertically */
+      transform: translate(-163%, -105%);
+  }
+}
+@media (min-width: 320px) and (max-width: 1024px) {
+  .defaultpesuimage {
+    width: 100%; /* Update the font-size value to make it responsive */
+      top: 46%; /* Update the top value to center vertically */
+      transform: translate(-163%, -105%);
+      height: auto; /* Update the height value to make it adjust automatically */
+      bottom: initial; /* Remove the bottom property */
+      left: 0px !important;
+      bottom: 0px !important
+  }
+}
+.defaultpesuimage {
+  width: 100%; /* Update the width value to make it responsive */
+  height: auto; /* Update the height value to make it adjust automatically */
+  bottom: initial; /* Remove the bottom property */
+  left: 0px !important;
+  bottom: 0px !important;
+}
+.browseresult{
+  width: 100%;
+  padding-bottom: 37px;
+}
+.hide-title-preevent{
+  display: none;
+}
+.pesaddmore {
+  margin-bottom: 30px;
+}
+.singleeventtitlespace  {
+  padding-bottom: 10px !important;
+}
+.custom-icon-class.fas {
+  color: red; /* Change to the desired color for liked state */
+}
+.likeviewsize {
+  font-size: 14px !important;
+}
+.fa-heart {
+  color: inherit;
+}
+
+.fa-heart {
+  color: inherit;
+}
+
+.fa-solid.fa-heart {
+  color: inherit;
+}
+
+.fa-solid.fa-heart.fa-sharp {
+  color: red;
+}
+.departmentspace {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.color-blue {
+  color: rgb(107, 125, 252) !important;
+}
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(36%) sepia(64%) saturate(4568%) hue-rotate(227deg) brightness(96%) contrast(88%);
+}
+.pesdescriptionalign {
+  display: flex;
+  justify-content: center;
+
+
+}
+.eventbandspace {
+  margin-top: 18px;
+  color:#ffffff !important;
+  margin-bottom: 8px;
+}
+.iconpes {
+  vertical-align: top;
+  padding-top: 3px;
+  margin-right: 2px;
+}
+.btn {
+  padding:15px 40px ;
+  color:#fff;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 12px;
+  margin-top: 15px;
+font-family: 'Noto Sans', sans-serif;
+}
+.linkfloat {
+  float: none !important;
+}
+
+.whitecolor {
+  color: #ffffff !important;
+}
+.blue{
+  color: #002699;
+}
+.anchormargin{
+  margin-bottom: 10px !important;
+  font-size:15px !important;
+  font-weight: 500;
+  display: flex;
+}
+
+.anchorfontpes{
+  font-size: 15px !important;
+}
+.marginpes{
+  margin-bottom: 14px;
+  
+}
+.ssw-btn1 {
+  width:20px !important;
+	height:25px !important;
+	line-height:28px !important;
+} 
+
+.verticalband {
+  vertical-align: middle;
+  margin-right: 5px;
+  padding-top: 4px;
+}
+.likeview {
+  padding:20px 0 0;
+  border-top: none !important;
+  margin-top: 0px !important;
+}
+
+.footerspaceremoved{
+  padding: 0px 0 0 !important;
+  border-bottom: none !important;
+  margin-top: 15px !important;
+  border-top: none !important;
+}
+.color-orange{
+	color: #ef7f1a !important;
+	font-weight: 500 !important;
+}
+ /* .default-image {
+  position: relative;
+  display: inline-block;
+}*/
+
+
+
+.title-overlay {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%; /* limit the width of the title text */
+  text-align: center;
+  color: #ffffff;
+  max-height: 100%;
+  overflow-wrap: break-word; /* break long words if they don't fit on one line */
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 100% !important;
+}
+.colorforrecentpes {
+  color: #144273 !important;
+}
+
+hr {
+  height: 0px !important;
+  /* display: none !important; */
+}
+.Ubottom-border {
+  border-bottom: 1px solid #ccc !important;
+  margin-top: 10px 0px 0px 0px!important; /* Adjust as needed */
+}
+
+

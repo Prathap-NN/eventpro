@@ -89,15 +89,37 @@ DATABASES = {
          'HOST': 'localhost',
 
         #  'NAME': 'eventsdb',
-         'NAME': 'newevent',
+        #  'NAME': 'newevent',
+            # "NAME":'crossdb',
+              'NAME': 'events.pes.edu',
 
          'USER': 'root',
 
          'PASSWORD': '',
+         
 
          'PORT': '3306',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#          'ENGINE': 'django.db.backends.mysql',
+
+#          'HOST': '/cloudsql/python-385104:us-central1:myinstance',
+
+#         #  'NAME': 'eventsdb',
+#         #  'NAME': 'newevent',
+#             # "NAME":'crossdb',
+#               'NAME': 'events.pes.edu',
+
+#          'USER': 'uj',
+
+#          'PASSWORD': '123',
+
+         
+#     }
+# }
 
 
 # Password validation
@@ -133,23 +155,24 @@ TIME_INPUT_FORMATS = ['%H:%M:%S', '%H:%M']
 TIME_FORMAT = 'H:i:s'
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# STATIC_URL = '/static/'
-# MEDIA_URL='/images/'
-# MEDIA_ROOT=os.path.join(BASE_DIR,'images')
+# STATIC_URL = '/images/'  # Example static URL
+# STATICFILES_DIRS = [BASE_DIR / 'static']  # Example static files directory
+# STATIC_ROOT = BASE_DIR / 'assets'  # Example static files root directory
 
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
-STATIC_URL = '/static/'
+# MEDIA_URL = '/static/images/Uploads/'  # Update media URL to avoid overlapping with STATIC_URL
+# MEDIA_ROOT = BASE_DIR /'static/images/'
+
+
+STATIC_URL = 'static/'
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
-STATIC_ROOT = BASE_DIR / 'assets'
+
 MEDIA_URL = 'images/Uploads/'
-MEDIA_ROOT = BASE_DIR / 'static/images/'
+
+MEDIA_ROOT = BASE_DIR / 'static/images/Uploads/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -157,6 +180,13 @@ MEDIA_ROOT = BASE_DIR / 'static/images/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# CKEDITOR_CONFIGS = {
+# 'default': {
+#     'toolbar': None, #You can change this based on your requirements.
+#     'width': 'auto',
+
+#           },
+#     }
 CKEDITOR_CONFIGS = {
     'default': {
      
@@ -166,35 +196,12 @@ CKEDITOR_CONFIGS = {
         #     ['Source', '-', 'Bold', 'Italic']
         # ],
         'toolbar_Custom': [
-            {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
-            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
-            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
-            {'name': 'forms',
-             'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
-                       'HiddenField']},
-            '/',
-            {'name': 'basicstyles',
-             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
-            {'name': 'paragraph',
-             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
-                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
-                       'Language']},
-            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
-            {'name': 'insert',
-             'items': ['Image', 'Youtube','Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
-            '/',
-            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
-            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
-            {'name': 'about', 'items': ['CodeSnippet']},
-            {'name': 'about', 'items': ['About']},
-            '/',  # put this to force next toolbar on new line
-            {'name': 'yourcustomtools', 'items': [
-                # put the name of your editor.ui.addButton here
-                'Preview',
-                'Maximize',
-
-            ]},
+            {'name':
+              'document', 'items': ['Source', '-','Preview', 'Templates','Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat','NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl','Language','Link', 'Unlink', 'Anchor','Styles', 'Format', 'Font', 'FontSize','TextColor', 'BGColor']},
+         
+           
+        
         ],
         'toolbar': 'Custom',  # put selected toolbar config here
         'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],

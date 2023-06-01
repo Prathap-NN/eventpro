@@ -9,17 +9,15 @@
                 <!-- footer widget-->
                 <div class="col-md-3">
                     <div class="footer-widget fl-wrap">
-                        <div class="footer-widget-logo fl-wrap">
+                        <div class="footer-widget-logo fl-wrap pesfooterborder">
                             <img src="{% static 'images/PESU-new-logo.png' %}" alt="">
                         </div>
-                        <div class="footer-widget-title fl-wrap">
+                        <!-- <div class="footer-widget-title fl-wrap">
                             <h4><b>PES University</b></h4>
-                        </div>
+                        </div> -->
                       
-                        <div class="fw_hours fl-wrap">
-                            
-                            
-                            <p><b>Outer Ring Rd, Banashankari 3rd Stage, Banashankari, Bengaluru, Karnataka-560085</b></p>
+                        <div class="fw_hours fl-wrap "> 
+                            <p style="font-size: 13px !important;padding-top: 20px !important;">100 Feet Ring Road,<br> BSK III Stage,<br>Bengaluru-560085</br></p>
                         </div>
                     </div>
                 </div>
@@ -32,9 +30,10 @@
                             <h4>Browse by Campus</h4>
                         </div>
                         <ul class="footer-list fl-wrap">
-                            <li><a href="{% url 'browse_campus' key='PES University RR Campus' %}">PESU RR Campus</a></li>
-                            <li><a href="{% url 'browse_campus' key='PES University EC Campus' %}">PESU EC Campus</a></li>
-                            <li><a href="{% url 'browse_campus' key='PES University HN Campus' %}">PESU HN Campus</a></li>
+                            <li><a href="{% url 'browse_campus' 'PES University RR Campus,RR Campus' %}">PESU RR Campus</a></li>                          
+                            
+                            <li><a href="{% url 'browse_campus' 'PES University EC Campus,EC Campus' %}">PESU EC Campus</a></li>
+                            <li><a href="{% url 'browse_campus' 'PES University HN Campus,HN Campus' %}">PESU HN Campus</a></li>
                             
                         </ul>
                     </div>
@@ -71,11 +70,11 @@
                         <div class="api-links fl-wrap">
                             
                            
-                            <a href="{% url 'ribbon' key='Upcoming' %}" class="api-btn color-bg"><i class="fas fa-arrow-up"></i>UPCOMING</a>
+                            <a href="{% url 'ribbon' key='Upcoming' %}" class="api-btn color-bg"><i class="far fa-arrow-up"></i>UPCOMING</a>
                             
-                            <a href="{% url 'ribbon' key='Ongoing' %}" class="api-btn color-bg"><i class="fas fa-sync-alt"></i> ONGOING</a>  
+                            <a href="{% url 'ribbon' key='Ongoing' %}" class="api-btn color-bg"><i class="far fa-sync-alt"></i> ONGOING</a>  
                            
-                            <a href="{% url 'ribbon' key='Previous' %}" class="api-btn color-bg"><i class="fas fa-arrow-left"></i>PREVIOUS</a>
+                            <a href="{% url 'ribbon' key='Previous' %}" class="api-btn color-bg"><i class="far fa-arrow-left"></i>PREVIOUS</a>
                             
                         </div>
                     </div>

@@ -7,10 +7,13 @@ from ckeditor.fields import RichTextField
 
 
 
+
 class Events(models.Model):
     title = models.CharField(max_length=200)
     # name = models.CharField(max_length=200)
-    description = models.CharField(max_length=191, blank=True, null=True)
+    
+    contact_name = models.CharField(max_length=200,blank=True, null=True)
+    description = models.CharField(max_length=300, blank=True, null=True)
     email = models.CharField(max_length=191, blank=True, null=True, default='')
     about = RichTextField(blank=True, null=True)
     event_start_date = models.DateField(blank=True, null=True)
@@ -29,8 +32,7 @@ class Events(models.Model):
     instagram = models.CharField(max_length=191, blank=True, null=True)
     twitter = models.CharField(max_length=191, blank=True, null=True)
     featured_img = models.ImageField(blank=True, null=True)
-    attachment = models.CharField(max_length=200,blank=True,null=True)
-    # Speakermail = models.CharField(max_length=191, blank=True, null=True)
+    attachment = models.CharField(max_length=200,blank=True,null=True)    
     attachment = models.TextField(blank=True, null=True)
     view_count = models.IntegerField(default=0, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True,blank=True, null=True)
@@ -44,23 +46,34 @@ class Events(models.Model):
     publish = models.CharField(max_length=20, blank=True, null=True)
     # google_map = models.CharField(max_length=15, blank=True, null=True)
     num_likes = models.IntegerField(blank=True,null=True,default=1)
+    status = models.CharField(max_length=20, choices=(('draft', 'Draft'), ('published', 'Published'), ('archived', 'Archived')), default='draft')
+    is_published = models.BooleanField(default=False)
+    is_archived = models.BooleanField(default=False)
+    # contact_details= models.JSONField(default=dict(name="", email="", phone_number=""))
 
     
-       
+   
 
+    # other methods here
+
+    class Meta:
+        ordering = ['-date_created']
+    
+  
 
     def __str__(self):
           return self.title
+    @classmethod
+    def total_events(cls):
+        return cls.objects.count()
     
-    def num_likse(self):
-         return self.num_likes.all().count()
+   
 
     class Meta:
         ordering = ['-updated_at', '-created_at']
     
    
-        # managed = False
-        # db_table = 'events'
+
        
 class Campus(models.Model): 
     campuses = models.CharField(max_length=191, blank=True, null=True)
@@ -72,9 +85,21 @@ class Pictures(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True,blank=True, null=True)
 
+class Contacts(models.Model):
+    event = models.ForeignKey(Events,on_delete=models.CASCADE,blank=True, null=True)
+    name =  models.CharField(max_length=50)
+    phone = models.CharField(max_length=20)
+    email = models.CharField(max_length=50)
+    
+
+
+
 class Speakers(models.Model):
     event = models.ForeignKey(Events,on_delete=models.CASCADE,blank=True, null=True)
+    speakermail = models.CharField(max_length=191, blank=True, null=True)
     name = models.CharField(max_length=191)
+    designation = models.CharField(max_length=191)
+    contact = models.CharField(max_length=191)
     profile_pic = models.ImageField(upload_to='speakers/',max_length=191)
     about = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True,blank=True, null=True)
@@ -92,3 +117,23 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
+class Tag(models.Model):
+    name = models.CharField(max_length=255,blank=True, null=True)
+    def __str__(self):
+        return self.name
+
+class Campus(models.Model):
+    name = models.CharField(max_length=255,blank=True, null=True)
+    def __str__(self):
+        return self.name    
+    
+class Location(models.Model):
+    name = models.CharField(max_length=255,blank=True, null=True)
+    def __str__(self):
+        return self.name   
+    
+class Platform(models.Model):
+    name = models.CharField(max_length=255,blank=True, null=True)
+    def __str__(self):
+        return self.name   
+    

@@ -1,52 +1,50 @@
 {% extends 'main.html' %}
-{% load filter_tags %}
 {% load static %}
-{% static '' as baseUrl %}
+{% load filter_tags %}
+{% block title %}{% if event.description %}{{ event.title |title }} - {{ event.description }}{% else %}{{ event.title |title}} - {{ event.about | striptags | replace_nbsp | truncatewords:13 }}{% endif %}{% if not event.description or event.about  %}  PES University {% endif %}{% endblock title %}
+
 
  {% block content %}
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+ 
  
  <div id="wrapper">
     <!-- content -->	
     <div class="content">
         {% csrf_token %}
-        <section class="hidden-section   single-hero-section" data-scrollax-parent="true" id="sec1">
-            <div class="bg-wrap bg-parallax-wrap-gradien">
-                <div class="bg par-elem" style="background-color: rgb(49, 60, 113);" data-scrollax="properties: { translateY: '30%' }"></div>
-            </div>
-            
-            
-            <div class="container">
-               
-                
-                    <div class="card-info smpar fl-wrap" style="margin-bottom:12px;border-bottom: 1px solid rgba(255,255,255,0.2);">
-                        
-                        <!-- <div class="box-widget-menu-btn smact share-holder hid-share"> -->
-                            
-                                 <!-- <i class="fal fa-share-alt share-btn showshare sfcs vis-butsh" style="color: #ffffff;"></i>  -->
-                                <!-- <div class="share-container  isShare"></div> -->
-                            
-                        <!-- </div> -->
-                        
-                        <div class="show-more-snopt-tooltip bxwt">
-                            
-                          
-                        </div>
-                        <div class="bg-wrap bg-parallax-wrap-gradien">
-                            <div class="bg"  data-bg="images/bg/1.jpg"></div>
-                        </div>
 
-                     {% if event.featured_img %}
-                        <div class="card-info-media">
-                            <div class="bg"  data-bg="{{event.featured_img.url}}"></div>
-                        </div>
-                     {% endif %}
-                       
+        <section class="hidden-section   single-hero-section" data-scrollax-parent="true" id="sec1">
+            <div class="bg-wrap bg-parallax-wrap-gradien bganimation">
+                <div class="bganimation par-elem"  data-scrollax="properties: { translateY: '30%' }"></div>
+            </div>
+            <div class="container">
+                  
                  
-                        <div class="card-info-content">
-                            {% now "Y-m-d" as todays_date %}
-                            <div class="list-single-opt_header fl-wrap" style="z-index: 1;">
+            <div class="row">
+                <div class="col-md-12">
+                   
+                    <div class="listing-item-container one-column-grid-wrap  box-list_ic agency-list fl-wrap">
+                        <!--  agecy card item -->
+                        <div class="listing-item pesborderbottom">
+                            <article class="geodir-category-listing fl-wrap">
+                                <div class="geodir-category-img fl-wrap">
+                                    {% if event.featured_img %}
+                                    
+                                    <img src="{% static  'images/Uploads/' %}{{ event.featured_img }}" alt="">  
+                                    {% else %}
+                                    <img src="{% static 'images/deafaultimage/default-image.jpg' %}"/>
+                                    <div class=" title-overlay"><h1>{{event.title | title}}</h1></div>
+                                    {% endif %}
+                                </div>
+                                <div class="geodir-category-content geodir-category-content1 fl-wrap  ">
+                                    <div class="card-verified  eventbandspace" >
+                                        <div class="like-button" data-event-id="{{ event.id }}">
+                                            <i class="far fa-heart" id="slider-heart" style="font-size: 20px;"></i>
+                                            <span style="display: none;" class="like-count">{{ event.num_likes }}</span>
+                                        </div>
+                                    </div>
+                                      {% now "Y-m-d" as todays_date %}
+                            <div class="list-single-opt_header fl-wrap eventbandspace" style="z-index: 1;">
                                 <ul class="list-single-opt_header_cat">
                                   {% if todays_date < event.event_start_date|date:"Y-m-d" %}
                                   <li> <a href="#" class="cat-opt" style="background-color: red;">UPCOMING</a></li>
@@ -57,141 +55,103 @@
                                   {% endif %}
                                 </ul>
                               </div>
-                            <div class="agent_card-title fl-wrap">
-                                <h4> {{event.title}}  
-                                  </h4>
-                                <div class="geodir-category-location fl-wrap" style="margin-bottom:10px">
-                                    {% if event.description and event.description != "None" %}
-                                    <h2> <a href="#"><i class="fal fa-comment-alt-lines" style="font-weight: bold;"></i> {{event.description}}</a> </h2>
-                                    {% endif %}
+                              <div class="list-single-header-item no-bg-list_sh fl-wrap">
+                                <div class="row">
+                                    <div class="col-md-12 agent_card-title whitecolor">
+                                    {% if event.title %}
+                                    <h4 class="marginpes"> 
+                                        {% for word in event.title|split:" " %}
+                                            {{ word }}
+                                            {% if forloop.counter|divisibleby:6 and not forloop.last %}<br>{% endif %}
+                                        {% endfor %}
+                                    </h4>
+                                        {% endif %}
+                                        {% if event.description and event.description != "None" %}
+                                        <div class="geodir-category-location  fl-wrap">
+                                          <a href="#" class="anchormargin parent-element">
+                                            <i class="fal fa-comment-alt-lines whitecolor verticalband " ></i> 
+                                            {% for word in event.description|split:" " %}
+                                            {{  word }}
+                                            {% if forloop.counter|divisibleby:5 and not forloop.last %}{% endif %}
+                                            {% endfor %}
+                                          </a> 
+                                        </div>
+                                        {% endif %}
+
+                                        <div class="geodir-category-location fl-wrap ">
+                                            <a href="#" class="anchormargin ">
+                                                <i class="fal fa-calendar-check whitecolor verticalband "></i>
+                                                {% if event.event_start_date %}
+                                                {{ event.event_start_date }}
+                                                {% endif %}
+                                            
+                                                {% if event.event_end_date %}
+                                                - {{ event.event_end_date }}
+                                                {% endif %}
+                                                
+                                                {% if event.event_start_time  %}
+                                                <a class="anchormargin">
+                                                    {% if event.event_start_time != "NULL" %}
+                                                    <i class="fal fa-clock whitecolor verticalband pesiconadjust"></i>
+                                                    {{ event.event_start_time|time:"h:i A" }}
+                                                    {% if event.event_end_time %} - {{event.event_end_time|time:"h:i A"}}
+                                                    {% endif %} </a>
+                                                {% endif %}
+                                                {% endif %}
+                                            </a>
+                                      
+                                          {% if event.address and event.address.strip and event.is_online_event == "Yes" %}
+                                          <div class="geodir-category-location fl-wrap ">
+                                            <a  class="anchormargin">
+                                            <i class="fal fa-map-marker-alt whitecolor verticalband " ></i>
+                                              <span>Online  </span>
+                                              {% with my_list=event.address|split:"," %}
+                                              {% if not my_list.1 == "Others"  %}
+                                              <span> &nbsp;Watch on {{ my_list.1 }} </span>
+                                              {% endif %}
+                                              <a href="{{ my_list.0 }}" target="blank"><i class="fas fa-external-link-alt verticalband whitecolor"></i></a>
+                                              {% endwith %}
+                                            </a> 
+                                          </div>
+                                          {% elif event.address and event.address.strip %}
+                                          <div class="geodir-category-location fl-wrap">
+                                            <a  class="anchormargin"><i class="fal fa-map-marker-alt whitecolor verticalband "  ></i>{{event.address}}</a> 
+                                          </div>
+                                          {% endif %}
+                                        </div>
+                                      </div>
                                 </div>
-                                <div class="geodir-category-location fl-wrap">
-                                    {% if event.address and event.address.strip %}
-                                    <a href="#"><i class="fas fa-map-marker-alt"></i> {{event.address}}</a>  
-                                    
+                                </div>
                                 </div>  
-                              
-                                <div class="geodir-category-location fl-wrap">
-                                
-                                    <a href="#"><i class="far fa-calendar-check" style="font-weight: bold;"></i><span> </span>{% if event.event_start_date %} 
-                                        {{event.event_start_date}}
-                                         {% endif %}- 
-                                         {% if event.event_end_date %}
-                                         {{event.event_end_date}}
-                                         {% endif %}</a> 
-                                    
-                                         {% if event.event_start_time %}
-                                         <a href="#">{% if event.event_start_time != "NULL" %}
-                                             <i class="fas fa-clock"></i><span> </span> 
-                                             {{ event.event_start_time }}
-                                             {% if event.event_end_time %} - {{event.event_end_time}}
-                                             {% endif %} </a> 
-                                             {% endif %}
-                                             {% endif %} 
-                                </div>                              
-                                {% endif %}
-                            </div>
-                         
-                           
-                             
-                         
-                         
+                            </article>
                         </div>
-
-                    </div>
-                    
-                    <div class="list-single-stats" style="padding-bottom: 25px;padding-top: 4px;">
-                        <ul class="no-list-style">
-                            <li><span class="viewed-counter"><i class="fas fa-tag"></i> Virtual Seminar</span></li>
+                        <div class="geodir-category-footer  footerspaceremoved fl-wrap">
                             
-                            
-                        </ul>
-                       
-                        <!-- <div class="card-verified tolt" id="like" name="{{event.id}}" id="num_likes_count"  value="like" data-microtip-position="left" data-tooltip="Like" data-event-id="{{ event.id }}">
-                            <i class="far fa-heart"></i>
-                          </div>  -->
-                    </div>
-                    <ul class="list-single-stats" style="float: right;">
-                        
-                        <li><span class="viewed-counter"><i class="fas fa-eye"></i> Viewed -  {{event.view_count}} </span></li>
-                            <li><span class="bookmark-counter"><i class="fas fa-heart" style="color:rgb(66,81,152);"></i></i> Liked -  {{event.num_likes}} </span></li>
-                        <li>| <i class="far fa-heart"></i></li>
-
-
-                    </ul>
-                      
-                  
-                    <script>
-                        $(document).ready(function() {
-                            $('.likebutton').on('click', function(event) {
-                              event.preventDefault();
-                              var postId = $(this).data('post-id');
-                              var url = '/like-post/' + postId + '/';
-                              var likeButton = $(this);
-                          
-                              $.ajax({
-                                url: url,
-                                success: function(data) {
-                                  if (data.success) {
-                                    var numLikes = data.num_likes;
-                                    likeButton.toggleClass('active');
-                                    likeButton.find('.likecount').text(numLikes);
-                                  }
-                                }
-                              });
-                            });
-                          });
-                          
-                      </script>
-                      
-                    {% comment %} <div class="list-single-header-footer fl-wrap">
-                       
-                        <div class="list-single-stats">
-                            <ul class="no-list-style">
-                                
-                                <li >
-                                        <button id="like" name="{{event.id}}" value="like" style="border:none;background:none;cursor:pointer">
+                            <div class="breadcrumbs fw-breadcrumbs smpar fl-wrap fw-breadcrumbs-1">
+                                <div class="container container-band " >
+                                    <span class="breadcrumbs-list  pesutagsremoved breadcrumbs-list-3 ">
                                         
-                                            <span class="bookmark-counter ml-3">
-                                                <svg id="Outline" style="fill:#3270FC" xmlns="http://www.w3.org/2000/svg"  width="12" height="12" viewBox="0 0 24 24"><title></title><path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585"/></svg>
-                                            Liked - <b id="num_likes_count"  style="color:white">{{event.num_likes}}</b>
-                                            
-
-                                            
+                                       {% if event.tags %}
+                                       {% with event.tags|split:"," as tags %}
+                                           <span><i class="fal fa-tag custom-icon-class  float-btn"></i>
                                         </span>
-                                    
-                                    </li>
-                                </button>
-                               
-                            </ul>    
-                              
-                                <script>
-                                    $('#like').click(function(){
-                                        console.log("clicked me");
-                                        var val = $(this).val();
-                                        if(val=="like"){
-                                            $(this).val("dislike")
-                                            $('#Outline').attr('style','fill:red')
-                                        }
-                                        else{
-                                            $(this).val("like")
-                                            $('#Outline').attr('style','fill:#3270FC')
-                                        }
-                                          $.ajax({
-                                                   type: "POST",
-                                                   url: "{% url 'like' %}",
-                                                   data: {'key':val, 'id':$(this).attr('name'), 'csrfmiddlewaretoken': '{{ csrf_token }}'},
-                                                   success: function(response) {
-                                                    
-                                                    $('#num_likes_count').html('').append(response.num_likes_count)
-                                                    document.getElementById('num_likes_count').innerHTML=response.num_likes_count
-                                              },
-                                              }); 
-                                        })
-                                    </script>
-                        </div>
-                    </div> {% endcomment %}
-                </div>
+                                           {% for tag in tags %}
+                                               <a href="#">#{{tag}}{% if not forloop.last %} {% endif %}</a>
+                                           {% endfor %}  
+                                       {% endwith %}                                   
+                                   {% endif %}
+                                    </span>
+                                   </div>
+                                    <div class="like-btn like-btn-2">
+                                        <div class="like-button viewed-counter " data-event-id="{{ event.id }}">
+                                            <i class="far fa-heart   likeviewsize custom-icon-class" ></i>Liked - <span id="like-counter" class="like-count">{{ event.num_likes }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="like-btn like-btn-2 "><span class="viewed-counter"><i class="far fa-eye  likeviewsize custom-icon-class"></i> Viewed - {{event.view_count}}</span></div>
+                                </div>
+                            </div> 
+                        </div>				
+                    </div>							
             </div>
             
         </section>
@@ -224,33 +184,36 @@
                 <div class="show-more-snopt smact"><i class="fal fa-ellipsis-v"></i></div>
                 <div class="show-more-snopt-tooltip">
                     <a href="{% url 'edit-event' event.id %}" class="custom-scroll-link"> <i class="far fa-edit"></i>Edit</a>
-
-                    <a href="{% url 'delete' event.id %}" class="tolt" data-microtip-position="top-left"  onclick="return confirm('Are you sure you want to delete this?')"><i class="far fa-trash-alt"></i>Delete</a>
+                    <a href="{% url 'archive-event' event.id %}" class="custom-scroll-link"> <i class="far fa-archive"></i>Archive</a>
+                    <a href="{% url 'delete' event.id %}" class="" data-microtip-position="top-left"  onclick="return confirm('Are you sure you want to delete this?')"><i class="far fa-trash-alt"></i>Delete</a>
                 </div>
                 {% endif %}
                 <a class="print-btn tolt " href="javascript:window.print()" data-microtip-position="bottom"  data-tooltip="Print"><i class="fas fa-print"></i></a>
-                <!-- <a href="{{event.external_link}}" class="share-btn showshare sfcs"> </i>   </a> -->
+                
                 {% if event.external_link %}
                 <div class="like-btn" style="background-color: rgb(66, 81, 152) !important;"><a href="{{event.external_link}}" target="_blank" style="color:white !important;">{{event.button_name}}</a> </div>
                 {% endif %}
             </div>
         </div>
+        
         <div class="gray-bg small-padding fl-wrap">
             <div class="container">
                 <div class="row">
                     <!--  listing-single content -->
-                    <div class="col-md-8">
-                        <div class="list-single-main-wrapper fl-wrap">
+                    <div class="col-md-8" >
+                        <div class="list-single-main-wrapper fl-wrap pesborderbottom">
                             <!--  scroll-nav-wrap -->
                             <div class="scroll-nav-wrap">
                                 <nav class="scroll-nav scroll-init fixed-column_menu-init">
                                     <ul class="no-list-style">
-                                        <li><a href="#sec1"><i class="fal fa-map-marker"></i></a><span>Location</span></li>
-                                        <li><a href="#sec3"><i class="fal fa-info"></i> </a><span>Details</span></li>
+                                        <li><a class="act-scrlink" href="#sec1"><i class="fal fa-home-lg-alt"></i></a><span>Home</span></li>
+                                        {% if event.about %}
+                                        <li><a href="#sec3"><i class="fal fa-info"></i> </a><span>About</span></li>
+                                        {% endif %}
+                                        {% if pictures %}
                                         <li><a  href="#sec2"><i class="fal fa-image"></i></a><span>Gallery</span></li>
-                                        <li><a class="act-scrlink" href="#sec1"><i class="fal fa-home-lg-alt"></i></a><span>Main</span></li>
-                                        
-                                        
+                                        {% endif %}
+                                        <li><a href="#sec4"><i class="fas fa-history" style="font-weight: 100;"></i></a><span>Recent Events</span></li> 
                                         
                                     </ul>
                                     <div class="progress-indicator">
@@ -266,6 +229,7 @@
                                 </nav>
                             </div>
                         
+                            {% if event.about %}
                             <div class="list-single-main-container fl-wrap" id="sec3">
                                 <!-- list-single-main-item -->
                                 <div class="list-single-main-item fl-wrap">
@@ -276,26 +240,16 @@
                                     </div>
                                     <div class="list-single-main-item_content fl-wrap">
                                         <p>{{event.about | safe }}</p>
-                                    <div class="list-single-tags fl-wrap tags-stylwrap" style="margin-top: 20px;">
-                                        {%  if event.tags %}
-                                        <span><b>Tags:</b></span>
-                                                {% with event.tags|split:"," as tags %}
-                                                {% for tag in tags %}
-                                                <a href="#">{{tag}}</a>
-                                                {% endfor %} 
-                                                {% endwith %}
-                                                {% else %}
-                                                {% endif %}
-                                            </div>
-                                        
+                                
                                     </div>
                                 </div>
                             </div>
+                            {% endif %}
+
                             {% if pictures %}
-                            <div class="box-widget fl-wrap "id="sec2">
-                                
+                            <div class="box-widget fl-wrap "id="sec2">                                
                                 <div class="box-widget bwt-first fl-wrap" style="margin-top:30px;">
-                                    <div class="box-widget-title fl-wrap">Gallery Images</div>
+                                    <div class="box-widget-title fl-wrap"><i class="far fa-images" style="margin-right:10px !important;color:#3270fc;"></i> Event Images</div>
                                 <article class="post-article fl-wrap">
                                     <div class="list-single-main-media fl-wrap">
                                         <div class="single-slider-wrapper carousel-wrap fl-wrap">
@@ -303,19 +257,15 @@
                                                 <!-- slick-slide-item  -->
                                                 {% for pic in pictures %}
                                                 <div class="slick-slide-item">
-                                                   
-                                                    <div class="box-item">
-                                                 
-                                                        <!-- <img src="{{pic.event_images.url}}" style="max-width: 100%;max-height: 100%" alt="">   -->
-                                                        <a href="{{pic.event_images.url}}" class="popup-image"></a>
-                                                        <img src="{{pic.event_images.url}}" alt="">
-                                                    
-
-                                                    
+                                                    <div class="box-item">                                                        
+                                                        <a href="/images/Uploads/{{pic.event_images}}" class="gal-link popup-image"></a>
+                                                        <img src="/images/Uploads/{{pic.event_images}}" alt="">
+                                                        
                                                     </div>
+                                                    
                                                 </div>
                                                 {% endfor %}
-                                           
+                                              
                                             </div>
                                             {% if imagecount > 1 %}
                                             <div class="swiper-button-prev ssw-btn"><i class="fas fa-caret-left"></i></div>
@@ -323,179 +273,186 @@
                                             {% endif %}
                                         </div>
                                     </div>
-                                    
                                 </article>
-                            </div>
-                        
-                        </div>
-                        {% endif %}
-                           
-                            {% for speakers in speaker %}
-                            {% if speakers.event_id == event.id %} 
-                            <div class="box-widget fl-wrap">
-                                <div class="profile-widget">
-                                    <div class="profile-widget-header color-bg smpar fl-wrap">
-                                        <div class="pwh_bg"></div>
-                                        
-                                        <div class="profile-widget-card">
-                                            <div class="profile-widget-image">
-                                                {% if speakers.profile_pic %}
-                                                <img src="{{speakers.profile_pic.url}}" alt="">
-                                                {% else %}
-                                                <img src="{% static 'images/Uploads/default.jpg '%}" />
-                                                {% endif %}
-                                            </div>
-                                         
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                              <div class="geodir-category-content fl-wrap">
-                                    <div class="agent_card-title fl-wrap">
-                                        <h4><a href="agency-single.html" >{{speakers.name}}</a></h4>
-                                    </div>
-                                    <p>{{speakers.about}}</p>
-                                  
-                                    <div class="geodir-category-footer fl-wrap">
-                                        <a href="agency-single.html" class="btn float-btn color-bg small-btn">Edit Details</a>
-                                        <a href="mailto:yourmail@gmail.com" class="tolt ftr-btn" data-microtip-position="top-left" data-tooltip="Speaker gmail"><i class="fal fa-envelope"></i></a>
-                                        <!-- <a href="tel:123-456-7890" class="tolt ftr-btn" data-microtip-position="top-left" data-tooltip="Call Now"><i class="fal fa-phone"></i></a>	 -->
-                                    </div>
-                                </div>
-                        {% endif %}
-                        {% endfor %}
-                   
-                        </div>
-                     
+                            {% endif %}
+                        </div>                     
                     </div>
-                    <!-- listing-single content end-->
-                    
-                    
-                    <!-- sidebar -->
+                
                    
+                   
+                  
                     <div class="col-md-4">
-                        {% if event.contact or event.email or event.website or event.facebook or event.twitter or event.instagram or event.youtube %}
-                        <div class="list-searh-input-wrap-title fl-wrap"><i class="far fa-address-book"></i>
-                            <span>Contacts</span></div>
+                        {% if speaker %}
+                        <div class="box-widget fl-wrap" id="sec2">
+                            <div class="box-widget bwt-first fl-wrap" >
+                              <div class="box-widget-title fl-wrap" style="margin-top:0px !important;">
+                                <i class="far fa-images" style="margin-right:10px !important;color:#3270fc;"></i> Speaker
+                              </div>
+                              <article class="post-article fl-wrap">
+                                <div class="list-single-main-media fl-wrap" >
+                                  <div class="single-slider-wrapper-1 carousel-wrap fl-wrap" >
+                                    <div class="single-slider fl-wrap carousel lightgallery" >
+                                      {% for speakers in speaker %}
+                                      {% if speakers.event_id == event.id %}
+                                      <div class="slick-slide-item" >
+                                        <div class="box-item-1 " >
+                                         
+                                          <div class="box-widget fl-wrap " >
+                                            <div class="profile-widget" >
+                                                <div class="profile-widget-header color-bg smpar fl-wrap" >
+                                                   
+                                                    <div class="box-widget-menu-btn smact" ><i class="far fa-ellipsis-h"></i></div>
+                                                                <div class="show-more-snopt-tooltip bxwt">
+                                                                    <a href="{% url 'editSpeaker' speakers.id %}"><i class="far fa-edit"></i>Edit</a>
+                                                                    <a href="{% url 'deleteSpeaker' speakers.id %}"> <i class="far fa-trash-alt"></i>Delete</a>
+                                                                </div>
+                                                  
+                                                    <div class="profile-widget-card">
+                                                        <div class="profile-widget-image">
+                                                            {% if speakers.profile_pic %}
+                                                            <img src="{{speakers.profile_pic.url}}" alt="">
+                                                            {% else %}
+                                                            <img src="{% static 'images/Uploads/default.jpg '%}" />
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="profile-widget-header-title">
+                                                            <h4><a href="agent-single.html">{{speakers.name|title}}</a></h4>
+                                                            <div class="clearfix"></div>
+                                                            <div class="pwh_counter">{{speakers.designation}}</div>
+                                                            <div class="clearfix"></div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-widget-content fl-wrap " style="background:#ebebeb">
+                                                    <div class="contats-list fl-wrap">
+                                                        <ul class="no-list-style ">
+                                                            {% if speakers.contact %}
+                                                            <li><span><i class="fal fa-phone"></i> Phone</span> <a href="#">{{speakers.contact}}</a></li>
+                                                            {% endif %}
+                                                            {% if speakers.speakermail %}
+                                                            <li><span><i class="fal fa-envelope"></i> Mail</span> <a href="#">{{speakers.speakermail}}</a></li>
+                                                            {% endif %}
+                                                            <!-- {% if speakers.about %}
+                                                            <li><span><i class="fal fa-browser"></i> About</span> <a href="#">{{speakers.about}}</a></li>
+                                                            {% endif %} -->
+
+                                                        </ul>
+                                                    </div>
+                                                    <!-- <div class="profile-widget-footer fl-wrap">
+                                                        <a href="agent-single.html" class="btn float-btn color-bg small-btn">View Profile</a>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                          
+                                          
+                                        </div>
+                                      </div>
+                                      {% endif %}
+                                      {% endfor %}
+                                    </div>
+                                    {% if speaker|length > 1 %}
+                                    <div class="swiper-button-prev ssw-btn ssw-btn1 "><i class="fas fa-caret-left"></i></div>
+                                    <div class="swiper-button-next ssw-btn ssw-btn1 "><i class="fas fa-caret-right"></i></div>
+                                    {% endif %}
+                                  </div>
+                                </div>
+                              </article>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        
+                        {% if contacts.exists or event.facebook or event.instagram or event.twitter or event.youtube %}
+                        <div class="list-searh-input-wrap-title fl-wrap" >
+                            <i class="far fa-address-book"></i>
+                            <span>Contacts</span>
+                        </div>
                         <div class="box-widget fl-wrap" style="margin-top: 10px;">
                             <div class="box-widget-content fl-wrap">
-                                <div class="contats-list clm fl-wrap">
-                                    <ul class="no-list-style">
-                                        {% if event.contact and event.contact.strip %}
-                                        <li><span><i class="fal fa-phone"></i> Phone :</span> <a href="#">{{event.contact | linebreaksbr}}</a></li>
-                                        {% endif %}
-                                        {% if event.email and event.email.strip %}
-                                        <li><span><i class="fal fa-envelope"></i> Email :</span> <a href="#" target="_blank">{{ event.email }}</a></li>
-                                        {% endif %} 
-                                        {% if event.website and event.website.strip %}
-                                        <li><span><i class="fal fa-browser"></i> Website :</span> <a href="https://{{event.website}}" target="_blank">{{event.website}}</a></li>
-                                        {% endif %}
-                                    </ul>
-                                </div>
-                                <div class="profile-widget-footer fl-wrap">
-                                    <div class="card-info-content_social ">
-                                        <ul>
-                                            {% if event.facebook %}
-                                            <li><a href="https://www.facebook.com/{{event.facebook}}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                {% if contacts.exists %}
+                                    {% for contact in contacts %}
+                                    <div class="contats-list clm fl-wrap">
+                                        <ul class="no-list-style">
+                                            {% if contact.name.strip %}
+                                            <li><span><i class="fal fa-user"></i> Name </span> <a href="#">{{ contact.name }}</a></li>
+                                                    {% if contact.phone.strip %}
+                                                    {% endif %}
+                                                        <li><span><i class="fal fa-phone"></i> Phone </span> <a href="#" target="_blank">{{ contact.phone }}</a></li>
+                                                    {% endif %} 
+                                                    {% if contact.email.strip %}
+                                                        <li><span><i class="fal fa-envelope"></i> Email </span> <a href="" target="_blank">{{ contact.email }}</a></li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                            {% if not forloop.last %}
+                                                <hr>
                                             {% endif %}
-                                            {% if event.twitter %}
-                                            <li><a href="https://twitter.com/{{event.twitter}}" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                            {% endif %}
-                                            {% if event.instagram %}
-                                            <li><a href="https://instagram.com/{{event.instagram}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                                            {% endif %}
-                                            {% if event.youtube %}
-                                            <li><a href="https://www.youtube.com/{{event.youtube}}" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                                            {% endif %}
-                                        </ul>
-                                    </div>
-                                    {% comment %} <a href="#sec-contact" class="custom-scroll-link tolt csls" data-microtip-position="left" data-tooltip="Write Message"><i class="fal fa-paper-plane"></i></a> {% endcomment %}
-                                </div>
+                                    {% endfor %}
+                                {% endif %}
+
+            <div class="profile-widget-footer fl-wrap">
+                <div class="card-info-content_social">
+                    <ul>
+                        {% if event.facebook.strip %}
+                            <li><a href="https://www.facebook.com/{{ event.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        {% endif %}
+                        {% if event.twitter.strip %}
+                            <li><a href="https://twitter.com/{{ event.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        {% endif %}
+                        {% if event.instagram.strip %}
+                            <li><a href="https://instagram.com/{{ event.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                        {% endif %}
+                        {% if event.youtube.strip %}
+                            <li><a href="https://www.youtube.com/{{ event.youtube }}" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+                        {%  if event.website %}
+                        <div class="box-widget fl-wrap">
+                            <div class="box-widget-title fl-wrap">Website</div>
+                            <div class="box-widget-content fl-wrap">
+                                <ul class="cat-item cat-item_dec no-list-style">
+                                    {% if event.website and event.website.strip %}
+                                    <li><span><i class="fal fa-browser"></i> Website :</span> <a href="https://{{event.website}}" target="_blank">{{event.website}}</a></li>
+                                    {% endif %}
+                                    
+                                </ul>
                             </div>
                         </div>
                         {% endif %}
                         <div class="box-widget fl-wrap">
-                            
-                            {% comment %} <div class="profile-widget">
-                                {% if event.featured_img %}
-                                        <img src="{{event.featured_img.url}}" style="max-width:100%;max-height:100%;" alt="">
-                                        {% else %}
-                                        <img src="{% static 'images/defaultimage/default.jpg' %}"  style="max-width:100%;max-height:100%;"/>
-                                        <div style="position: absolute;top: 20%;
-                                        left: 50%;transform: translate(-50%, -50%);font-size:200% ;max-width:100%;max-height:100%;color: #144273;"><h1>{{event.title}}</h1></div>
-
-                                        {% endif %}
-                                         
-                                </div>
-                                <div class="profile-widget-content fl-wrap" style="padding-top:20px">
-                                    <div class="contats-list fl-wrap">
-                                        <ul class=""   >
-                                            {% if event.contact %}
-                                            <li><span><i class="fal fa-phone"></i> Phone :</span> <a href="#">{{event.contact | linebreaksbr}}</a></li>
-                                            {% endif %}
-                                            {% if event.email and event.email.strip %}
-                                            <li><span><i class="fal fa-envelope"></i> Email :</span> <a href="#"target="_blank">{{event.email}}</a></li>
-                                            {% endif %}
-                                            {% if event.website %}
-                                            <li><span><i class="fal fa-browser"></i> Website :</span> <a href="https://{{event.website}}" target="_blank">{{event.website}}</a></li>
-                                            {% endif %}
-                                            {% if event.facebook %}
-                                            <li><a href="https://www.facebook.com/{{event.facebook}}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                            {% endif %}
-                                            {% if event.twitter %}
-                                            <li><a href="https://twitter.com/{{event.twitter}}" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                            {% endif %}
-                                            {% if event.instagram %}
-                                            <li><a href="https://instagram.com/{{event.instagram}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                                            {% endif %}
-                                            {% if event.youtube %}
-                                            <li><a href="https://www.youtube.com/{{event.youtube}}" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                                            {% endif %}
-                                        </ul>
-                                    </div>
-                                   
-                                </div>
-                            </div> {% endcomment %}
-                            {% comment %} <div class="box-widget fl-wrap " id="mapid">
-                                <div class="box-widget-title fl-wrap">Location</div>
-                                <div class="map-widget fl-wrap">
-                                    <div class="map-container mapC_vis">
-                                        <div id="singleMap" data-latitude="40.7427837" data-longitude="-73.11445617675781" data-mapTitle="Our Location" data-infotitle="Mavers RealEstate Agency" data-infotext="70 Bright St New York, USA"></div>
-                                        <div class="scrollContorl"></div>
-                                    </div>
-                                </div>
-                            </div> {% endcomment %}
-                            
-                           
                        
                             <!--box-widget end -->                                   
                        
-                        
-                            {% if brouchers %}
+                         
+                            {% if brouchers.document %}
                             <div class="list-searh-input-wrap-title fl-wrap" style="margin-top: 20px;"><i class="fal fa-file-pdf"></i><span>Brochure</span></div>
-                            <div class="box-widget fl-wrap"  >
-                            <!-- <div class="box-widget-title fl-wrap"> Documents </div> -->
+                            <div class="box-widget fl-wrap">                            
                             <div class="box-widget-content fl-wrap">
-                                {% for broucher in brouchers  %}
+                                
                                 <div class="bwc_download-list">
-                                    <a href="{% static 'images/' %}{{ broucher.document }}" download><span></span>Download Brochure</a>
-                                    
+                                    <a href="{% static 'images/Uploads/' %}{{ brouchers.document }}" download><span></span>Download Brochure</a>                                    
                                 </div>
-                                {% endfor %}
+                              
                             </div>
                             </div>
                             {% endif %}                                            
-                    </div>
-                    
-                 </div>
-
-               
-              
-    <!-- content end -->	
-  
-   <div class="fl-wrap limit-box"></div>
-   <div class="listing-carousel-wrapper carousel-wrap fl-wrap">
-       <div class="list-single-main-item-title">
+                        </div>     
+ </div>
+ <!-- content end -->	
+ <div class="fl-wrap limit-box"></div>
+ <div class="container">
+ <div class="listing-carousel-wrapper carousel-wrap fl-wrap" id="sec4" >
+     <div class="list-single-main-item-title">
            <h3>RECENT EVENTS</h3>
        </div>
        
@@ -505,23 +462,24 @@
            {% for event in recent_events %}
            <div class="slick-slide-item">
                <!-- listing-item -->
-              
+               
                <div class="listing-item">
                    <article class="geodir-category-listing fl-wrap">
-                    
+                       
                        <div class="geodir-category-img fl-wrap">
-                        
+                           
                            <a href="{% url 'single-event' event.id %}" class="geodir-category-img_item">
-                            {% if event.featured_img %}
-                            <img src="{{event.featured_img.url}}" alt="">
+                               {% if event.featured_img %}
+                               <img src="{% static 'images/Uploads/' %}{{ event.featured_img }}" alt="">  
                             {% else %}
-                            <img src="{% static 'images/defaultimage/default.jpg' %}"  style="max-width:100%;max-height:100%;"/>
+                            <img src="{% static 'images/deafaultimage/default-image.jpg' %}"  style="max-width:100%;max-height:100%;"/>
                             <div style="position: absolute;top: 40%;
-                            left: 50%;transform: translate(-50%, -50%);font-size:200% ;max-width:100%;max-height:100%;color: #144273;"><h1>{{event.title}}</h1></div>
+                            left: 50%;transform: translate(-50%, -50%);font-size:200% ;max-width:100%;max-height:100%;color: #ffffff;"><h1>{{event.title}}</h1></div>
 
                             {% endif %}
-                           </a>
-                           
+                            </a>
+
+
                            <ul class="list-single-opt_header_cat">
                             {% now "Y-m-d" as todays_date %}
                              <div >
@@ -536,10 +494,15 @@
                            <a href="#" class="geodir_save-btn tolt" data-microtip-position="left" data-tooltip="{{event.num_likes}}"><span><i class="fal fa-heart"></i></span></a>
                            <a href="#" class="compare-btn tolt" data-microtip-position="left" data-tooltip="{{event.view_count}}"><span><i class="fal fa-eye"></i></span></a>
                        </div>
-                       <div class="geodir-category-content fl-wrap">
+                       <div class="geodir-category-content  fl-wrap">
                            <h3><a href="listing-single.html">{{event.title}}</a></h3>
                            
-                           <h6 style="font-size: 13px; line-height: 22px; padding-bottom: 10px; font-weight: 400; color: #878C9F; text-align: left;">{{ event.about |truncatewords:10 | safe}} </h6>
+                           {% if event.description %}
+                           <h6 style="font-size: 13px; line-height: 22px; padding-bottom: 10px; font-weight: 400; color: #878C9F; text-align: left;">{{ event.description |truncatewords:10 | safe }}</h6>
+                         {% else %}
+                           <h6 style="font-size: 13px; line-height: 22px; padding-bottom: 10px; font-weight: 400; color: #878C9F; text-align: left;">{{ event.about | striptags | replace_nbsp | truncatewords:13 }}</h6>
+                         {% endif %}
+                         
                            <div class="geodir-category-content-details">
                                <ul>
                                    <li><i class="fal fa-calendar"></i><span>{{event.event_start_date}}</span></li>
@@ -547,10 +510,24 @@
                                </ul>
                            </div>
                            
-                           {% if event.address and event.address.strip %}
-                           <div class="geodir-category-footer fl-wrap" style="padding: 0px 10px 10px 10px;">
-                               <a href="#" class="gcf-company"><span><i class="fas fa-map-marker-alt" style="color: rgb(239, 127, 26);" ></i> {{event.address | truncatewords:5 }}</span></a>
-                             </div>
+                           {% if event.address and event.address.strip or event.is_online_event == "Yes" %}
+                           <div class="geodir-category-footer fl-wrap" style="padding: 0px 10px 10px 0px;">
+                               <a href="" class="gcf-company">
+                                   <span>
+                                       {% if event.is_online_event == "Yes" %}
+                                       <i class="fas fa-map-marker-alt" style="color: rgb(239, 127, 26);"> </i> Online
+                                       {% elif event.is_online_event != "No" and event.address.strip %}
+                                       <i class="fas fa-map-marker-alt" style="color: rgb(239, 127, 26);"> </i>
+                                       {{ event.address | truncatewords:5 }}
+                                       {% else %}
+                                       {% if event.campus %}
+                                       <i class="fa fa-university" style="color: rgb(239, 127, 26);"> </i>
+                                       {{event.campus | truncatewords:5 }}
+                                       {% endif %}
+                                       {% endif %}
+                                   </span>
+                               </a>
+                           </div>
                            {% endif %}
                        </div>
                    </article>
@@ -562,11 +539,31 @@
        <div class="swiper-button-next lc-wbtn lc-wbtn_next"><i class="far fa-angle-right"></i></div>
    </div>
 </div>
-<!-- wrapper end -->
-<!--register form -->
+    </div>    
 </div>
 </div>
+<script>
+//  $(document).ready(function () {
+    // function carousal_popup(){
+    //     alert();
+    // //     var link = $('.box-item img').siblings("a");
+    // // link.addClass("popup-image");
+    // // window.open(link.attr("href"), "popupWindow", "width=600,height=600");
 
- <!-- Main end -->
- {% include "base/footer.html" %} 
-{% endblock content %}   
+    // }
+    
+//     $(".box-item img").on("click", function () {
+//       console.log("Hi, this is JavaScript code!");
+//     var link = $(this).siblings("a");
+//     link.addClass("popup-image");
+//     window.open(link.attr("href"), "popupWindow", "width=600,height=600");
+//   });
+// });
+
+
+</script>
+
+{% include "base/footer.html" %} 
+{% endblock content %}  
+    
+   

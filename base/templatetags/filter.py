@@ -12,6 +12,10 @@ def split(value, key):
   """
   return value.split(key)
 
+@register.filter
+def replace_nbsp(value):
+    return value.replace('&nbsp;', ' ')
+
 @register.filter(name='custom_format')
 def custom_date(value, arg=None):
     if value in (None, ''):
